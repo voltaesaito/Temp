@@ -123,7 +123,7 @@
                     <ul class="nav navbar-nav">
                         <li><a class="menu-a" href="{{ route('trade') }}">Trade</a></li>
                         <li><a class="menu-a" href="{{ route('managelistings') }}">Mange Listings</a></li>
-                        <li><a class="menu-a" href="{{ route('buyer') }}">Charts</a></li>
+                        <!-- <li><a class="menu-a" href="{{ route('buyer') }}">Charts</a></li>  -->
                         <li>
                             <li class="dropdown user-panel-dd">
                                 <a class="dropdown-toggle menu-a" data-toggle="dropdown" href="#user_dropdown" aria-expanded="false">
