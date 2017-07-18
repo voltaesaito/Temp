@@ -6,6 +6,7 @@
     <div class="row">
         <div class="col-md-12 text-center">
             <h3 class="h-title">Edit Listings</h3>
+            aksdjfhkajsdhkfjahskdjfhkasjdhfkajsdf
         <div>
         <div class="col-md-12">
             <form class="form-horizontal" action="{{ route('storelistings') }}" method="post">
