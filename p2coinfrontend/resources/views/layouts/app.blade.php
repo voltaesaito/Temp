@@ -138,7 +138,7 @@
                         <li>
                             <span class="nav-span-rate" id="currency_rate"><i class="fa fa-btc fa-fw"></i>&nbsp;BTC:2.34567</span>
                         </li>
-                        <li><a class="menu-a" href="{{ route('chat') }}">Message</a></li>
+                        <li><a class="menu-a" href="{{ route('trademessage') }}">Message</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -39,6 +39,8 @@ Route::post('/storelistings', 'ManageListingsController@storelistings')->name('s
 
 Route::get('/sell', 'SellerController@index')->name('seller');
 Route::get('/chatroom', 'ChatRoomController@index')->name('chatroom');
+Route::get('/trademessage', 'TradeMessageController@index')->name('trademessage');
+Route::post('/addmessage', 'TradeMessageController@addmessage')->name('addmessage');
 Route::get('/wallet', 'WalletController@index')->name('wallet');
 Route::get('/settings', 'SettingsController@index')->name('wallet');
 Route::get('/userprofile', 'UserProfileController@index')->name('userprofile');
