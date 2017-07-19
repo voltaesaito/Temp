@@ -306,15 +306,24 @@
         </div>
         <div class="col-md-12 title-content-body">
             <div class="table-responsive">          
-                <table class="table">
+                <table class="table text-center">
                     <thead>
                         <tr>
-                            <th class="menu-caption">Vendor</th>
-                            <th class="menu-caption">Payment Method</th>
-                            <th class="menu-caption">Price</th>
+                            <th class="menu-caption text-center">Vendor</th>
+                            <th class="menu-caption text-center">Payment Method</th>
+                            <th class="menu-caption text-center">Price</th>
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach($listings as $listing)
+                        @if($listing->user_type == '1')
+                        <tr>
+                            <td>{{ $listing->name }}</td>
+                            <td>{{ $listing->coin_type }} - {{ $listing->payment_method }}</td>
+                            <td>{{ $listing->min_transaction_limit }} - {{ $listing->max_transaction_limit }}</td>
+                        </tr>
+                        @endif
+                    @endforeach               
                     </tbody>
                 </table>
             </div>
@@ -329,15 +338,24 @@
         </div>
         <div class="col-md-12 title-content-body">
             <div class="table-responsive">          
-                <table class="table">
+                <table class="table text-center">
                     <thead>
                         <tr>
-                            <th class="menu-caption">Vendor</th>
-                            <th class="menu-caption">Payment Method</th>
-                            <th class="menu-caption">Price</th>
+                            <th class="menu-caption text-center">Vendor</th>
+                            <th class="menu-caption text-center">Payment Method</th>
+                            <th class="menu-caption text-center">Price</th>
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach($listings as $listing)
+                        @if($listing->user_type == '0')
+                        <tr>
+                            <td>{{ $listing->name }}</td>
+                            <td>{{ $listing->coin_type }} - {{ $listing->payment_method }}</td>
+                            <td>{{ $listing->coin_amount }}</td>
+                        </tr>
+                        @endif
+                    @endforeach               
                     </tbody>
                 </table>
             </div>

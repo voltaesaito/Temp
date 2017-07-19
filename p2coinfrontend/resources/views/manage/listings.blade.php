@@ -13,9 +13,9 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="location">I want to </label>
                     <div class="col-sm-3">
-                        <select class="form-control" id="payment_method" name="payment_method">
-                            <option value="sell">Sell your cyrptocurrencies online</option>
-                            <option value="buy">Buy cryptocurrencies online</option>
+                        <select class="form-control" id="user_type" name="user_type">
+                            <option value="0">Sell your cyrptocurrencies online</option>
+                            <option value="1">Buy cryptocurrencies online</option>
                         </select>
                     </div>
                     <div class="col-sm-6">
@@ -41,18 +41,28 @@
                 <div class="form-group" id="walletaddress">
                     <label class="control-label col-sm-3" for="max_transaction_limit">Wallet Address</label>
                     <div class="col-sm-5"> 
-                        <input class="textinput form-control" id="walllet_address" name="wallet_address" type="text"> 
+                        <input class="textinput form-control" id="wallet_address" name="wallet_address" type="text" Required> 
                     </div>
                     <div class="col-sm-4">
                         <label class="label-caption-title">Wallet Address.</label>
+                    </div>
+                </div>
+                <div class="form-group" id="coinamount">
+                    <label class="control-label col-sm-3" for="coinamount">Coin Amount</label>
+                    <div class="col-sm-3"> 
+                        <input class="textinput form-control text-right" id="coin_amount" name="coin_amount" type="text" Required> 
+                    </div>
+                    <div class="col-sm-3"> 
+                        <input class="textinput form-control text-right" id="fee_amount" name="fee_amount" type="text" Required> 
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="label-caption-title">0.5% fee</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="location">Location</label>
                     <div class="col-sm-3">
                         <select id="location" name="location" class="form-control">
-                            <option value="  " selected>(please select a country)</option>
-                            <option value="--">none</option>
                             <option value="AF">Afghanistan</option>
                             <option value="AL">Albania</option>
                             <option value="DZ">Algeria</option>
@@ -375,7 +385,7 @@
                     <label class="control-label col-sm-3" for="terms_of_trade">Price equation</label>
                     <div class="col-sm-3">
                         <div class="controls"> 
-                            <input class="textinput textInput form-control" id="id_ad-price_equation" name="ad-price_equation" type="text" value="btc_in_usd"> 
+                            <input class="textinput textInput form-control" id="price_equation" name="price_equation" type="text" value="btc_in_usd"> 
                         </div>
                         <div class="dynamic-info">
                             <span class="price-info-text">Trade price with current market value <strong class="price-info">2608.20 USD / BTC</strong></span> 

@@ -15,18 +15,30 @@
         </div>
         <div class="col-md-12 title-content-body">
             <div class="table-responsive">          
-                <table class="table">
+                <table class="table text-center">
                     <thead>
                         <tr>
-                            <th class="menu-caption">#</th>
-                            <th class="menu-caption">Edit</th>
-                            <th class="menu-caption">Description</th>
-                            <th class="menu-caption">Price</th>
-                            <th class="menu-caption">Equation</th>
-                            <th class="menu-caption">Status</th>
+                            <th class="menu-caption text-center">#</th>
+                            <th class="menu-caption text-center">Edit</th>
+                            <th class="menu-caption text-center">Description</th>
+                            <th class="menu-caption text-center">Price</th>
+                            <th class="menu-caption text-center">Equation</th>
+                            <th class="menu-caption text-center">Status</th>
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach($listings as $listing)
+                        @if($listing['coin_type'] == 'btc')
+                        <tr>
+                            <td>#</td>
+                            <td>Edit</td>
+                            <td>{{ $listing['payment_method'] }} - {{ $listing['payment_name'] }}</td>
+                            <td>{{ $listing['min_transaction_limit'] }} - {{ $listing['max_transaction_limit'] }}</td>
+                            <td>{{ $listing['price_equation'] }}</td>
+                            <td>Status</td>
+                        </tr>
+                        @endif
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -41,16 +53,28 @@
             <div class="table-responsive">          
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th class="menu-caption">#</th>
-                            <th class="menu-caption">Edit</th>
-                            <th class="menu-caption">Description</th>
-                            <th class="menu-caption">Price</th>
-                            <th class="menu-caption">Equation</th>
-                            <th class="menu-caption">Status</th>
+                        <tr class="text-center">
+                            <th class="menu-caption text-center">#</th>
+                            <th class="menu-caption text-center">Edit</th>
+                            <th class="menu-caption text-center">Description</th>
+                            <th class="menu-caption text-center">Price</th>
+                            <th class="menu-caption text-center">Equation</th>
+                            <th class="menu-caption text-center">Status</th>
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach($listings as $listing)
+                        @if($listing['coin_type'] == 'eth')
+                        <tr>
+                            <td>#</td>
+                            <td>Edit</td>
+                            <td>{{ $listing['payment_method'] }} - {{ $listing['payment_name'] }}</td>
+                            <td>{{ $listing['min_transaction_limit'] }} - {{ $listing['max_transaction_limit'] }}</td>
+                            <td>{{ $listing['price_equation'] }}</td>
+                            <td>Status</td>
+                        </tr>
+                        @endif
+                    @endforeach
                     </tbody>
                 </table>
             </div>
