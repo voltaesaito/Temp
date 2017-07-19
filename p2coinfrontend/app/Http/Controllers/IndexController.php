@@ -16,7 +16,7 @@ class IndexController extends Controller
                                 'country'=>$request_location_info->country,
                                 'loc'=>$request_location_info->loc,
                                 'org'=>$request_location_info->org,
-                                'postal'=>$request_location_info->postal);
+                                /*'postal'=>$request_location_info->postal*/);
             // dd($locationInfo);
             return view('index.index')->with('country', $locationInfo['country']);
         }

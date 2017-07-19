@@ -47,7 +47,9 @@
                     <div class="form-group">
                         <textarea class="form-control" id="chat-content"></textarea>
                     </div>
-                    <button type="button" id="message_send" class="btn btn-default">SEND</button>
+                    <div class="form-group text-right">
+                        <button type="button" id="message_send" class="btn btn-success">SEND</button>
+                    </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class = "panel panel-default">
@@ -67,9 +69,6 @@
         </div>
     </div>
 </div>
-@endsection
-{{--<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>--}}
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
-{{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--}}
 <script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
-<script src="{{ asset('js/trademessage/index.js') }}"></script>
+<script src="{{ asset('./js/trademessage/index.js') }}"></script>
+@endsection

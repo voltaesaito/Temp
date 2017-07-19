@@ -56,7 +56,7 @@ class TradeMessageController extends Controller
         foreach( $datas as $data ) {
             $user_state = 'success left-content';
             if($current_id == $data->sender_id)
-                $user_state = 'warning right-content';
+                $user_state = 'info right-content';
             $arr[] = array( 'contract_id'       => $data->contract_id,
                             'sender_id'         => $data->sender_id,
                             'receiver_id'       => $data->receiver_id,
