@@ -49,7 +49,7 @@ class TradeMessageController extends Controller
     }
 
     private function getMsgListByContractId( $contract_id ) {
-        $datas = TradeMessageModel::all()->where('contract_id', '=', $contract_id)->sortByDesc('created_at');
+        $datas = TradeMessageModel::all()->where('contract_id', '=', $contract_id);
         $arr = array();
         $user = \Auth::user();
         $current_id = 1;

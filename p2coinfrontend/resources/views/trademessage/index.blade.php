@@ -44,13 +44,7 @@
                             </div>
                          </div>
                     </div>
-                    <div class="form-group">
-                        <textarea class="form-control" id="chat-content"></textarea>
-                    </div>
-                    <div class="form-group text-right">
-                        <button type="button" id="message_send" class="btn btn-success">SEND</button>
-                    </div>
-                    <div class="row">
+                    <div class="row" style="overflow-y: scroll; max-height: 300px;">
                         <div class="col-lg-12">
                             <div class = "panel panel-default">
                                 <div class="pad" id="ajax_message">
@@ -63,6 +57,12 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="chat-content"></textarea>
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="button" id="message_send" class="btn btn-success">SEND</button>
                     </div>
                 </div>
             </div>

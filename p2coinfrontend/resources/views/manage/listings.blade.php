@@ -38,7 +38,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-group" id="walletaddress">
+                <!-- <div class="form-group" id="walletaddress">
                     <label class="control-label col-sm-3" for="max_transaction_limit">Wallet Address</label>
                     <div class="col-sm-5"> 
                         <input class="textinput form-control" id="wallet_address" name="wallet_address" type="text" Required> 
@@ -46,7 +46,7 @@
                     <div class="col-sm-4">
                         <label class="label-caption-title">Wallet Address.</label>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group" id="coinamount">
                     <label class="control-label col-sm-3" for="coinamount">Coin Amount</label>
                     <div class="col-sm-3"> 

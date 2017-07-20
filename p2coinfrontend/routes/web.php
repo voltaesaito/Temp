@@ -36,6 +36,7 @@ Route::get('/buy', 'BuyerController@index')->name('buyer');
 Route::get('/managelistings', 'ManageListingsController@index')->name('managelistings');
 Route::get('/editlistings', 'ManageListingsController@editlistings')->name('editlistings');
 Route::post('/storelistings', 'ManageListingsController@storelistings')->name('storelistings');
+Route::post('/changestatus', 'ManageListingsController@changestatus')->name('changestatus');
 
 Route::get('/sell', 'SellerController@index')->name('seller');
 Route::get('/chatroom', 'ChatRoomController@index')->name('chatroom');

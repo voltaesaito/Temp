@@ -14,7 +14,7 @@ class TradeController extends Controller
         $listings = DB::select("SELECT l.*, u.name FROM `listings` l
                                 join users u
                                 on u.id = l.user_id
-                                where l.user_id<>{$user->id}
+                                where l.user_id<>{$user->id} and l.status = 1 
                                 order by created_at DESC");
     //    dd($listings);
         return view('trade.screen')->with('listings', $listings)->with('location', 'Australia');
