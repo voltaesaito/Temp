@@ -52,8 +52,8 @@ class WalletManage
 
         $sendAmount = bcmul($amount, '0.01', 8);
 // dd($sendAmount);
-        $estNetworkFee = $this->block_io->get_network_fee_estimate(array('to_addresses' => $from_address, 'amounts' => $sendAmount));
-dd($estNetworkFee);
+        $estNetworkFee = $this->block_io->get_network_fee_estimate(array('amounts' => $amount, 'to_addresses' => $from_address));
+// dd($estNetworkFee);
         $this->block_io->withdraw_from_addresses(array('amounts'=>strval($amount), 'from_addresses'=>$from_address, 'to_addresses'=>$to_address, 'pin'=>$pin));
     }
 }
