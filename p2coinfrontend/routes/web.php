@@ -41,6 +41,7 @@ Route::post('/changestatus', 'ManageListingsController@changestatus')->name('cha
 Route::get('/sell', 'SellerController@index')->name('seller');
 Route::get('/chatroom', 'ChatRoomController@index')->name('chatroom');
 Route::get('/trademessage', 'TradeMessageController@index')->name('trademessage');
+Route::post('/createcontract', 'TradeMessageController@createcontract')->name('createcontract');
 Route::post('/addmessage', 'TradeMessageController@addmessage')->name('addmessage');
 Route::get('/wallet', 'WalletController@index')->name('wallet');
 Route::get('/settings', 'SettingsController@index')->name('wallet');

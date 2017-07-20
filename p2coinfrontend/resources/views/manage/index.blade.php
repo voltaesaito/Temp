@@ -90,7 +90,7 @@ input:checked + .slider:before {
                             <td>#</td>
                             <td>Edit</td>
                             <td>{{ $listing['payment_method'] }} - {{ $listing['payment_name'] }}</td>
-                            <td>{{ $listing['min_transaction_limit'] }} - {{ $listing['max_transaction_limit'] }}</td>
+                            <td>{{ $listing['coin_amount'] }}</td>
                             <td>{{ $listing['price_equation'] }}</td>
                             <td>
                                 <label class="switch">
@@ -117,7 +117,7 @@ input:checked + .slider:before {
         </div>
         <div class="col-md-12 title-content-body">
             <div class="table-responsive">          
-                <table class="table">
+                <table class="table  text-center">
                     <thead>
                         <tr class="text-center">
                             <th class="menu-caption text-center">#</th>

@@ -323,7 +323,7 @@
                             <td>{{ $listing->coin_type }} - {{ $listing->payment_method }}</td>
                             <td>{{ $listing->min_transaction_limit }} - {{ $listing->max_transaction_limit }}</td>
                             <td>
-                                <a href="buy?listing_id={{ $listing->id }}&user_type=0&user_id={{ $listing->user_id }}" class="btn btn-success btn-green" >BUY</a>
+                                <a href="buy?listing_id={{ $listing->id }}&user_id={{ $listing->user_id }}" class="btn btn-success btn-green" >BUY</a>
                                 <!-- <button type="button" id="{{ $listing->user_id }}" class="btn btn-success">BUY</button> -->
                             </td>
                         </tr>
@@ -360,7 +360,7 @@
                             <td>{{ $listing->coin_type }} - {{ $listing->payment_method }}</td>
                             <td>{{ $listing->coin_amount }}</td>
                             <td>
-                                <a href="buy?listing_id={{ $listing->id }}&user_type=1&user_id={{ $listing->user_id }}" class="btn btn-success btn-green" >BUY</a>
+                                <a href="buy?listing_id={{ $listing->id }}&user_id={{ $listing->user_id }}" class="btn btn-success btn-green" >BUY</a>
                                 <!-- <button type="button" id="{{ $listing->user_id }}" class="btn btn-success">BUY</button> -->
                             </td>
                          </tr>

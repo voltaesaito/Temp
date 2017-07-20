@@ -16,7 +16,7 @@ class ManageListingsController extends Controller
     public function index() {      
         $user = \Auth::user();
         $listings = Listings::all()->where('user_id', '=', $user->id)->sortByDesc('created_at');  
-//dd($listings);        
+
         return view('manage.index')->with('listings', $listings);
     }
     public function editlistings() {
