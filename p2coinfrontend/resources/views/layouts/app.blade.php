@@ -122,8 +122,14 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a class="menu-a" href="{{ route('trade') }}">Trade</a></li>
-                        <li><a class="menu-a" href="{{ route('managelistings') }}">Mange Listings</a></li>
-                        <!-- <li><a class="menu-a" href="{{ route('buyer') }}">Charts</a></li>  -->
+                        @if (!Auth::guest())
+                            <li><a class="menu-a" href="{{ route('managelistings') }}">Mange Listings</a></li>
+                        @endif
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- Authentication Links -->
                         <li>
                             <li class="dropdown user-panel-dd">
                                 <a class="dropdown-toggle menu-a" data-toggle="dropdown" href="#user_dropdown" aria-expanded="false">
@@ -135,15 +141,9 @@
                                 </ul>
                             </li> 
                         </li>
-                        <li>
+                        <li style="margin-right: 20px;">
                             <span class="nav-span-rate" id="currency_rate"><i class="fa fa-btc fa-fw"></i>&nbsp;BTC:2.34567</span>
                         </li>
-                        <!-- <li><a class="menu-a" href="{{ route('trademessage') }}">Message</a></li> -->
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a class="menu-a" href="{{ route('login') }}">Log In</a></li>
                             <li><a class="menu-a" href="{{ route('register') }}">SignUp</a></li>
