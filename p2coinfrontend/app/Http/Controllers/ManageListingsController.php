@@ -13,7 +13,7 @@ class ManageListingsController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index() {      
+    public function index() {   
         $user = \Auth::user();
         $listings = Listings::all()->where('user_id', '=', $user->id)->sortByDesc('created_at');  
 
