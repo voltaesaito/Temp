@@ -312,15 +312,20 @@
                             <th class="menu-caption text-center">Vendor</th>
                             <th class="menu-caption text-center">Payment Method</th>
                             <th class="menu-caption text-center">Price</th>
+                            <th class="menu-caption text-center">Contract</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach($listings as $listing)
-                        @if($listing->user_type == '1')
+                        @if($listing->user_type == '0')
                         <tr>
                             <td>{{ $listing->name }}</td>
                             <td>{{ $listing->coin_type }} - {{ $listing->payment_method }}</td>
                             <td>{{ $listing->min_transaction_limit }} - {{ $listing->max_transaction_limit }}</td>
+                            <td>
+                                <a href="buy?listing_id={{ $listing->id }}&user_id={{ $listing->user_id }}" class="btn btn-success btn-green" >BUY</a>
+                                <!-- <button type="button" id="{{ $listing->user_id }}" class="btn btn-success">BUY</button> -->
+                            </td>
                         </tr>
                         @endif
                     @endforeach               
@@ -344,16 +349,21 @@
                             <th class="menu-caption text-center">Vendor</th>
                             <th class="menu-caption text-center">Payment Method</th>
                             <th class="menu-caption text-center">Price</th>
+                            <th class="menu-caption text-center">Contract</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach($listings as $listing)
-                        @if($listing->user_type == '0')
+                        @if($listing->user_type == '1')
                         <tr>
                             <td>{{ $listing->name }}</td>
                             <td>{{ $listing->coin_type }} - {{ $listing->payment_method }}</td>
                             <td>{{ $listing->coin_amount }}</td>
-                        </tr>
+                            <td>
+                                <a href="buy?listing_id={{ $listing->id }}&user_id={{ $listing->user_id }}" class="btn btn-success btn-green" >BUY</a>
+                                <!-- <button type="button" id="{{ $listing->user_id }}" class="btn btn-success">BUY</button> -->
+                            </td>
+                         </tr>
                         @endif
                     @endforeach               
                     </tbody>

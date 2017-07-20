@@ -29,4 +29,16 @@ $(document).ready(function() {
             $( "#coin_amount" ).val('');
          }
     });
+
+    $("input.status").click(function (){
+        var status = 0;
+        ($(this).is(':checked')) ? status = 1 : status = 0;
+        var listing_id = $(this)[0].id; 
+        _token = $('meta[name=csrf-token]').attr('content');
+        $.post('changestatus', { _token:_token, listing_id: listing_id, status: status }, function(resp){
+            if (resp === 'ok') {
+                
+            }
+        } );
+    });
 });

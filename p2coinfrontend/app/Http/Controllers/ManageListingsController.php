@@ -16,17 +16,26 @@ class ManageListingsController extends Controller
     public function index() {   
         $user = \Auth::user();
         $listings = Listings::all()->where('user_id', '=', $user->id)->sortByDesc('created_at');  
-//dd($listings);        
+
         return view('manage.index')->with('listings', $listings);
     }
     public function editlistings() {
         return view('manage.listings');
     }
+    public function changestatus(Request $request) {
+        $listing_id = $request->listing_id;
+        $status = $request->status;
+        $listing_row = Listings::find($listing_id);
+        $listing_row->status = $status;
+        $listing_row->save();
+        echo 'ok';
+        exit;
+    }
     public function storelistings(Request $request) {
         $user_type = $request->user_type;
         $coin_type = $request->coin_type;
         if($user_type == 0){
-            $wallet_address = $request->wallet_address;
+//            $wallet_address = $request->wallet_address;
             $coin_amount = $request->coin_amount;
         }
         $location = $request->location;
@@ -45,7 +54,7 @@ class ManageListingsController extends Controller
         $listing->user_type=$user_type;
         $listing->coin_type=$coin_type;
         if($user_type == 0){
-            $listing->wallet_address=$wallet_address;
+//            $listing->wallet_address=$wallet_address;
             $listing->coin_amount=$coin_amount;
         }
         $listing->location = $location;

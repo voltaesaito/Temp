@@ -36,10 +36,12 @@ Route::get('/buy', 'BuyerController@index')->name('buyer');
 Route::get('/managelistings', 'ManageListingsController@index')->name('managelistings');
 Route::get('/editlistings', 'ManageListingsController@editlistings')->name('editlistings');
 Route::post('/storelistings', 'ManageListingsController@storelistings')->name('storelistings');
+Route::post('/changestatus', 'ManageListingsController@changestatus')->name('changestatus');
 
 Route::get('/sell', 'SellerController@index')->name('seller');
 Route::get('/chatroom', 'ChatRoomController@index')->name('chatroom');
 Route::get('/trademessage', 'TradeMessageController@index')->name('trademessage');
+Route::post('/createcontract', 'TradeMessageController@createcontract')->name('createcontract');
 Route::post('/addmessage', 'TradeMessageController@addmessage')->name('addmessage');
 Route::get('/wallet', 'WalletController@index')->name('wallet');
 Route::get('/settings', 'SettingsController@index')->name('wallet');

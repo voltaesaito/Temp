@@ -31,26 +31,20 @@
                             <div class = "panel panel-default terms">
                                 <div class="pad">
                                     <h4 class="text-center"><b>Payment Terms</b></h4>
-                                    <p>Paymentayment Terms</p>
+                                    <p class="pad">{{ $listing['terms_of_trade'] }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class = "panel panel-default terms">
                                 <div class="pad">
-                                    <h4 class="text-center"><b>Payment Details</b></h4>
-                                    <p>Paymentayment Terms</p>
+                                    <h4 class="text-center"><b>payment_details</b></h4>
+                                    <p class="pad">{{ $listing['payment_details'] }}</p>
                                 </div>
                             </div>
                          </div>
                     </div>
-                    <div class="form-group">
-                        <textarea class="form-control" id="chat-content"></textarea>
-                    </div>
-                    <div class="form-group text-right">
-                        <button type="button" id="message_send" class="btn btn-success">SEND</button>
-                    </div>
-                    <div class="row">
+                    <div class="row" style="overflow-y: scroll; max-height: 300px;">
                         <div class="col-lg-12">
                             <div class = "panel panel-default">
                                 <div class="pad" id="ajax_message">
@@ -63,6 +57,12 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="chat-content"></textarea>
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="button" id="message_send" class="btn btn-success">SEND</button>
                     </div>
                 </div>
             </div>

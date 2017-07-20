@@ -4,7 +4,7 @@ $(document).ready(function(){
         var _token = $('meta[name=csrf-token]').attr('content');
         $.post('addmessage', {contract_id: contract_id, _token: _token,
             receiver_id: receiver_id, sender_id: sender_id,
-            message_content: message_content}, function(resp){
+            message_content: message_content, message_state:"0" }, function(resp){
             var str = "";
             for(i=0;i<resp.length;i++){
                 var obj_msg = resp[i];

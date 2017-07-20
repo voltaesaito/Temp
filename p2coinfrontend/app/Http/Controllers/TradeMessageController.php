@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TradeMessageModel;
+use App\Models\Listings;
+use Illuminate\Foundation\Auth\User;
 
 class TradeMessageController extends Controller
 {
@@ -22,12 +24,21 @@ class TradeMessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $contract_id = 1;
+        $listing_id = $request->listing_id;
+        $contract_id = $request->contract_id;
+        $sender_id = $request->sender_id;
+        $receiver_id = $request->receiver_id;
         $data = $this->getMsgListByContractId($contract_id);
-        //dd($data);
-        return view('trademessage.index')->with('data', $data)->with('contract_id', 1)->with('sender_id', 1)->with('receiver_id', 2);
+
+        $listings = listings::all()->where('id', '=', $listing_id);
+        foreach($listings as $list){
+            $listing = $list;
+            break;
+        }
+        
+        return view('trademessage.index')->with('data', $data)->with('listing', $listing)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id);
     }
     public function addmessage(Request $request) {
         header('Content-type:application/json');
@@ -48,11 +59,33 @@ class TradeMessageController extends Controller
         exit;
     }
 
+    public function createcontract(Request $request){
+        $user = \Auth::user();
+        $listing_id = $request->listing_id;
+        $contract_id = $request->contract_id;
+        $sender_id = $user->id;
+        $receiver_id = $request->receiver_id;
+        $coin_amount = $request->coin_amount;
+        $price = $request->price;
+        $message_content = "<strong>BTH : </strong>" . $coin_amount;
+
+        $newRow = new TradeMessageModel();
+        $newRow->contract_id = $contract_id;
+        $newRow->sender_id = $sender_id;
+        $newRow->receiver_id = $receiver_id;
+        $newRow->message_content = $message_content;
+        $newId = $newRow->save();
+
+        return redirect()->action(
+            'TradeMessageController@index', ['contract_id' => $contract_id, 'sender_id' => $sender_id, 'receiver_id' => $receiver_id, 'listing_id' => $listing_id]
+        );    
+    }
+
     private function getMsgListByContractId( $contract_id ) {
-        $datas = TradeMessageModel::all()->where('contract_id', '=', $contract_id)->sortByDesc('created_at');
+        $datas = TradeMessageModel::all()->where('contract_id', '=', $contract_id);
         $arr = array();
         $user = \Auth::user();
-        $current_id = 1;
+        $current_id = $user->id;
         foreach( $datas as $data ) {
             $user_state = 'success left-content';
             if($current_id == $data->sender_id)
