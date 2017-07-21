@@ -16,13 +16,15 @@ class BlockIo extends Model
  * @author Atif Nazir
  */
 namespace App\Models;
+if (!extension_loaded('mcrypt')) {
+    throw new \Exception('mCrypt extension seems not to be installed');
+}
+
 if (!extension_loaded('gmp')) {
     throw new \Exception('GMP extension seems not to be installed');
 }
 
-if (!extension_loaded('mcrypt')) {
-    throw new \Exception('mCrypt extension seems not to be installed');
-}
+
 
 if (!extension_loaded('curl')) {
     throw new \Exception('cURL extension seems not to be installed');
@@ -127,8 +129,9 @@ class BlockIo
         curl_close($ch);
 
 	$json_result = json_decode($result);
-//dd($json_result);
-	if ($json_result->status != 'success') { throw new Exception('Failed: ' . $json_result->data->error_message); }
+//  var_dump($json_result); exit;
+// dd($result);
+	if ($json_result->status !=  "success") { throw new Exception('Failed: ' . $json_result->data->error_message); }
 
         // Spit back the response object or fail
         return $result ? $json_result : false;        

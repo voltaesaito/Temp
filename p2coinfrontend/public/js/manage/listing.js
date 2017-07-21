@@ -12,16 +12,16 @@ $(document).ready(function() {
         }
     });
 
-    $( "#coin_amount" ).keyup(function() {
+    $( "#coin_amount" ).keyup(function() { 
          if($.isNumeric($( "#coin_amount" ).val())){
             var val = $( "#coin_amount" ).val();
             var val_arr = val.toString().split('.');
             if(val_arr[val_arr.length-1].length > 6){
                 slice_str = val.slice(0, val.length-1);
                 $( "#coin_amount" ).val(slice_str);
-                var rep_val = parseFloat((slice_str * 0.995).toFixed(6));
+                var rep_val = (parseFloat(slice_str * 1 + slice_str * 0.005)).toFixed(6);
             }else{
-                var rep_val = parseFloat((val * 0.995).toFixed(6));
+                var rep_val = (parseFloat(val * 1 + val * 0.005)).toFixed(6);
             }
             $( "#fee_amount" ).val(rep_val);
          }else{

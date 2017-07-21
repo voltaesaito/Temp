@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('/index', 'IndexController@index')->name('index');
+Route::post('/index', 'IndexController@index')->name('index'); 
 Auth::routes();
 
 Route::get('/changepassword', 'Auth\ChangePasswordController@index')->name('changepassword');
