@@ -6,7 +6,7 @@
     min-height: 300px;
 }
 .pad { padding: 15px; }
-.user_list { height: 520px; }
+.user_list { height: 520px; overflow-y:scroll; }
 .message_content { height: 400px;}
 .left-content { margin-right: 50px; }
 .right-content { margin-left: 50px; }
@@ -58,6 +58,9 @@ $current_user = \Auth::user();
                                 </div>
                                 <div class="form-group text-right">
                                     <button type="button" id="message_send" class="btn btn-success">SEND</button>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" id="release_transaction" class="btn btn-success btn-green">Confirm Transaction</button>
                                 </div>
                              </div>
                          </div>

@@ -1,9 +1,15 @@
+var contract_id;
+var receiver_id;
 $(document).ready(function(){
+    var contract_receiver_id = $("#user_menu li.active").attr('id');
+    var arr = contract_receiver_id.split('-');
+    eceiver_id = arr[0];
+    contract_id = arr[1];
     $('#message_send').click(function() {
         var contract_receiver_id = $("#user_menu li.active").attr('id');
         var arr = contract_receiver_id.split('-');
-        var receiver_id = arr[0];
-        var contract_id = arr[1];
+        receiver_id = arr[0];
+        contract_id = arr[1];
 
         var message_content = $('#chat-content').val();
         var _token = $('meta[name=csrf-token]').attr('content');
@@ -18,7 +24,7 @@ $(document).ready(function(){
         $('#user_menu li').removeClass('active');
         $('#'+parentNode.id).addClass('active');
         var tmp = parentNode.id.split('-');
-        var contract_id = tmp[1];
+        contract_id = tmp[1];
         var _token = $('meta[name=csrf-token]').attr('content');
         param = {contract_id: contract_id, _token: _token,
         receiver_id: tmp[0], sender_id: sender_id,
@@ -28,10 +34,17 @@ $(document).ready(function(){
 
     $('#release_transaction').click(function(){
         var _token = $('meta[name=csrf-token]').attr('content');
-        post_param = { transaction_id: transaction_id, contract_id: contract_id, _token: _token, receiver_id: receiver_id, sender_id: sender_id, listing_id:listing_id };
-        $.post('withdraw', post_param, function(resp){
-            console.log(resp);
-        });
+        $.post('gettransactionid', {contract_id:contract_id, _token:_token}, function(resp) {
+            if ( resp != 'fail' ) {
+                $.post('withdraw', {transaction_id: resp, _token:_token}, function(resp){
+                    console.log(resp);
+                });
+             }
+        } );
+        // post_param = { transaction_id: transaction_id, contract_id: contract_id, _token: _token, receiver_id: receiver_id, sender_id: sender_id, listing_id:listing_id };
+        // $.post('withdraw', post_param, function(resp){
+        //     console.log(resp);
+        // });
     });
 });
 

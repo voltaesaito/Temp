@@ -40,6 +40,8 @@ Route::get('/getuserbalance', 'ManageListingsController@userbalance')->name('get
 Route::post('/storelistings', 'ManageListingsController@storelistings')->name('storelistings');
 Route::post('/changestatus', 'ManageListingsController@changestatus')->name('changestatus');
 Route::post('/withdraw', 'ManageListingsController@withdraw')->name('withdraw');
+Route::post('/gettransactionid', 'ManageListingsController@gettransactionid')->name('gettransactionid');
+
 
 Route::get('/sell', 'SellerController@index')->name('seller');
 Route::get('/chatroom', 'ChatRoomController@index')->name('chatroom');
