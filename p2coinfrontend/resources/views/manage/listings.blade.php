@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<script> var coin_balance={{ $coin_balance }} </script>
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">

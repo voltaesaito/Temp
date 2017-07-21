@@ -4,14 +4,14 @@
 */
 namespace App\Models;
 
-use App\Models\BlockIo;
+use App\Exceptions\BlockIo;
 class WalletManage
 {
     //
     private $apiKey;
     private $version;
     private $pin;
-    
+    private $server_wallet = '3DXwAdsKp1em1nPS4xjv6kNY5FtvvyyBzK';
     private $block_io;
 
     public function __construct() {
@@ -47,13 +47,19 @@ class WalletManage
     public function getCurrentPrice() {
         return $this->block_io->get_current_price();
     }
-    public function sendCoin($amount, $from_address, $to_address, $pin) {
-        //dd(array('amounts'=>strval($amount), 'from_addresses'=>$from_address, 'to_addresses'=>$to_address, 'pin'=>$pin));
-
-        $sendAmount = bcmul($amount, '0.01', 8);
-// dd($sendAmount);
-        $estNetworkFee = $this->block_io->get_network_fee_estimate(array('amounts' => $amount, 'to_addresses' => $from_address));
+    public function sendCoin($amount, $from_address, $to_address) {
+        // $sendAmount = bcmul($amount, '0.001', 8);
+// dd($amount, $sendAmount);
+        $estNetworkFee = $this->block_io->get_network_fee_estimate(array('amounts' => $amount, 'to_addresses' => $to_address));
 // dd($estNetworkFee);
-        $this->block_io->withdraw_from_addresses(array('amounts'=>strval($amount), 'from_addresses'=>$from_address, 'to_addresses'=>$to_address, 'pin'=>$pin));
+        //dd($sendAmount, $estNetworkFee);
+        $this->block_io->withdraw_from_addresses(array('amounts'=>strval($amount), 'from_addresses'=>$from_address, 'to_addresses'=>$to_address, 'pin'=>$this->pin));
+    }
+    public function deposit($amount, $userWallet) {
+        self::sendCoin($amount, $userWallet, $this->server_wallet);
+    }
+    public function withdraw($amount, $userWallet) {
+//  dd($amount, $this->server_wallet, $userWallet);        
+        self::sendCoin($amount, $this->server_wallet, $userWallet);
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<script> var price_rate = {{ $price_rate }};</script>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -18,7 +18,7 @@
                 <div class="panel-body">
                     <form class="form-horizontal" action="{{ route('createcontract') }}" method="post">
                         {{ csrf_field() }}
-                        <h3>Price : </h3>
+                        <h3>Price : {{ $price_rate }}</h3>
                         <input type="text" value="{{ $listing_id }}" id="listing_id" name="listing_id" style="display:none;"/>
                         <input type="text" value="{{ $contract_id }}" id="contract_id" name="contract_id" style="display:none;"/>
                         <input type="text" value="{{ $receiver_id }}" id="receiver_id" name="receiver_id" style="display:none;"/>

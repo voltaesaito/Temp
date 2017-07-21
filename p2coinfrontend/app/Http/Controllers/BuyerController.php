@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Listings;
 use App\Models\ContractModel;
+use App\Models\WalletManage;
 
 class BuyerController extends Controller
 {
     //
     public function index(Request $request) {
+        $model = new WalletManage();
+        $price_data = $model->getCurrentPrice();
+        $btce_data = $price_data->data->prices[5];
+        $USDrate = $btce_data->price;
 
         $user = \Auth::user();
         $listing_id = $request->listing_id;
@@ -31,6 +36,6 @@ class BuyerController extends Controller
             break;
         }
         
-        return view('buy.index')->with('listing', $listing)->with('contract_id', $contract_id)->with('receiver_id', $receiver_id)->with('listing_id', $listing_id);
+        return view('buy.index')->with('price_rate',$USDrate)->with('listing', $listing)->with('contract_id', $contract_id)->with('receiver_id', $receiver_id)->with('listing_id', $listing_id);
     }
 }

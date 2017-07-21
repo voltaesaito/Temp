@@ -2,6 +2,7 @@ $(document).ready(function() {
     $('#user_type').change(function() {
         var str = $('#user_type').val();
         if(str == "0"){
+
             $('#coin_amount').removeAttr('readonly');
             $('#fee_amount').removeAttr('readonly');
             $('#wallet_address').removeAttr('readonly');
