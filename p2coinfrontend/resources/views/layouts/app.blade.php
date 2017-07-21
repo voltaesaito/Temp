@@ -130,7 +130,8 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                            @if (!Auth::guest())
+                        @if (!Auth::guest())
+                        <li><a class="menu-a" href="{{ route('messagebox') }}">Messages</a></li>
                         <li>
                             <li class="dropdown user-panel-dd">
                                 <a class="dropdown-toggle menu-a" data-toggle="dropdown" href="#user_dropdown" aria-expanded="false">
@@ -145,7 +146,7 @@
                         <li style="margin-right: 20px;">
                             <span class="nav-span-rate" id="currency_rate"><i class="fa fa-btc fa-fw"></i>&nbsp;BTC:2.34567</span>
                         </li>
-                            @endif
+                        @endif
                         @if (Auth::guest())
                             <li><a class="menu-a" href="{{ route('login') }}">Log In</a></li>
                             <li><a class="menu-a" href="{{ route('register') }}">SignUp</a></li>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TradeMessageModel;
 use App\Models\Listings;
 use Illuminate\Foundation\Auth\User;
+use DB;
 
 class TradeMessageController extends Controller
 {
@@ -47,13 +48,15 @@ class TradeMessageController extends Controller
         $sender_id = $request->sender_id;
         $receiver_id = $request->receiver_id;
         $message_content = $request->message_content;
-        $newRow = new TradeMessageModel();
-        $newRow->contract_id = $contract_id;
-        $newRow->sender_id = $sender_id;
-        $newRow->receiver_id = $receiver_id;
-        $newRow->message_content = $message_content;
-        $newId = $newRow->save();
 
+        if ( $message_content != 'NULL' ) {
+            $newRow = new TradeMessageModel();
+            $newRow->contract_id = $contract_id;
+            $newRow->sender_id = $sender_id;
+            $newRow->receiver_id = $receiver_id;
+            $newRow->message_content = $message_content;
+            $newId = $newRow->save();
+        }
         $arr = $this->getMsgListByContractId($contract_id);
         echo json_encode($arr);
         exit;
@@ -79,6 +82,24 @@ class TradeMessageController extends Controller
         return redirect()->action(
             'TradeMessageController@index', ['contract_id' => $contract_id, 'sender_id' => $sender_id, 'receiver_id' => $receiver_id, 'listing_id' => $listing_id]
         );    
+    }
+
+    public function messagebox(Request $request){
+
+        //User list
+        $user = \Auth::user();
+        $user_id = $user->id;
+        $sql = "select c.id contract_id, c.sender_id id, u.name name from contract c, users u where c.sender_id = u.id and receiver_id = {$user_id} order by c.id desc";
+        $user_list = DB::select($sql);
+        
+        //Messages for first user
+        $msg_content = array();
+        foreach($user_list as $user){
+            $msg_content = $this->getMsgListByContractId($user->contract_id);
+            break;
+        }
+
+        return view('trademessage.messagebox')->with('user_list', $user_list)->with('msg_content', $msg_content);
     }
 
     private function getMsgListByContractId( $contract_id ) {

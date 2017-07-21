@@ -34,6 +34,7 @@ Route::get('/trade', 'TradeController@index')->name('trade');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/buy', 'BuyerController@index')->name('buyer');
 Route::get('/managelistings', 'ManageListingsController@index')->name('managelistings');
+Route::get('/messagebox', 'TradeMessageController@messagebox')->name('messagebox');
 Route::get('/editlistings', 'ManageListingsController@editlistings')->name('editlistings');
 Route::post('/storelistings', 'ManageListingsController@storelistings')->name('storelistings');
 Route::post('/changestatus', 'ManageListingsController@changestatus')->name('changestatus');
