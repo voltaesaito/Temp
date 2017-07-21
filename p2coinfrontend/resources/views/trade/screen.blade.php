@@ -317,7 +317,7 @@
                     </thead>
                     <tbody>
                     @foreach($listings as $listing)
-                        @if($listing->user_type == '0')
+                        @if($listing->user_type == '1')
                         <tr>
                             <td>{{ $listing->name }}</td>
                             <td>{{ $listing->coin_type }} - {{ $listing->payment_method }}</td>
@@ -354,7 +354,7 @@
                     </thead>
                     <tbody>
                     @foreach($listings as $listing)
-                        @if($listing->user_type == '1')
+                        @if($listing->user_type == '0')
                         <tr>
                             <td>{{ $listing->name }}</td>
                             <td>{{ $listing->coin_type }} - {{ $listing->payment_method }}</td>

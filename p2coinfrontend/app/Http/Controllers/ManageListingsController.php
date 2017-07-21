@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Listings;
 
+use App\Models\WalletManage;
+use App\Models\UserWallet;
+use App\Models\TransactionHistory;
+use App\Models\ContractModel;
+
 class ManageListingsController extends Controller
 {
     //
@@ -20,7 +25,13 @@ class ManageListingsController extends Controller
         return view('manage.index')->with('listings', $listings);
     }
     public function editlistings() {
-        return view('manage.listings');
+        $user = \Auth::user();
+        $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first();
+        $model = new WalletManage();
+        $wallet_info = $model->getWalletBalanceByAddress($userWalletInfo->wallet_address);
+        $coin_balance= floatval($wallet_info->data->available_balance);
+
+        return view('manage.listings')->with('coin_balance', $coin_balance);
     }
     public function changestatus(Request $request) {
         $listing_id = $request->listing_id;
@@ -68,6 +79,46 @@ class ManageListingsController extends Controller
         $listing->payment_details = $payment_details;
         $listing->save();
 
+        /**  
+            @TODO *** Here is deposit operation procedure
+
+        **/
+        $model = new WalletManage();
+        $user = \Auth::user();
+        $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first();
+        $model = new WalletManage();
+        $userWallet = $userWalletInfo->wallet_address;
+        $model->deposit($coin_amount, $userWallet);
+
+        /** ************************** ******************************* */
+
         return redirect()->action('ManageListingsController@index');
+    }
+    public function withdraw( Request $request ) {
+        $transaction_id = $request->transaction_id;
+
+        // $contract_data = 
+        $row = TransactionHistory::all()->where('transaction_id','=',$transaction_id)->first();
+        $coin_amount = $row->coin_amount;
+        $sender_id = $row->coin_sender_id;
+        $receiver_id = $row->coin_receiver_id;
+        // $temp_row = UserWallet::all()->where('user_id', '=', $sender_id)->first();
+        // $sender_wallet = $temp_row->wallet_address;
+        $temp_row = UserWallet::all()->where('user_id', '=', $receiver_id)->first();
+        $receiver_wallet = $temp_row->wallet_address;
+
+        $model = new WalletManage();
+        $model->withdraw($coin_amount, $receiver_wallet);
+        echo 'ok';
+        exit;
+    }
+    public function userbalance() {
+        $user = \Auth::user();
+        $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first();
+        $model = new WalletManage();
+        $wallet_info = $model->getWalletBalanceByAddress($userWalletInfo->wallet_address);
+        $coin_balance= floatval($wallet_info->data->available_balance);
+        echo $coin_balance;
+        exit;
     }
 }

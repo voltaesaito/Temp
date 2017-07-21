@@ -6,6 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\UserWallet;
+use App\Models\WalletManage;
 
 class RegisterController extends Controller
 {
@@ -68,6 +70,12 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'email_token' => base64_encode($data['email'])
         ]);
+        $walletRow = new UserWallet();
+        $model = new WalletManage();
+        $wallet_arr = $model->generateWallet();
+        $walletRow->user_id = $mUser->id;
+        $walletRow->wallet_address = $wallet_arr['address'];
+        $walletRow->save();
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $verificationid = $mUser['email_token'];
@@ -87,6 +95,13 @@ class RegisterController extends Controller
         $user = User::where('email_token',$token)->first();
         $user->verified = 1;
         if($user->save()){
+
+            $userWallet = new UserWallet();
+            $model = new WalletManage();
+            $wallet_arr = $model->generateWallet();
+            $walletRow->user_id = $user->id;
+            $walletRow->wallet_address = $wallet_arr['address'];
+            $walletRow->save();
             return view('auth.login');
         }
     }

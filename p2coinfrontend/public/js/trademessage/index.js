@@ -25,7 +25,16 @@ $(document).ready(function(){
         message_content: 'NULL', message_state:"0" };
         getMessageContentAndDraw( param );
     });
+
+    $('#release_transaction').click(function(){
+        var _token = $('meta[name=csrf-token]').attr('content');
+        post_param = { transaction_id: transaction_id, contract_id: contract_id, _token: _token, receiver_id: receiver_id, sender_id: sender_id, listing_id:listing_id };
+        $.post('withdraw', post_param, function(resp){
+            console.log(resp);
+        });
+    });
 });
+
 function getMessageContentAndDraw( param ) {
     $.post('addmessage', param, function(resp){
         var str = "";

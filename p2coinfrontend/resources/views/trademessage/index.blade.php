@@ -14,6 +14,8 @@
 <script>var contract_id={{ $contract_id }}</script>
 <script>var sender_id={{ $sender_id }}</script>
 <script>var receiver_id={{ $receiver_id }}</script>
+<script>var listing_id={{ $listing_id }}</script>
+<script>var transaction_id={{ $transaction_id }}</script>
 
 <div class="container">
     <div class="row">
@@ -63,6 +65,9 @@
                     </div>
                     <div class="form-group text-right">
                         <button type="button" id="message_send" class="btn btn-success">SEND</button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="release_transaction" class="btn btn-success btn-green">Confirm Transaction</button>
                     </div>
                 </div>
             </div>

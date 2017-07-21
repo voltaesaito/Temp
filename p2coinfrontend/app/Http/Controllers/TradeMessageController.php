@@ -7,6 +7,7 @@ use App\Models\TradeMessageModel;
 use App\Models\Listings;
 use Illuminate\Foundation\Auth\User;
 use DB;
+use App\Models\TransactionHistory;
 
 class TradeMessageController extends Controller
 {
@@ -31,6 +32,7 @@ class TradeMessageController extends Controller
         $contract_id = $request->contract_id;
         $sender_id = $request->sender_id;
         $receiver_id = $request->receiver_id;
+        $transaction_id = $request->transaction_id;
         $data = $this->getMsgListByContractId($contract_id);
 
         $listings = listings::all()->where('id', '=', $listing_id);
@@ -39,7 +41,7 @@ class TradeMessageController extends Controller
             break;
         }
         
-        return view('trademessage.index')->with('data', $data)->with('listing', $listing)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id);
+        return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id);
     }
     public function addmessage(Request $request) {
         header('Content-type:application/json');
@@ -79,8 +81,29 @@ class TradeMessageController extends Controller
         $newRow->message_content = $message_content;
         $newId = $newRow->save();
 
+
+        $listing_row = Listings::find($listing_id);
+        $coin_sender_id = '';
+        if ( $listing_row->user_type == 0 ) {  //sell
+            $coin_sender_id = $listing_row->user_id;
+            $coin_receiver_id = $user->id;
+        }
+        else {  //buy
+            $coin_sender_id = $user->id;
+            $coin_receiver_id = $listing_row->user_id;
+        }
+        $newRow = new TransactionHistory();
+        $newRow->contract_id = $contract_id;
+        $newRow->coin_amount = $coin_amount;
+        $newRow->coin_sender_id = $coin_sender_id;
+        $newRow->coin_receiver_id = $coin_receiver_id;
+        $newRow->save();
+
+        $transaction_id = $newRow->id;
+
+
         return redirect()->action(
-            'TradeMessageController@index', ['contract_id' => $contract_id, 'sender_id' => $sender_id, 'receiver_id' => $receiver_id, 'listing_id' => $listing_id]
+            'TradeMessageController@index', ['transaction_id'=>$transaction_id, 'contract_id' => $contract_id, 'sender_id' => $sender_id, 'receiver_id' => $receiver_id, 'listing_id' => $listing_id]
         );    
     }
 

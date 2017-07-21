@@ -144,7 +144,7 @@
                             </li> 
                         </li>
                         <li style="margin-right: 20px;">
-                            <span class="nav-span-rate" id="currency_rate"><i class="fa fa-btc fa-fw"></i>&nbsp;BTC:2.34567</span>
+                            <span class="nav-span-rate" id="currency_rate"><i class="fa fa-btc fa-fw"></i>&nbsp;{{ session()->get('btc_amount') }}</span>
                         </li>
                         @endif
                         @if (Auth::guest())
