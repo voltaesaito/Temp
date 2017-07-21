@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\WalletManage;
+use App\Models\UserWallet;
+
 class DashboardController extends Controller
 {
     //
     public function index() {
-<<<<<<< HEAD
-        // $model = new WalletManage();
-        //002$wallet_arr = $model->generateWallet();
-        //$sendAmount = bcmul($getBalanceInfo->data->available_balance, '0.01', 8);
-        //dd($model->getWalletBalanceByAddress('3PJiUQuKbY3bBZotgUzxXRZbdtndMCCACm'));
-        // dd($model->sendCoin(0.001002,'2N2Sgn1wdwHQbsgEZuGJw882XKdJg5vJN8v', '2MwvKcGZvdqr4nBDk2zRXB7nxCv7sseRYX7',$model->getPinCode()));
-=======
->>>>>>> a6f06ee3083c8a6e3f1797f5527f361793248194
-        return view('index.dashboard');
+        $user = \Auth::user();
+        $userWalletRow = UserWallet::all()->where('user_id', '=', $user->id)->first();
+        $model = new WalletManage();
+        $wallet_info = $model->getWalletBalanceByAddress($userWalletRow->wallet_address);
+        $coin_balance= floatval($wallet_info->data->available_balance);
+        session()->put('btc_amount', $coin_balance);
+
+        return redirect()->action('TradeController@index');
+        // return view('index.dashboard');
     }
 }
