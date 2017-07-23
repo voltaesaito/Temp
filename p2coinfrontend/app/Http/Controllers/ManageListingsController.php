@@ -27,6 +27,7 @@ class ManageListingsController extends Controller
     public function editlistings() {
         $user = \Auth::user();
         $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first();
+// dd($userWalletInfo);        
         $model = new WalletManage();
         $wallet_info = $model->getWalletBalanceByAddress($userWalletInfo->wallet_address);
         $coin_balance= floatval($wallet_info->data->available_balance);
