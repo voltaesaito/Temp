@@ -2,9 +2,14 @@ var contract_id;
 var receiver_id;
 $(document).ready(function(){
     var contract_receiver_id = $("#user_menu li.active").attr('id');
-    var arr = contract_receiver_id.split('-');
-    eceiver_id = arr[0];
-    contract_id = arr[1];
+    if (contract_receiver_id) {
+        var arr = contract_receiver_id.split('-');
+        eceiver_id = arr[0];
+        contract_id = arr[1];
+    }
+    else {
+        contract_receiver_id = receiver_id;
+    }
     $('#message_send').click(function() {
         var contract_receiver_id = $("#user_menu li.active").attr('id');
         var arr = contract_receiver_id.split('-');
@@ -50,8 +55,9 @@ $(document).ready(function(){
 
 function getMessageContentAndDraw( param ) {
     $.post('addmessage', param, function(resp){
+        console.log(resp.fee);
         var str = "";
-        for(i=0;i<resp.length;i++){
+        for(i=0;i<resp.content.length;i++){
             var obj_msg = resp[i];
             str += "<div class='alert alert-" + obj_msg.user_state + "'><strong>" + obj_msg.created_at + "</strong><P>" + obj_msg.message_content + "</p></div>";
         }

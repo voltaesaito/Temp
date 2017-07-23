@@ -8,6 +8,8 @@ use App\Models\Listings;
 use Illuminate\Foundation\Auth\User;
 use DB;
 use App\Models\TransactionHistory;
+use App\Models\UserWallet;
+use App\Models\WalletManage;
 
 class TradeMessageController extends Controller
 {
@@ -60,7 +62,25 @@ class TradeMessageController extends Controller
             $newId = $newRow->save();
         }
         $arr = $this->getMsgListByContractId($contract_id);
-        echo json_encode($arr);
+        
+        $userWalletModel = new UserWallet();
+        $receiver_address = $userWalletModel->getUserWallet($receiver_id);
+// dd($user);
+        $transModel = new TransactionHistory();
+        $row = $transModel->getDataByContractId($contract_id);
+        $coin_amount = $row->coin_amount;
+
+        $walletModel = new WalletManage();
+        $fee = $walletModel->getTransFee($coin_amount, $receiver_address);
+        $fee['sender_balance'] = $
+
+        $senderBalance = $walletModel->getWalletBalanceByAddress($userWalletModel->getUserWallet($sender_id));
+        $amount = $senderBalance->data->available_balance;
+        ( $amount*1 > $fee['total'] ) ? $fee['status'] = 'enable' : $fee['status'] = 'disable';
+
+        $ret_arr['fee'] = $fee;
+        $ret_arr['content'] = $arr;
+        echo json_encode($ret_arr);
         exit;
     }
 
@@ -114,7 +134,7 @@ class TradeMessageController extends Controller
         $user_id = $user->id;
         $sql = "select c.id contract_id, c.sender_id id, u.name name from contract c, users u where c.sender_id = u.id and receiver_id = {$user_id} order by c.id desc";
         $user_list = DB::select($sql);
-        
+// dd($sql);      
         //Messages for first user
         $msg_content = array();
         foreach($user_list as $user){
@@ -122,6 +142,7 @@ class TradeMessageController extends Controller
             break;
         }
 
+// dd($fee);        
         return view('trademessage.messagebox')->with('user_list', $user_list)->with('msg_content', $msg_content);
     }
 
