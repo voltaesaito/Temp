@@ -158,7 +158,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="user-panel-dd"><a href="wallet"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
-                                    <li><a href="{{ route('userprofile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
+                                    <li><a href="{{ route('profile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
                                     <li class="divider"></li>  
                                     <li class="user-panel-dd"><a href="/accounts/wallet/"><i class="fa fa-truck fa-fw"></i>&nbsp;Open Trades</a></li>                                  
                                     <li class="divider"></li>

@@ -52,3 +52,5 @@ Route::get('/wallet', 'WalletController@index')->name('wallet');
 Route::get('/settings', 'SettingsController@index')->name('wallet');
 Route::get('/userprofile', 'UserProfileController@index')->name('userprofile');
 Route::get('/verify/email/{token}', 'VerifyController@email')->name('verify/email/{token}');
+
+Route::get('/profile', 'ProfileController@index')->name('profile');

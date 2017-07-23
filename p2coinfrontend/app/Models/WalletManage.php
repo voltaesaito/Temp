@@ -48,18 +48,23 @@ class WalletManage
         return $this->block_io->get_current_price();
     }
     public function sendCoin($amount, $from_address, $to_address) {
-        // $sendAmount = bcmul($amount, '0.001', 8);
-// dd($amount, $sendAmount);
         $estNetworkFee = $this->block_io->get_network_fee_estimate(array('amounts' => $amount, 'to_addresses' => $to_address));
-// dd($estNetworkFee);
-        //dd($sendAmount, $estNetworkFee);
         $this->block_io->withdraw_from_addresses(array('amounts'=>strval($amount), 'from_addresses'=>$from_address, 'to_addresses'=>$to_address, 'pin'=>$this->pin));
     }
     public function deposit($amount, $userWallet) {
         self::sendCoin($amount, $userWallet, $this->server_wallet);
     }
     public function withdraw($amount, $userWallet) {
-//  dd($amount, $this->server_wallet, $userWallet);        
         self::sendCoin($amount, $this->server_wallet, $userWallet);
+    }
+    public function getTransFee( $amount, $toAddress ) {
+        $siteFee = $amount * 0.0005;
+        $estNetworkFee = $this->block_io->get_network_fee_estimate(array('amounts' => $amount, 'to_addresses' => $to_address));
+        $estSiteNetworkFee = $this->block_io->get_network_fee_estimate(array('amounts' => $siteFee, 'to_addresses' => $to_address));
+        $total = $amount + $siteFee + $estNetworkFee + $estSiteNetworkFee;
+        return array('net_fee'=>$estNetworkFee,'net_site_fee'=>$estSiteNetworkFee, 'amount'=>$amount, 'site_fee'=>$siteFee, 'total'=>$total );
+    }
+    public function withdrawExt( $amount, $from_address, $to_address ) {
+        $this->block_io->withdraw_from_addresses(array('amounts'=>strval($amount), 'from_addresses'=>$from_address, 'to_addresses'=>$to_address, 'pin'=>$this->pin));
     }
 }
