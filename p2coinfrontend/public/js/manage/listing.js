@@ -1,4 +1,5 @@
 $(document).ready(function() {
+   /* 
     $('#user_type').change(function() {
         var str = $('#user_type').val();
         if(str == "0"){
@@ -12,7 +13,7 @@ $(document).ready(function() {
             $('#wallet_address').attr('readonly', true);
         }
     });
-
+*/
     $( "#coin_amount" ).keyup(function() { 
          if($.isNumeric($( "#coin_amount" ).val())){
             var val = $( "#coin_amount" ).val();

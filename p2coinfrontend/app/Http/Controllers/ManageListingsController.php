@@ -83,13 +83,14 @@ class ManageListingsController extends Controller
             @TODO *** Here is deposit operation procedure
 
         **/
+/*
         $model = new WalletManage();
         $user = \Auth::user();
         $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first();
         $model = new WalletManage();
         $userWallet = $userWalletInfo->wallet_address;
         $model->deposit($coin_amount, $userWallet);
-
+*/
         /** ************************** ******************************* */
 
         return redirect()->action('ManageListingsController@index');
