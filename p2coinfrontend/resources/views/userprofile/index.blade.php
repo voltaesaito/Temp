@@ -45,9 +45,7 @@
                 </p>
                 <span id="toc2"></span>
                 <h3 id="div_change_email_address">Change email address</h3>
-                <p>
-                    <a href="{{ route('changeemail') }}"><i class="fa fa-arrow-right"></i> Change email address</a>
-                </p>
+                
                 <span id="toc3"></span>
                 <h3 id="div_verification">Verification</h3>
                 <p>

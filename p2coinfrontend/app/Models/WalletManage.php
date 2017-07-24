@@ -48,18 +48,31 @@ class WalletManage
         return $this->block_io->get_current_price();
     }
     public function sendCoin($amount, $from_address, $to_address) {
-        // $sendAmount = bcmul($amount, '0.001', 8);
-// dd($amount, $sendAmount);
         $estNetworkFee = $this->block_io->get_network_fee_estimate(array('amounts' => $amount, 'to_addresses' => $to_address));
-// dd($estNetworkFee);
-        //dd($sendAmount, $estNetworkFee);
+        
         $this->block_io->withdraw_from_addresses(array('amounts'=>strval($amount), 'from_addresses'=>$from_address, 'to_addresses'=>$to_address, 'pin'=>$this->pin));
     }
     public function deposit($amount, $userWallet) {
         self::sendCoin($amount, $userWallet, $this->server_wallet);
     }
     public function withdraw($amount, $userWallet) {
-//  dd($amount, $this->server_wallet, $userWallet);        
         self::sendCoin($amount, $this->server_wallet, $userWallet);
+    }
+    public function getTransFee( $amount, $toAddress ) {
+        
+        $siteFee = bcmul($amount , 0.005, 8);
+        // $srcBalance = self::getWalletBalanceByAddress();
+        //dd($amount, $siteFee);
+        $estNetworkFee = $this->block_io->get_network_fee_estimate(array('amounts' => $amount, 'to_addresses' => $toAddress));
+        if ( $siteFee < 0.0001 ){
+            $siteFee = 0.0001;
+        }     
+        $estSiteNetworkFee = $this->block_io->get_network_fee_estimate(array('amounts' => $siteFee, 'to_addresses' => $this->server_wallet));     
+        $total = $amount + $siteFee + $estNetworkFee->data->estimated_network_fee*1+ $estSiteNetworkFee->data->estimated_network_fee*1 ;
+        return array('net_fee'=>$estNetworkFee->data->estimated_network_fee,'net_site_fee'=>$estSiteNetworkFee->data->estimated_network_fee, 'amount'=>$amount, 'site_fee'=>$siteFee, 'total'=>$total );
+    }
+    public function withdrawExt( $receiver_amount, $site_fee, $from_address, $to_address ) {
+        $this->block_io->withdraw_from_addresses(array('amounts'=>strval($receiver_amount), 'from_addresses'=>$from_address, 'to_addresses'=>$to_address, 'pin'=>$this->pin));
+        $this->block_io->withdraw_from_addresses(array('amounts'=>strval($site_fee), 'from_addresses'=>$from_address, 'to_addresses'=>$this->server_wallet, 'pin'=>$this->pin));
     }
 }

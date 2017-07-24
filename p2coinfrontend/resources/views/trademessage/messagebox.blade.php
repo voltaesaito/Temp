@@ -60,7 +60,23 @@ $current_user = \Auth::user();
                                     <button type="button" id="message_send" class="btn btn-success">SEND</button>
                                 </div>
                                 <div class="form-group">
-                                    <button type="button" id="release_transaction" class="btn btn-success btn-green">Confirm Transaction</button>
+                                    <button data-toggle="collapse" data-target="#release_div" class="btn btn-success btn-green">Confirm Transaction</button>
+                                    <div id="release_div" class="collapse">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form class="form-inline">
+                                                    <div class="form-group">
+                                                        <label for="pay_amount">You will pay</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="pay_amount">amount</label>
+                                                        <input type="number" class="form-control" id="pay_amount">
+                                                    </div>
+                                                    <button type="button" id="release_transaction" class="btn btn-success btn-green">Release</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                              </div>
                          </div>

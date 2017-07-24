@@ -104,13 +104,14 @@ class ManageListingsController extends Controller
         $coin_amount = $row->coin_amount;
         $sender_id = $row->coin_sender_id;
         $receiver_id = $row->coin_receiver_id;
-        // $temp_row = UserWallet::all()->where('user_id', '=', $sender_id)->first();
-        // $sender_wallet = $temp_row->wallet_address;
+        $temp_row = UserWallet::all()->where('user_id', '=', $sender_id)->first();
+        $sender_wallet = $temp_row->wallet_address;
         $temp_row = UserWallet::all()->where('user_id', '=', $receiver_id)->first();
         $receiver_wallet = $temp_row->wallet_address;
 
         $model = new WalletManage();
-        $model->withdraw($coin_amount, $receiver_wallet);
+        $data = $model->getTransFee($coin_amount, $receiver_wallet);
+        $model->withdrawExt($data['amount'], $data['site_fee'], $sender_wallet, $receiver_wallet);
         echo 'ok';
         exit;
     }
