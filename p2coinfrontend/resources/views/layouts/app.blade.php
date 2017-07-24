@@ -45,13 +45,11 @@
                 background-color: rgba(37, 157, 109, 0.01);
                 border: 2px solid #028840;
         }
+
         .menu-a {
-            color: #777777!important;
+            color: #777777 !important;
             /*font-weight: bold;*/
             font-size: 15px;
-        }
-        .menu-a:hover {
-            color:green!important;
         }
         .h-title{
             font-weight:bold;
@@ -96,8 +94,65 @@
         .title-content-body {
             min-height: 240px;
         }
+
+        .dropdown-menu {background-color: #2e353d; padding: 0; margin-top: 16px !important; }
+
+        .text-white { color: #e1ffff !important; }
+
+        .stick { display: none !important; }
+
+        @media (min-width: 768px){
+            .dropdown-menu .divider {
+                height: 1px;
+                margin: 0;
+                overflow: hidden;
+                background-color: #23282e;
+            }
+            .menu-a-sel {
+                color: #fff !important;
+
+                background: #f4a90c; /* For browsers that do not support gradients */
+                background: -webkit-linear-gradient(#f4a90c, #f4870c); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(#f4a90c, #f4870c); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(#f4a90c, #f4870c); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(#f4a90c, #f4870c); /* Standard syntax (must be last) */
+                border-radius: 5px;
+            }
+            .menu-a:hover {
+                color: #fff !important; 
+
+                background: #f4a90c!important; 
+                border-radius: 5px;
+            }
+            .left-menu { margin-left: 50px; margin-top: 12px; }
+            .navbar-nav>li>a {
+                padding-top: 0px;
+                padding-bottom: 0px;
+                line-height: 30px;
+            }
+            .menu-border:hover { border-left: 2px solid #f4890c !important; color: #5a5a5a !important; }
+            .menu-border a { color: #fff !important; line-height: 30px !important; }
+            .menu-border a:hover { background: #4f5b69 !important; }
+            .stick { display: block !important; }
+            .up_arrow {margin-top: 10px !important;}
+            .up-arrow:before {
+                content:"\A";
+                border-bottom: 10px solid #000;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                width: 0;
+                height: 0;
+                position: absolute;
+                left: 128px;
+                top: -10px;
+            }        
+        }
+
     </style>
 </head>
+<?php
+
+?>
 <body>
     <div id="app">
         <nav class="navbar navbar-fixed-top navbar-default">
@@ -114,28 +169,31 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand a-logo-brand" href="{{ url('/') }}">
+                    <img src="{{ asset('./assets/images/logo.png') }}" style="width: auto; height: 100%;">
 {{--                        {{ config('app.name', 'P2Coin') }}--}}
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li><a class="menu-a" href="{{ route('trade') }}">Trade</a></li>
+                    <ul class="nav navbar-nav left-menu">
+                        <?php $tradeCls = ""; ?>
+                        <?php ( strpos(URL::current(), 'trade') === false ) ? $tradeCls = "" : $tradeCls = "menu-a-sel"; ?>
+                        <li><a class="menu-a {{ $tradeCls }}" href="{{ route('trade') }}" style="margin-right: 10px;">TRADE</a></li>
                         @if (!Auth::guest())
-                            <li><a class="menu-a" href="{{ route('managelistings') }}">Mange Listings</a></li>
+                        <?php ( strpos(URL::current(), 'managelistings') === false ) ? $tradeCls = "" : $tradeCls = "menu-a-sel"; ?>
+                            <li><a class="menu-a {{ $tradeCls }}" href="{{ route('managelistings') }}">MANAGE LISTINGS</a></li>
                         @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right right-menu" style="margin-top: 12px;">
                         <!-- Authentication Links -->
                         @if (!Auth::guest())
-                        <li><a class="menu-a" href="{{ route('messagebox') }}">Messages</a></li>
                         <li>
                             <li class="dropdown user-panel-dd">
                                 <a class="dropdown-toggle menu-a" data-toggle="dropdown" href="#user_dropdown" aria-expanded="false">
-                                    Currency<b class="caret"></b>
+                                    CURRENCY<b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="user-panel-dd"><div class="menu-currency"><i class="fa fa-btc fa-fw"></i>&nbsp;BTC</div></li>
@@ -144,29 +202,32 @@
                             </li> 
                         </li>
                         <li style="margin-right: 20px;">
-                            <span class="nav-span-rate" id="currency_rate"><i class="fa fa-btc fa-fw"></i>&nbsp;{{ session()->get('btc_amount') }}</span>
+                            <i class="fa fa-btc fa-fw" style="color: #028841; padding-top:7px;"></i>&nbsp;{{ session()->get('btc_amount') }}
                         </li>
                         @endif
                         @if (Auth::guest())
                             <li><a class="menu-a" href="{{ route('login') }}">Log In</a></li>
                             <li><a class="menu-a" href="{{ route('register') }}">SignUp</a></li>
                         @else                            
-                                                
+                            <li class="dropdown user-panel-dd stick">
+                                <a href="#">|</a>
+                            </li>                    
                             <li class="dropdown user-panel-dd">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#user_dropdown" aria-expanded="false">
-                                    <i class="fa fa-navicon fa-fw"></i><b class="caret"></b>
+                                    <i class="fa fa-navicon fa-fw" style = "margin-top: 8px;"></i>
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li class="user-panel-dd"><a href="wallet"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
-                                    <li><a href="{{ route('userprofile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
+                                <ul class="dropdown-menu up-arrow">
+                                    <li class="user-panel-dd menu-border"><a href="wallet"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
                                     <li class="divider"></li>  
-                                    <li class="user-panel-dd"><a href="/accounts/wallet/"><i class="fa fa-truck fa-fw"></i>&nbsp;Open Trades</a></li>                                  
+                                    <li class="menu-border"><a href="{{ route('profile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
+                                    <li class="divider"></li>  
+                                    <li class="user-panel-dd menu-border"><a href="/accounts/wallet/"><i class="fa fa-truck fa-fw"></i>&nbsp;Open Trades</a></li>                                  
                                     <li class="divider"></li>
-                                    <li class="user-panel-dd"><a href="/accounts/wallet/"><i class="fa fa-bar-chart fa-fw"></i>&nbsp;Charts</a></li>                                  
+                                    <li class="user-panel-dd menu-border"><a href="/accounts/wallet/"><i class="fa fa-bar-chart fa-fw"></i>&nbsp;Charts</a></li>                                  
                                     <li class="divider"></li>
-                                    <li class="user-panel-dd"><a href="/settings"><i class="fa fa-sliders fa-fw"></i>&nbsp;Settings</a></li>                                  
+                                    <li class="user-panel-dd menu-border"><a href="/settings"><i class="fa fa-sliders fa-fw"></i>&nbsp;Settings</a></li>                                  
                                     <li class="divider"></li>
-                                    <li>
+                                    <li class="menu-border">
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                             <i class="fa fa-sign-out fa-fw"></i>&nbsp;Logout
                                         </a>
@@ -176,6 +237,10 @@
                                     </li>
                                 </ul>
                             </li> 
+                            <li class="dropdown user-panel-dd stick">
+                                <a href="#">|</a>
+                            </li>                    
+                        <li><a class="menu-a" href="{{ route('messagebox') }}"><i class="fa fa-comment" aria-hidden="true" style = "line-height: 30px;"></i></a></li>
                         @endif
                     </ul>
                 </div>

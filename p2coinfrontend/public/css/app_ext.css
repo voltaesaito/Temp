@@ -8,8 +8,9 @@
     font-size:18px;
 }
 .a-logo-brand{
-    background-image: url('/assets/images/logo-new.png');
-    width:154px;
+    /* background-image: url('/assets'/assets/images/logo.png');
+    background-size: cover;
+    width:180px; */
 }
 
 
