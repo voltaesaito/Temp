@@ -71,8 +71,7 @@ class TradeMessageController extends Controller
         $coin_amount = $row->coin_amount;
 
         $walletModel = new WalletManage();
-        $fee = $walletModel->getTransFee($coin_amount, $receiver_address);
-        $fee['sender_balance'] = $
+        $fee = $walletModel->getTransFee($coin_amount, $receiver_address);        
 
         $senderBalance = $walletModel->getWalletBalanceByAddress($userWalletModel->getUserWallet($sender_id));
         $amount = $senderBalance->data->available_balance;

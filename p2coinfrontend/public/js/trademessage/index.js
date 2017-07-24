@@ -55,10 +55,20 @@ $(document).ready(function(){
 
 function getMessageContentAndDraw( param ) {
     $.post('addmessage', param, function(resp){
-        console.log(resp.fee);
+        //console.log(resp.fee);
+        if ( resp.fee.status == 'enable' ) {
+            $('#release_transaction').removeClass('disabled');
+            $('#release_transaction').addClass('active');
+        }
+        else{
+            $('#release_transaction').removeClass('active');
+            $('#release_transaction').addClass('disabled');
+        }
+        $('#pay_amount').val(resp.fee.total);
+            
         var str = "";
         for(i=0;i<resp.content.length;i++){
-            var obj_msg = resp[i];
+            var obj_msg = resp.content[i];
             str += "<div class='alert alert-" + obj_msg.user_state + "'><strong>" + obj_msg.created_at + "</strong><P>" + obj_msg.message_content + "</p></div>";
         }
         $('#chat-content').val('');

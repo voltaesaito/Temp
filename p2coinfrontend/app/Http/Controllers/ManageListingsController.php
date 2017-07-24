@@ -110,8 +110,8 @@ class ManageListingsController extends Controller
         $receiver_wallet = $temp_row->wallet_address;
 
         $model = new WalletManage();
-        dd($model->getTransFee($coin_amount, $receiver_wallet));
-        $model->withdrawExt($coin_amount, $sender_wallet, $receiver_wallet);
+        $data = $model->getTransFee($coin_amount, $receiver_wallet);
+        $model->withdrawExt($data['amount'], $data['site_fee'], $sender_wallet, $receiver_wallet);
         echo 'ok';
         exit;
     }
