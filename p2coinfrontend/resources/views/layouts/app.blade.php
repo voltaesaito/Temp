@@ -95,13 +95,14 @@
             min-height: 240px;
         }
 
-        .dropdown-menu {background-color: #2e353d; padding: 0; margin-top: 16px !important; }
-
         .text-white { color: #e1ffff !important; }
 
         .stick { display: none !important; }
 
         @media (min-width: 768px){
+            .own-nav .dropdown-menu>li>a {
+                padding: 1px 80px 3px 10px !important;
+            }
             .dropdown-menu .divider {
                 height: 1px;
                 margin: 0;
@@ -134,17 +135,18 @@
             .menu-border a { color: #fff !important; line-height: 30px !important; }
             .menu-border a:hover { background: #4f5b69 !important; }
             .stick { display: block !important; }
-            .up_arrow {margin-top: 10px !important;}
+            
+            .own-nav .dropdown-menu { right: 12px; left: auto; background-color: #2e353d; padding: 0; margin-top: 16px !important; }
             .up-arrow:before {
                 content:"\A";
-                border-bottom: 10px solid #000;
+                border-bottom: 7px solid #2e353d;
                 border-left: 7px solid transparent;
                 border-right: 7px solid transparent;
                 width: 0;
                 height: 0;
                 position: absolute;
-                left: 128px;
-                top: -10px;
+                left: 175px;
+                top: -7px;
             }        
         }
 
@@ -212,7 +214,7 @@
                             <li class="dropdown user-panel-dd stick">
                                 <a href="#">|</a>
                             </li>                    
-                            <li class="dropdown user-panel-dd">
+                            <li class="dropdown user-panel-dd own-nav">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#user_dropdown" aria-expanded="false">
                                     <i class="fa fa-navicon fa-fw" style = "margin-top: 8px;"></i>
                                 </a>
