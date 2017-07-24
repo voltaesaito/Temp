@@ -216,16 +216,12 @@
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#user_dropdown" aria-expanded="false">
                                     <i class="fa fa-navicon fa-fw" style = "margin-top: 8px;"></i>
                                 </a>
-<<<<<<< HEAD
+
                                 <ul class="dropdown-menu up-arrow">
                                     <li class="user-panel-dd menu-border"><a href="wallet"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
                                     <li class="divider"></li>  
                                     <li class="menu-border"><a href="{{ route('profile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
-=======
-                                <ul class="dropdown-menu">
-                                    <li class="user-panel-dd"><a href="wallet"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
-                                    <li><a href="{{ route('profile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
->>>>>>> 235b34f99b57fa642e90e72434589b01e963fb83
+
                                     <li class="divider"></li>  
                                     <li class="user-panel-dd menu-border"><a href="/accounts/wallet/"><i class="fa fa-truck fa-fw"></i>&nbsp;Open Trades</a></li>                                  
                                     <li class="divider"></li>
