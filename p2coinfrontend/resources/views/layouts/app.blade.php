@@ -20,8 +20,25 @@
      <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <style>
+        @font-face {
+            font-family: Roboto Regular;
+            src: url({{ asset('fonts/roboto/Roboto-Regular.ttf') }});
+        }
+        @font-face {
+            font-family: Roboto Med;
+            src: url({{ asset('fonts/roboto/Roboto-Medium.ttf') }});
+        }
+        @font-face {
+            font-family: Roboto Light;
+            src: url({{ asset('fonts/roboto/Roboto-Light.ttf') }});
+        }
+        @font-face {
+            font-family: Roboto black;
+            src: url({{ asset('fonts/roboto/Roboto-Black.ttf') }});
+        }
         body{
-            padding-top:70px;background-color:white;
+            font-family: Roboto Regular;
+            padding-top:70px; background-color:white;
             background-image:url('./public/assets/images/bk-img.jpg');
             background:rgba(255,255,255,0.4);
         }
@@ -99,6 +116,15 @@
 
         .stick { display: none !important; }
 
+        .gradient-btn {
+            background-color: #f4a90c !important;
+            background: #f4a90c; /* For browsers that do not support gradients */
+            background: -webkit-linear-gradient(#f4a90c, #f4870c); /* For Safari 5.1 to 6.0 */
+            background: -o-linear-gradient(#f4a90c, #f4870c); /* For Opera 11.1 to 12.0 */
+            background: -moz-linear-gradient(#f4a90c, #f4870c); /* For Firefox 3.6 to 15 */
+            background: linear-gradient(#f4a90c, #f4870c); /* Standard syntax (must be last) */
+        }
+
         @media (min-width: 768px){
             .own-nav .dropdown-menu>li>a {
                 padding: 1px 80px 3px 10px !important;
@@ -136,7 +162,7 @@
             .menu-border a:hover { background: #4f5b69 !important; }
             .stick { display: block !important; }
             
-            .own-nav .dropdown-menu { right: 12px; left: auto; background-color: #2e353d; padding: 0; margin-top: 16px !important; }
+            .own-nav .dropdown-menu { right: 12px; left: auto; background-color: #2e353d; padding: 0; margin-top: 9px !important; }
             .up-arrow:before {
                 content:"\A";
                 border-bottom: 7px solid #2e353d;
@@ -152,9 +178,7 @@
 
     </style>
 </head>
-<?php
 
-?>
 <body>
     <div id="app">
         <nav class="navbar navbar-fixed-top navbar-default">
