@@ -28,24 +28,18 @@ class Listings extends Model
             ->select('listings.*', 'users.name')
             ->where( 'user_id', '<>', $user_id )->where( 'is_closed', '=', '0')->where('status', '=',1 )->where('user_type', '=', $type);
 
-//        $data = self::all()->where( 'user_id', '<>', $user_id )->where( 'is_closed', '=', '0')->where('status', '=',1 )->where('user_type', '=', $type);
-
-        if ( count($filter_param)>0 ) {
-            if ( isset($filter_param['coin_amount']) && $filter_param['coin_amount']>0 )
-                 $data->where('coin_amount', '>=', $filter_param['coin_amount']);
-            if ( isset($filter_param['coin_type']) ) $data->where('coin_type', '=', $filter_param['coin_type']);
-            if ( $filter_param['location'] != 'none' )
-                $data->where("location", "LIKE", "JP");
-            if (  isset($filter_param['payment_method']) && $filter_param['payment_method'] != 'none' )
-                $data->where("payment_method", "LIKE", "'%" . $filter_param['payment_method'] . "%'");
-        }
-
-//        $data->sortByDesc('created_at');
+        if ( $filter_param['coin_amount']>0 )
+            $data->where('coin_amount', '>=', $filter_param['coin_amount']);
+        if ( $filter_param['coin_type'] != 'none' ) 
+            $data->where('coin_type', '=', $filter_param['coin_type']);
+        if ( $filter_param['location'] != 'none' )
+            $data->where('location', '=', $filter_param['location']);
+        if ( $filter_param['payment_method'] != 'none' )
+            $data->where("payment_method", "=", $filter_param['payment_method']);
 
         $data->orderBy('created_at', 'asc');
         if ( $init )
-            $data->offset(0)->limit(5);
-//        $data->get();
+            $data->offset(0)->limit(1);
         return $data->get()->toArray();
     }
 }
