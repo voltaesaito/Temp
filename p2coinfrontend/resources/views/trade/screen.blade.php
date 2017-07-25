@@ -320,7 +320,7 @@
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <button class="btn btn-success btn-green">See More</button>
+            <button class="btn btn-success btn-green see-more" prop="1">See More</button>
         </div>
     </div>
     <div class="margin-height"></div>
@@ -346,7 +346,7 @@
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <button class="btn btn-success btn-green">See More</button>
+            <button class="btn btn-success btn-green see-more" prop="0">See More</button>
         </div>
     </div>
 </div>

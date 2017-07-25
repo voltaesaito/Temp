@@ -33,7 +33,7 @@
             src: url({{ asset('fonts/roboto/Roboto-Light.ttf') }});
         }
         @font-face {
-            font-family: Roboto black;
+            font-family: Roboto bla;
             src: url({{ asset('fonts/roboto/Roboto-Black.ttf') }});
         }
         body{

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database;
-class Listings extends Model
+
+class IndexModel extends Model
 {
-    //
     protected $table = 'listings';
 
     /**
@@ -21,12 +21,12 @@ class Listings extends Model
         @return Array
         @Author : Daiki Isoroku87
     */
-    public function getListingsData( $user_id, $type = 0, $init =1, $filter_param=array() ) {
+    public function getListingsData( $type = 0, $init =1, $filter_param=array() ) {
 
         $data = DB::table('listings')
             ->join('users', 'users.id', '=', 'listings.user_id')
             ->select('listings.*', 'users.name')
-            ->where( 'user_id', '<>', $user_id )->where( 'is_closed', '=', '0')->where('status', '=',1 )->where('user_type', '=', $type);
+            ->where( 'is_closed', '=', '0')->where('status', '=',1 )->where('user_type', '=', $type);
 
         if ( $filter_param['coin_amount']>0 )
             $data->where('coin_amount', '>=', $filter_param['coin_amount']);

@@ -93,7 +93,7 @@
                 <form action="index" method="POST" >
                     {{ csrf_field() }}
                     <input type="hidden" id="location_info" name="location_info" value=""/> 
-                    <p class="title">Connecting to Server...</p>
+                    <p class="title">Connecting to P2Coin...</p>
                     <div class="loader"></div>
                 </form>
             </div>
