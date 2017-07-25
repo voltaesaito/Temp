@@ -53,7 +53,7 @@ class TradeMessageController extends Controller
         $receiver_id = $request->receiver_id;
         $message_content = $request->message_content;
 
-        if ( $message_content != 'NULL' ) {
+        if ( $message_content != 'NULL' ) {  
             $newRow = new TradeMessageModel();
             $newRow->contract_id = $contract_id;
             $newRow->sender_id = $sender_id;
