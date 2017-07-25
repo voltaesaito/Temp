@@ -55,3 +55,4 @@ Route::get('/verify/email/{token}', 'VerifyController@email')->name('verify/emai
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::post('/getlistingdata','TradeController@getListingData')->name('getlistingdata');
+Route::post('/getalllistingdata','IndexController@getListingData')->name('getalllistingdata');

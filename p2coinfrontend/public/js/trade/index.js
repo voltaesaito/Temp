@@ -12,6 +12,7 @@ JObject.prototype = {
     },
     doOnClickSearchButtonClick : function (seemore_flag) {
         j_obj.loadListingData(0,seemore_flag);
+        $('#search_form').collapse('hide');
     },
     doOnSetSeeMoreFlag : function() {
         seemore_flag = $(this).attr('prop');
