@@ -18,15 +18,15 @@
                 <div class="panel-body">
                     <form class="form-horizontal" action="{{ route('createcontract') }}" method="post">
                         {{ csrf_field() }}
-                        <h3>Price : {{ $price_rate }}</h3>
+                        <h3>Price : ${{ $price_rate }}</h3>
                         <input type="text" value="{{ $listing_id }}" id="listing_id" name="listing_id" style="display:none;"/>
                         <input type="text" value="{{ $contract_id }}" id="contract_id" name="contract_id" style="display:none;"/>
                         <input type="text" value="{{ $receiver_id }}" id="receiver_id" name="receiver_id" style="display:none;"/>
                         <div class="panel-body text-center">
                             <div class="col-sm-5"> 
                                 <div class="input-group">
-                                    <input class="numberinput form-control" id="coin_amount" name="coin_amount"> 
-                                    <span class="input-group-addon">BTC</span>
+                                    <input class="numberinput form-control" id="coin_amount" name="coin_amount" placeholder="{{ $price_rate }}">
+                                    <span class="input-group-addon">{{ strtoupper($coin_type) }}</span>
                                 </div>
                             </div>
                             <div class="col-sm-2"> 

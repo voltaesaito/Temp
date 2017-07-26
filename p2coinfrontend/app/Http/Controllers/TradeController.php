@@ -281,13 +281,13 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
             $sell_list .= "<tr>";
             $sell_list .= "<td>" . $listing->name . "</td>";
             $sell_list .= "<td>" . $listing->coin_type . "-" . $listing->payment_method . "</td>";
-            $sell_list .= "<td>" . round($listing->coin_amount, 2) . " " . $listing->currency . "</td>";
+            $sell_list .= "<td>" . round($listing->coin_amount, 5) . " " . strtoupper($listing->coin_type) . "</td>";
             $sell_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $sell_list .= "<td>";
             if ( $flag_data->flag == 0 )
-                $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "' class='btn btn-success btn-green'>BUY</a>";
+                $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "&coin_type=" . $listing->coin_type . "' class='btn btn-success btn-green'>BUY</a>";
             else
-                $sell_list .= "<a href='#' class='btn btn-success btn-green'>View/Message</a>";
+                $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "&coin_type=" . $listing->coin_type . "' class='btn btn-success btn-green'>View/Message</a>";
             $sell_list .= "</td>";
             $sell_list .= "</tr>";
         }

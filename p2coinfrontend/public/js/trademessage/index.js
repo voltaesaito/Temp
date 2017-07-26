@@ -37,7 +37,7 @@ $(document).ready(function(){
         getMessageContentAndDraw( param );
     });
 
-    $('#release_transaction').click(function(){
+    $('#release_transaction').click(function(){alert(123);
         var _token = $('meta[name=csrf-token]').attr('content');
         $.post('gettransactionid', {contract_id:contract_id, _token:_token}, function(resp) {
             if ( resp != 'fail' ) {

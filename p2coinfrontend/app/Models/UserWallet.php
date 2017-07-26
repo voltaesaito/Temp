@@ -14,7 +14,9 @@ class UserWallet extends Model
         $row = self::all()->where('user_id', '=', $user_id)->where('wallet_type', '=', $wallet_type)->first();
         return $row->wallet_address;
     }
-    public function getWalletInfo() {
-
+    public function getWalletInfo( $user_id, $wallet_type ) {
+        if ( is_null($wallet_type) ) $wallet_type = 'btc';
+        $row = self::all()->where('user_id', '=', $user_id)->where('wallet_type', '=', $wallet_type)->first();
+        return $row;
     }
 }

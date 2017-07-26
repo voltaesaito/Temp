@@ -75,5 +75,5 @@
     </div>
 </div>
 <script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
-<!-- <script src="{{ asset('./js/trademessage/index.js') }}"></script> -->
+<script src="{{ asset('./js/trademessage/index.js') }}"></script>
 @endsection

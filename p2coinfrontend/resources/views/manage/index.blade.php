@@ -65,6 +65,11 @@ input:checked + .slider:before {
 <meta name="csrf-token" content="{{ Session::token() }}"> 
 <div class="container">
     <div class="row">
+<!--        --><?php //if (session()->get('btc_amount') == 0 && session()->get('eth_balance')==0)
+////            echo "<div class=\"alert alert-danger\">
+////                      <strong>Warning!</strong> Your wallets are blanked yet. If you deposit coins to your wallets, Please click <a href=\"{{ route('wallet') }}\" class=\"alert-link\">here</a>.
+////                  </div>";
+//        ?>
         <div class="col-md-12 text-center">
             <h3 class="h-title">Manage Listings</h3>
         <div>
@@ -75,7 +80,7 @@ input:checked + .slider:before {
                 <tr style="background: #00b8e6;">
                     <th colspan = '5'>
                         <div class="col-sm-6 text-left tbl-title">Bitcoin</div>
-                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-1' }}" class="btn btn-white">+Add Listing</a></div>
+                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-1' }}" class="btn btn-white {{ $btc_disabled }}">+Add Listing</a></div>
                     </th>
                 </tr>
                 <tr>
@@ -101,7 +106,7 @@ input:checked + .slider:before {
                 <tr style="background: #028840;">
                     <th colspan = '5'>
                         <div class="col-sm-6 text-left tbl-title">Ethereum</div>
-                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-1' }}" class="btn btn-white">+Add Listing</a></div>
+                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-1' }}" class="btn btn-white {{ $eth_disabled }}">+Add Listing</a></div>
                     </th>
                 </tr>
                 <tr>
