@@ -46,10 +46,10 @@ class ManageListingsController extends Controller
             $btc_list .= "<td class='text-center'>" . $listing->coin_amount . "</td>";
             $btc_list .= "<td class='text-center'><label class='switch'>";
             if($listing->status)
-                $btc_list .= "<input type='checbox' class='status' id='" . $listing->id . "' name='status' checked>";
+                $btc_list .= "<input type='checkbox' class='status' id='" . $listing->id . "' name='status' onclick=\"j_obj.updateStatus(".$listing->id.")\" checked>";
             else
-                $btc_list .= "<input type='checbox' class='status' id='" . $listing->id . "' name='status'>";
-            $btc_list .= "</label></td>";                       
+                $btc_list .= "<input type='checkbox' class='status' id='" . $listing->id . "' onclick=\"j_obj.updateStatus(".$listing->id.")\" name='status'>";
+            $btc_list .= "<span class='slider round'></span></label></td>";                       
             $btc_list .= "</tr>";
         }
 
@@ -63,10 +63,10 @@ class ManageListingsController extends Controller
             $eth_list .= "<td class='text-center'>" . $listing->coin_amount . "</td>";
             $eth_list .= "<td class='text-center'><label class='switch'>";
             if($listing->status)
-                $eth_list .= "<input type='checbox' class='status' id='" . $listing->id . "' name='status' checked>";
+                $eth_list .= "<input type='checkbox' class='status' id='" . $listing->id . "' name='status' onclick=\"j_obj.updateStatus(".$listing->id.")\" checked>";
             else
-                $eth_list .= "<input type='checbox' class='status' id='" . $listing->id . "' name='status'>";
-            $eth_list .= "</label></td>";                       
+                $eth_list .= "<input type='checkbox' class='status' id='" . $listing->id . "' onclick=\"j_obj.updateStatus(".$listing->id.")\" name='status'>";
+            $eth_list .= "<span class='slider round'></span></label></td>";                       
             $eth_list .= "</tr>";
         }
 
