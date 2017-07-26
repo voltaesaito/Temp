@@ -249,7 +249,7 @@
                                     <i class="fa fa-navicon fa-fw" style = "margin-top: 8px;"></i>
                                 </a>
 
-                                <ul class="dropdown-menu up-arrow">
+                                <ul class="dropdown-menu up-arrow" style="width: 200px;">
                                     <li class="user-panel-dd menu-border"><a href="wallet"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
                                     <li class="divider"></li>  
                                     <li class="menu-border"><a href="{{ route('profile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
@@ -274,7 +274,13 @@
                             <li class="dropdown user-panel-dd stick">
                                 <a href="#">|</a>
                             </li>                    
-                        <li><a class="menu-a" href="{{ route('messagebox') }}"><i class="fa fa-comment" aria-hidden="true" style = "line-height: 30px;"></i></a></li>
+                            <li class="s">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#user_dropdown">
+                                    <i class="fa fa-comment" aria-hidden="true" style = "line-height: 30px;"></i>
+                                </a>
+                                <ul class="dropdown-menu" style="width: 400px; margin-top: 10px;" id="msg_list">
+                                </ul>
+                            </li>
                         @endif
                     </ul>
                 </div>

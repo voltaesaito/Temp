@@ -42,4 +42,24 @@ class IndexModel extends Model
             $data->offset(0)->limit(5);
         return $data->get()->toArray();
     }
+
+    public function getLastMessageList( $user_id ) {
+        $msg_listings = DB::table('trade_message')
+            ->leftjoin('users', 'trade_message.sender_id', '=', 'users.id')
+            ->select('trade_message.*', 'users.name')
+            ->where( 'receiver_id', '=', $user_id )->where('is_read', '=', 0)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $data = array();
+        $contract_id = 0;
+        foreach($msg_listings as $listing){
+            if($contract_id != $listing->contract_id){
+                $data[] = $listing;
+                $contract_id = $listing->contract_id;
+            }
+        }
+        return $data;
+    }
+
 }
