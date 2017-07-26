@@ -62,6 +62,12 @@
                 background-color: rgba(37, 157, 109, 0.01);
                 border: 2px solid #028840;
         }
+        .btn-white{
+                color: #fff;
+                font-weight: bold;
+                background-color: rgba(37, 157, 109, 0.01);
+                border: 2px solid #fff;
+        }
 
         .menu-a {
             color: #777777 !important;

@@ -39,7 +39,18 @@ class Listings extends Model
 
         $data->orderBy('created_at', 'asc');
         if ( $init )
-            $data->offset(0)->limit(1);
+            $data->offset(0)->limit(5);
         return $data->get()->toArray();
+    }
+    
+    public function getListingsDataByUser( $user_id, $coin_type, $init = 1 ) {
+        $data = DB::table('listings')
+            ->select('listings.*')
+            ->where( 'user_id', '=', $user_id )->where('coin_type', '=', $coin_type);
+
+        $data->orderBy('created_at', 'desc');
+        if ( $init )
+            $data->offset(0)->limit(5);
+        return $data->get();
     }
 }

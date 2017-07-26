@@ -57,109 +57,72 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+.tbl-title { line-height: 200%; color: white; }
+.spacer { margin-top: 20px; }
 </style>
+<!-- <script> var json_listing=<?php //echo json_encode($listing); ?> </script> -->
+
 <meta name="csrf-token" content="{{ Session::token() }}"> 
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
             <h3 class="h-title">Manage Listings</h3>
         <div>
-        <div class="col-sm-offset-9 col-sm-3">
-            <a href="{{ route('editlistings') }}" class="btn btn-success btn-green" >+Add Listing</a>
-        </div>
-        <div class="col-md-12">
-            <h3 class="h-title text-center title-border-bottom">Bitcoin:</h3>
-        </div>
         <div class="col-md-12 title-content-body">
-            <div class="table-responsive">          
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th class="menu-caption text-center">#</th>
-                            <th class="menu-caption text-center">Edit</th>
-                            <th class="menu-caption text-center">Description</th>
-                            <th class="menu-caption text-center">Price</th>
-                            <th class="menu-caption text-center">Equation</th>
-                            <th class="menu-caption text-center">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($listings as $listing)
-                        @if($listing['coin_type'] == 'btc')
-                        <tr>
-                            <td>#</td>
-                            <td>Edit</td>
-                            <td>{{ $listing['payment_method'] }} - {{ $listing['payment_name'] }}</td>
-                            <td>{{ $listing['coin_amount'] }}</td>
-                            <td>{{ $listing['price_equation'] }}</td>
-                            <td>
-                                <label class="switch">
-                                @if($listing['status'])
-                                    <input type="checkbox" class="status" id="{{ $listing['id'] }}" name="status" checked>
-                                @else
-                                    <input type="checkbox" class="status" id="{{ $listing['id'] }}" name="status">
-                                @endif
-                                    <span class="slider round"></span>
-                                </label>
-                            </td>
-                        </tr>
-                        @endif
-                    @endforeach
-                    </tbody>
-                </table>
+            <div class="table-responsive">   
+            <table class="table table-bordered">
+            <thead>
+                <tr style="background: #00b8e6;">
+                    <th colspan = '5'>
+                        <div class="col-sm-6 text-left tbl-title">Bitcoin</div>
+                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-1' }}" class="btn btn-white">+Add Listing</a></div>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="text-center" width="10%">#</th>
+                    <th class="text-center" width="10%">Edit</th>
+                    <th class="text-center" width="50%;">Discription</th>
+                    <th class="text-center" width="15%">Price</th>
+                    <th class="text-center" width="15%">Status</th>
+                </tr>
+            </thead>
+            <tbody id="btc_list">
+            </tbody>
+            </table>       
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <button class="btn btn-success btn-green">See More</button>
+            <button class="btn btn-success btn-green see-more" prop="btc">See More</button>
         </div>
-        <div class="col-md-12">
-            <h3 class="h-title text-center title-border-bottom">Ethereum:</h3>
-        </div>
-        <div class="col-md-12 title-content-body">
+        <div class="col-md-12 title-content-body spacer">
             <div class="table-responsive">          
-                <table class="table  text-center">
-                    <thead>
-                        <tr class="text-center">
-                            <th class="menu-caption text-center">#</th>
-                            <th class="menu-caption text-center">Edit</th>
-                            <th class="menu-caption text-center">Description</th>
-                            <th class="menu-caption text-center">Price</th>
-                            <th class="menu-caption text-center">Equation</th>
-                            <th class="menu-caption text-center">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($listings as $listing)
-                        @if($listing['coin_type'] == 'eth')
-                        <tr>
-                            <td>#</td>
-                            <td>Edit</td>
-                            <td>{{ $listing['payment_method'] }} - {{ $listing['payment_name'] }}</td>
-                            <td>{{ $listing['min_transaction_limit'] }} - {{ $listing['max_transaction_limit'] }}</td>
-                            <td>{{ $listing['price_equation'] }}</td>
-                            <td>
-                                <label class="switch">
-                                @if($listing['status'])
-                                    <input type="checkbox" class="status" id="{{ $listing['id'] }}" name="status" checked>
-                                @else
-                                    <input type="checkbox" class="status" id="{{ $listing['id'] }}" name="status">
-                                @endif
-                                    <span class="slider round"></span>
-                                </label>
-                            </td>
-                        </tr>
-                        @endif
-                    @endforeach
-                    </tbody>
-                </table>
+            <table class="table table-bordered">
+            <thead>
+                <tr style="background: #028840;">
+                    <th colspan = '5'>
+                        <div class="col-sm-6 text-left tbl-title">Ethereum</div>
+                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-1' }}" class="btn btn-white">+Add Listing</a></div>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="text-center" width="10%">#</th>
+                    <th class="text-center" width="10%">Edit</th>
+                    <th class="text-center" width="50%;">Discription</th>
+                    <th class="text-center" width="15%">Price</th>
+                    <th class="text-center" width="15%">Status</th>
+                </tr>
+            </thead>
+            <tbody id="eth_list">
+            </tbody>
+            </table>
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <button class="btn btn-success btn-green">See More</button>
+            <button class="btn btn-success btn-green see-more" prop="eth">See More</button>
         </div>
     </div>
 </div>
 @endsection
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="{{URL::asset('./js/manage/listing.js')}}" ></script>
+<script src="{{URL::asset('./js/manage/index.js')}}" ></script>
