@@ -65,6 +65,11 @@ input:checked + .slider:before {
 <meta name="csrf-token" content="{{ Session::token() }}"> 
 <div class="container">
     <div class="row">
+<!--        --><?php //if (session()->get('btc_amount') == 0 && session()->get('eth_balance')==0)
+////            echo "<div class=\"alert alert-danger\">
+////                      <strong>Warning!</strong> Your wallets are blanked yet. If you deposit coins to your wallets, Please click <a href=\"{{ route('wallet') }}\" class=\"alert-link\">here</a>.
+////                  </div>";
+//        ?>
         <div class="col-md-12 text-center">
             <h3 class="h-title">Manage Listings</h3>
         <div>

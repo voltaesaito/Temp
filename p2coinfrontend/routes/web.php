@@ -53,7 +53,7 @@ Route::post('/addmessage', 'TradeMessageController@addmessage')->name('addmessag
 
 Route::get('/wallet', 'WalletController@index')->name('wallet');
 Route::post('/deposit', 'WalletController@deposit')->name('deposit');
-Route::post('/withdraw', 'WalletController@whithdraw')->name('withdraw');
+Route::post('/coinwithdraw', 'WalletController@withdraw')->name('coinwithdraw');
 
 
 Route::get('/settings', 'SettingsController@index')->name('settings');
