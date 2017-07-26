@@ -35,8 +35,15 @@ class WalletController extends Controller
         $src_address = $request->src_address;
         $deposit_amount = $request->deposit_amount;
         $private_key = $request->private_key;
+        $coin_type = strtolower($request->coin_type);
 
         $user = \Auth::user();
+        $model = new UserWallet();
+        $destAddress = $model->getUserWallet($user->id, $coin_type);
+        $wModel = new BlockchainWalletMng();
+        $wModel->setWalletType( $coin_type );
+        $Skelton = $wModel->createTransaction($from_address, $to_address, $deposit_amount);
+        $ret = $wModel->sendTransaction($Skelton, $from_address['private']);
 
     }
     public function withdraw(Request $request) {

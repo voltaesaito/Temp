@@ -15,6 +15,7 @@ CStandard.prototype = {
     doOnClickWalletAction : function () {
         $('#deposit').collapse('hide');
         $('#withdraw').collapse('hide');
+        cObj.coin_type = $(this).attr('prop');
         $('#'+$(this).attr('prop')).collapse('show');
         console.log($(this).attr('prop')+$(this).attr('cointype'));
     },
@@ -23,7 +24,8 @@ CStandard.prototype = {
         var deposit_amount = $('#deposit_amount');
         var private_key = $('#private_key');
         var _token = $('meta[name=csrf-token]').attr('content');
-        $.post('deposit', { src_address: src_address, deposit_amount: deposit_amount, private_key: private_key, _token: _token }, function(resp) {
+        $.post('deposit', { src_address: src_address, deposit_amount: deposit_amount,
+            private_key: private_key, coin_type: cObj.coin_type,  _token: _token }, function(resp) {
 
         });
     }
