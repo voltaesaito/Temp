@@ -101,43 +101,37 @@ class BlockchainWalletMng
         }
         return $output;
     }
-    public function makeTransaction($from_address, $to_address, $amount) {
+    public function createTransaction($from_address, $to_address, $amount) {
         $txClient = new TXClient($this->apiContext);
         $privateKeys = array( $from_address['private'] );
-
         $param_arr = array('inputs'=>array(array('addresses'=>array($from_address['address']))),
-                          'outputs'=>array(array('addresses'=>array($to_address['address']), 'value'=>15000)));
+            'outputs'=>array(array('addresses'=>array($to_address['address']), 'value'=>(intval($amount*1000000000000000000)))));
         $ch = curl_init("https://api.blockcypher.com/v1/eth/main/txs/new?token={$this->token}");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($param_arr));
-        $response = curl_exec($ch);
+        $tx_object = curl_exec($ch);
+        curl_close($ch);
+        $Skelton = json_decode($tx_object);
+        return $Skelton;
+    }
+    public function getFeeOfTransaction( $Skelton ) {
+        return floatval($Skelton->tx->fees/1000000000000000000);
+    }
+    public function sendTransaction( $Skelton,$privatehex) {
+        $datahex =$Skelton->tosign[0];
+        $ch = curl_init("http://138.68.73.6?datahex={$datahex}&privatehex={$privatehex}");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $signer = trim(curl_exec($ch));
+        curl_close($ch);
+        $txObj = $Skelton;
+        $txObj->signatures = array($signer);
+        $ch = curl_init("https://api.blockcypher.com/v1/eth/main/txs/send?token={$this->token}");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($txObj));
+        $result = curl_exec($ch);
         curl_close($ch);
 
-        $Skelton = json_decode($response);
-        $tosign =$Skelton->tosign[0];
-
-//
-
-        //signer action
-        $ch =exec("https://github.com/blockcypher/btcutils/tree/master/signer/signer.go {$tosign} {$from_address['private']}", $outline);
-        dd($outline);
-
-        $client = new GuzzleHttp\Client();
-        $res = $client->get('https://api.github.com/user', [
-            'auth' =>  ['user', 'pass']
-        ]);
-        echo $res->getStatusCode();           // 200
-        echo $res->getHeader('content-type'); // 'application/json; charset=utf8'
-        echo $res->getBody();
-
-        $txSkeleton = $txClient->sign($this->Transaction($from_address, $to_address, $amount), $privateKeys, $this->apiContext);
-
-        try {
-            $txSkeleton = $txClient->send($txSkeleton);
-        } catch (Exception $ex) {
-            ResultPrinter::printError("Send Transaction", "TXSkeleton", null, $ex);
-            exit(1);
-        }
+        return $result;
     }
     private function generateWalletName() {
         $length = env('WALLET_NAME_LENGTH');

@@ -1,11 +1,16 @@
 $(document).ready(function(){
+
+    var Web3 = require('web3');
+    var web3 = new Web3(Web3.givenProvider);
+    console.log(web3);
+
     // $.get( "https://chain.so/api/v2/get_info/ETH", function( response ) {
     //     console.log(response);
     // }, "json" );
 
-    $.get("https://api.blockcypher.com/v1/eth/main/txs/new?token=6a61174e02ed42ffa08c99c6f602a965", function(resp){
-        console.log(resp);
-    });
+    // $.get("https://api.blockcypher.com/v1/eth/main/txs/new?token=6a61174e02ed42ffa08c99c6f602a965", function(resp){
+    //     console.log(resp);
+    // });
 
     // $.post('https://api.blockcypher.com/v1/eth/main/addrs?token=6a61174e02ed42ffa08c99c6f602a965', function(resp){
     //     console.log(resp);
