@@ -75,7 +75,7 @@ input:checked + .slider:before {
                 <tr style="background: #00b8e6;">
                     <th colspan = '5'>
                         <div class="col-sm-6 text-left tbl-title">Bitcoin</div>
-                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-1' }}" class="btn btn-white">+Add Listing</a></div>
+                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-1' }}" class="btn btn-white {{ $btc_disabled }}">+Add Listing</a></div>
                     </th>
                 </tr>
                 <tr>
@@ -101,7 +101,7 @@ input:checked + .slider:before {
                 <tr style="background: #028840;">
                     <th colspan = '5'>
                         <div class="col-sm-6 text-left tbl-title">Ethereum</div>
-                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-1' }}" class="btn btn-white">+Add Listing</a></div>
+                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-1' }}" class="btn btn-white {{ $eth_disabled }}">+Add Listing</a></div>
                     </th>
                 </tr>
                 <tr>

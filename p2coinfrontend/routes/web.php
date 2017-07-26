@@ -56,7 +56,7 @@ Route::post('/deposit', 'WalletController@deposit')->name('deposit');
 Route::post('/withdraw', 'WalletController@whithdraw')->name('withdraw');
 
 
-Route::get('/settings', 'SettingsController@index')->name('wallet');
+Route::get('/settings', 'SettingsController@index')->name('settings');
 Route::get('/userprofile', 'UserProfileController@index')->name('userprofile');
 Route::get('/verify/email/{token}', 'VerifyController@email')->name('verify/email/{token}');
 

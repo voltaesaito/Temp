@@ -9,6 +9,7 @@
     }
 </style>
     <div class="container">
+        {{ csrf_field() }}
         <h3>Wallet</h3>
         <div class="container">
             <div class="row">
@@ -32,54 +33,55 @@
                             <tr>
                                 <td>{{ $wallet['coin']  }}</td>
                                 <td>{{ $wallet['abbrev']  }}</td>
+                                <td>{{ $wallet['amount']  }}</td>
                                 <td>{{ $wallet['address']  }}</td>
-                                <td>{{ $wallet['address']  }}</td>
-                                <td><a href="#" class="a-wallet" data-toggle="collapse" data-target="#deposit" prop = "deposit" cointype="{{ $wallet['abbrev'] }}">Deposit BTC</a></td>
-                                <td><a href="#" class="a-wallet" data-toggle="collapse" data-target="#withdraw" prop = 'withdraw' cointype="{{ $wallet['abbrev'] }}">Withdraw BTC</a></td>
+                                <td><a href="#" class="a-wallet" prop = "deposit" cointype="{{ $wallet['abbrev'] }}">Deposit BTC</a></td>
+                                <td><a href="#" class="a-wallet" prop = 'withdraw' cointype="{{ $wallet['abbrev'] }}">Withdraw BTC</a></td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="col-md-12">
-                    <div id="deposit" class="collapse panel panel-default">
+                    <div id="div_deposit" class="panel panel-default">
                         <div class="panel-body">Deposit <span id="crypto_curency"></span></div>
                         <form class="form">
-                            {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="address">Address:</label>
-                                <input type="text" class="form-control" id="src_address">
+                                <label for="src_address">Address:</label>
+                                <input type="text" class="form-control" id="src_address" required>
                             </div>
                             <div class="form-group">
                                 <label for="private_key">Private:</label>
-                                <input type="text" class="form-control" id="private_key">
+                                <input type="text" class="form-control" id="private_key" required>
                             </div>
                             <div class="form-group">
-                                <label for="coin_amount">Amount:</label>
-                                <input type="number" class="form-control" id="wallet_amount">
-                                <label for="coin_amount">Deposit Amount:</label>
-                                <input type="number" class="form-control" id="deposit_amount">
+                                <label for="wallet_amount">Amount:</label>
+                                <input type="text" class="form-control" id="wallet_amount" readonly>
                             </div>
-                            <button type="button" class="btn btn-default" id="deposit">Deposit</button>
+                            <div class="form-group">
+                                <label for="deposit_amount">Deposit Amount:</label>
+                                <input type="text" class="form-control" id="deposit_amount" required>
+                            </div>
+                            <button type="button" class="btn btn-default" id="btn_deposit">Deposit</button>
                         </form>
                     </div>
-                    <div id="withdraw" class="collapse panel panel-default">
-                        <div class="panel-body">Withdraw <span id="crypto_curency"></span></div>
-                        <form class="form">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <label for="address">Address:</label>
-                                <input type="text" class="form-control" id="address">
-                            </div>
-                            <div class="form-group">
-                                <label for="coin_amount">Amount:</label>
-                                <input type="number" class="form-control" id="coin_amount">
-                                <label for="coin_amount">Deposit Amount:</label>
-                                <input type="number" class="form-control" id="withdraw_amount">
-                            </div>
-                            <button type="button" class="btn btn-default">Deposit</button>
-                        </form>
-                    </div>
+                    {{--<div id="withdraw" class="collapse panel panel-default">--}}
+                        {{--<div class="panel-body">Withdraw <span id="crypto_curency"></span></div>--}}
+                        {{--<form class="form">--}}
+                            {{--{{ csrf_field() }}--}}
+                            {{--<div class="form-group">--}}
+                                {{--<label for="address">Address:</label>--}}
+                                {{--<input type="text" class="form-control" id="address">--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<label for="coin_amount">Amount:</label>--}}
+                                {{--<input type="number" class="form-control" id="coin_amount">--}}
+                                {{--<label for="coin_amount">Deposit Amount:</label>--}}
+                                {{--<input type="number" class="form-control" id="withdraw_amount">--}}
+                            {{--</div>--}}
+                            {{--<button type="button" class="btn btn-default">Deposit</button>--}}
+                        {{--</form>--}}
+                    {{--</div>--}}
                 </div>
             </div>
 

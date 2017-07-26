@@ -9,6 +9,7 @@ use App\Models\WalletManage;
 use App\Models\UserWallet;
 use App\Models\TransactionHistory;
 use App\Models\ContractModel;
+use App\Models\BlockchainWalletMng;
 
 class ManageListingsController extends Controller
 {
@@ -22,9 +23,30 @@ class ManageListingsController extends Controller
 
         
         $user = \Auth::user();
-        $listings = Listings::all()->where('user_id', '=', $user->id)->sortByDesc('created_at');  
+        $listings = Listings::all()->where('user_id', '=', $user->id)->sortByDesc('created_at');
 
-        return view('manage.index');
+        $user = \Auth::user();
+        $userWalletRow = UserWallet::all()->where('user_id', '=', $user->id)->first();
+        $model = new WalletManage();
+        $wallet_info = $model->getWalletBalanceByAddress($userWalletRow->wallet_address);
+        $btc_balance= floatval($wallet_info->data->available_balance);
+
+        $model = new UserWallet();
+        $ethAddress = $model->getUserWallet($user->id, 'eth');
+        $blockchain = new BlockchainWalletMng();
+        $blockchain->setWalletType('eth');
+        $balanceInfo = $blockchain->getAddressBalance($ethAddress);
+        $eth_balance = $balanceInfo['balance'];
+
+        $btc_disabled = "";
+        if ( $btc_balance == 0 ) $btc_disabled = " disabled";
+        $eth_disabled = "";
+        if ( $eth_balance == 0 ) $eth_disabled = " disabled";
+
+        session()->put('btc_amount', $btc_balance);
+        session()->put('eth_amount', $eth_balance);
+
+        return view('manage.index')->with("btc_disabled", $btc_disabled)->with("eth_disabled", $eth_disabled);
     }
 
     //Managelistings Pages

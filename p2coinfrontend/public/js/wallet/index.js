@@ -2,7 +2,7 @@
  * Created by administrator on 7/26/17.
  */
 function CStandard() {
-    this.coin_type = '';
+    this.coin_type = 'eth';
 }
 CStandard.prototype = {
     init : function() {
@@ -10,22 +10,18 @@ CStandard.prototype = {
     },
     initEvent : function () {
         $('a.a-wallet').click(cObj.doOnClickWalletAction);
-        $('#deposit').click(cObj.doOnWalletDeposit);
+        $('#btn_deposit').click(cObj.doOnWalletDeposit);
     },
     doOnClickWalletAction : function () {
-        $('#deposit').collapse('hide');
-        $('#withdraw').collapse('hide');
         cObj.coin_type = $(this).attr('prop');
-        $('#'+$(this).attr('prop')).collapse('show');
-        console.log($(this).attr('prop')+$(this).attr('cointype'));
     },
     doOnWalletDeposit : function() {
-        var src_address = $('#src_address');
-        var deposit_amount = $('#deposit_amount');
-        var private_key = $('#private_key');
+        var src_address = $('#src_address').val();
+        var deposit_amount = $('#deposit_amount').val();
+        var private_key = $('#private_key').val();
         var _token = $('meta[name=csrf-token]').attr('content');
-        $.post('deposit', { src_address: src_address, deposit_amount: deposit_amount,
-            private_key: private_key, coin_type: cObj.coin_type,  _token: _token }, function(resp) {
+        var post_param = { src_address: src_address, deposit_amount: deposit_amount, private_key: private_key, coin_type: cObj.coin_type,  _token: _token };
+        $.post('deposit', post_param, function(resp) {
 
         });
     }

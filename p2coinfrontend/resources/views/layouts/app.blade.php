@@ -234,7 +234,7 @@
                             </li> 
                         </li>
                         <li style="margin-right: 20px;">
-                            <i class="fa fa-btc fa-fw" style="color: #028841; padding-top:7px;"></i>&nbsp;{{ session()->get('btc_amount') }}
+                            <i class="fa fa-btc fa-fw" style="color: #028841; padding-top:7px;"></i>&nbsp;{{ session()->get('btc_amount') }}/<i class="fa fa-sort fa-fw" style="color: #028841; padding-top:7px;"></i>&nbsp;{{ session()->get('eth_amount') }}
                         </li>
                         @endif
                         @if (Auth::guest())
@@ -250,7 +250,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu up-arrow">
-                                    <li class="user-panel-dd menu-border"><a href="wallet"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
+                                    <li class="user-panel-dd menu-border"><a href="{{ route('wallet') }}"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
                                     <li class="divider"></li>  
                                     <li class="menu-border"><a href="{{ route('profile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
 

@@ -38,7 +38,14 @@ class DashboardController extends Controller
         $model = new WalletManage();
         $wallet_info = $model->getWalletBalanceByAddress($userWalletRow->wallet_address);
         $coin_balance= floatval($wallet_info->data->available_balance);
+
+        $model = new UserWallet();
+        $ethAddress = $model->getUserWallet($user->id, 'eth');
+        $blockchain = new BlockchainWalletMng();
+        $blockchain->setWalletType('eth');
+        $balanceInfo = $blockchain->getAddressBalance($ethAddress);
         session()->put('btc_amount', $coin_balance);
+        session()->put('eth_amount', $balanceInfo['balance']);
 
         return redirect()->action('TradeController@index');
         // return view('index.dashboard');

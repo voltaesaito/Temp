@@ -76,7 +76,7 @@ class BlockchainWalletMng
         $ret_arr = array('address'=>$addressBalance->getAddress(),
                          'total_received'=>$addressBalance->getTotalReceived(),
                          'total_sent'=>$addressBalance->getTotalSent(),
-                         'balance'=>$addressBalance->getBalance(),
+                         'balance'=>floatval($addressBalance->getBalance()/1000000000000000000),
                          'unconfirmed_balance'=>$addressBalance->getUnconfirmedBalance(),
                          'final_balance'=>$addressBalance->getFinalBalance(),
                          'n_tx'=>$addressBalance->getNTx(),
