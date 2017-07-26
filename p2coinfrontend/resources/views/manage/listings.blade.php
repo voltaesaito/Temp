@@ -2,6 +2,7 @@
 
 @section('content')
 <script> var coin_balance={{ $coin_balance }} </script>
+<script> var json_listing=<?php echo json_encode($listing); ?> </script>
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -10,6 +11,7 @@
         <div class="col-md-12">
             <form class="form-horizontal" action="{{ route('storelistings') }}" method="post">
                 {{ csrf_field() }}
+                <input type="hidden" id="id" name="listing_id" value="-1" />
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="location">I want to </label>
                     <div class="col-sm-3">
@@ -38,15 +40,6 @@
                         </label>
                     </div>
                 </div>
-                <!-- <div class="form-group" id="walletaddress">
-                    <label class="control-label col-sm-3" for="max_transaction_limit">Wallet Address</label>
-                    <div class="col-sm-5"> 
-                        <input class="textinput form-control" id="wallet_address" name="wallet_address" type="text" Required> 
-                    </div>
-                    <div class="col-sm-4">
-                        <label class="label-caption-title">Wallet Address.</label>
-                    </div>
-                </div> -->
                 <div class="form-group" id="coinamount">
                     <label class="control-label col-sm-3" for="coinamount">Coin Amount</label>
                     <div class="col-sm-3"> 

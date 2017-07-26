@@ -22,18 +22,86 @@ class ManageListingsController extends Controller
         $user = \Auth::user();
         $listings = Listings::all()->where('user_id', '=', $user->id)->sortByDesc('created_at');  
 
-        return view('manage.index')->with('listings', $listings);
+        return view('manage.index');
     }
-    public function editlistings() {
+
+    //Managelistings Pages
+    public function getListingDataByUser(Request $request){
         $user = \Auth::user();
-        $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first();
-// dd($userWalletInfo);        
+        $flag = $request->flag;
+        $lModel = new Listings();
+
+        $btc_listings = $lModel->getListingsDataByUser($user->id, 'btc', $flag);
+//        dd($btc_listings);
+        
+        $btc_list = "";
+        foreach($btc_listings as $listing){
+//            dd($listing['id']);
+            $btc_list .= "<tr>";
+            $btc_list .= "<td class='text-center'>" . $listing->id . "</td>";
+            $btc_list .= "<td class='text-center'><a class='btn btn-success btn-green' href='addlistings/" . $listing->id . "'>Edit</a></td>";
+            $btc_list .= "<td class='text-center'><a href='viewlisting/" . $listing->id . "'>" . $listing->payment_method . "-" . $listing->payment_name . "</a></td>";
+            $btc_list .= "<td class='text-center'>" . $listing->coin_amount . "</td>";
+            $btc_list .= "<td class='text-center'><label class='switch'>";
+            if($listing->status)
+                $btc_list .= "<input type='checbox' class='status' id='" . $listing->id . "' name='status' checked>";
+            else
+                $btc_list .= "<input type='checbox' class='status' id='" . $listing->id . "' name='status'>";
+            $btc_list .= "</label></td>";                       
+            $btc_list .= "</tr>";
+        }
+
+        $eth_listings = $lModel->getListingsDataByUser($user->id, 'eth', $flag);
+        $eth_list = "";
+        foreach($eth_listings as $listing){
+            $eth_list .= "<tr>";
+            $eth_list .= "<td class='text-center'>" . $listing->id . "</td>";
+            $eth_list .= "<td class='text-center'><a class='btn btn-success btn-green' href='addlistings/" . $listing->id . "'>Edit</a></td>";
+            $eth_list .= "<td class='text-center'><a href='viewlisting/" . $listing->id . "'>" . $listing->payment_method . "-" . $listing->payment_name . "</a></td>";
+            $eth_list .= "<td class='text-center'>" . $listing->coin_amount . "</td>";
+            $eth_list .= "<td class='text-center'><label class='switch'>";
+            if($listing->status)
+                $eth_list .= "<input type='checbox' class='status' id='" . $listing->id . "' name='status' checked>";
+            else
+                $eth_list .= "<input type='checbox' class='status' id='" . $listing->id . "' name='status'>";
+            $eth_list .= "</label></td>";                       
+            $eth_list .= "</tr>";
+        }
+
+        echo $btc_list . "@@@" . $eth_list;
+        exit;
+   }
+
+    //07-26 updated
+    public function addlistings($listing_id) {
+        $user = \Auth::user();
+        $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first();       
         $model = new WalletManage();
         $wallet_info = $model->getWalletBalanceByAddress($userWalletInfo->wallet_address);
         $coin_balance= floatval($wallet_info->data->available_balance);
 
-        return view('manage.listings')->with('coin_balance', $coin_balance);
+        if ($listing_id < 0 ) {
+            return view('manage.listings')->with('coin_balance', $coin_balance)->with('listing', 'NULL');
+        }
+        if ( $listing_id > 0 ) {
+            $listing = Listings::all()->where('id', '=', $listing_id )->first()->toArray();
+
+            return view('manage.listings')->with('coin_balance', $coin_balance)->with('listing', $listing);
+        }
     }
+
+    //07-26 created
+    public function viewlisting($listing_id) {
+        $listings = Listings::all()->where('id', '=', $listing_id );  
+        foreach($listings as $arr){
+            $listing = $arr;
+            break;
+        }
+
+        return view('manage.viewlisting')->with('listing', $listing);
+    }
+
+    //
     public function changestatus(Request $request) {
         $listing_id = $request->listing_id;
         $status = $request->status;
@@ -44,12 +112,10 @@ class ManageListingsController extends Controller
         exit;
     }
     public function storelistings(Request $request) {
+        $listing_id = $request->listing_id;
         $user_type = $request->user_type;
         $coin_type = $request->coin_type;
-        if($user_type == 0){
-//            $wallet_address = $request->wallet_address;
-            $coin_amount = $request->coin_amount;
-        }
+        $coin_amount = $request->coin_amount;
         $location = $request->location;
         $payment_method = $request->payment_method;
         $payment_name = $request->payment_name;
@@ -61,14 +127,15 @@ class ManageListingsController extends Controller
         $payment_details = $request->payment_details;
         $user = \Auth::user();
         
-        $listing = new Listings();
+        if($listing_id > 0)
+            $listing = Listings::find($listing_id);
+        else
+            $listing = new Listings();
+
         $listing->user_id=$user->id;
         $listing->user_type=$user_type;
         $listing->coin_type=$coin_type;
-        if($user_type == 0){
-//            $listing->wallet_address=$wallet_address;
-            $listing->coin_amount=$coin_amount;
-        }
+        $listing->coin_amount=$coin_amount;
         $listing->location = $location;
         $listing->payment_method = $payment_method;
         $listing->payment_name = $payment_name;

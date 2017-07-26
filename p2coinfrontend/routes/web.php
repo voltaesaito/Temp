@@ -35,7 +35,9 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/buy', 'BuyerController@index')->name('buyer');
 Route::get('/managelistings', 'ManageListingsController@index')->name('managelistings');
 Route::get('/messagebox', 'TradeMessageController@messagebox')->name('messagebox');
-Route::get('/editlistings', 'ManageListingsController@editlistings')->name('editlistings');
+Route::get('/addlistings/{listing_id}', 'ManageListingsController@addlistings')->name('addlistings/{listing_id}');
+//Route::get('/editlistings/{listing_id}', 'ManageListingsController@editlistings')->name('editlistings/{listing_id}');
+Route::get('/viewlisting/{listing_id}', 'ManageListingsController@viewlisting')->name('viewlisting/{listing_id}');
 Route::get('/getuserbalance', 'ManageListingsController@userbalance')->name('getuserbalance');
 Route::post('/storelistings', 'ManageListingsController@storelistings')->name('storelistings');
 Route::post('/changestatus', 'ManageListingsController@changestatus')->name('changestatus');
@@ -55,4 +57,5 @@ Route::get('/verify/email/{token}', 'VerifyController@email')->name('verify/emai
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::post('/getlistingdata','TradeController@getListingData')->name('getlistingdata');
-Route::post('/getalllistingdata','IndexController@getListingData')->name('getalllistingdata');
+Route::post('/getlistingdatabyuser','ManageListingsController@getListingDataByUser')->name('getlistingdatabyuser');
+//Route::post('/getalllistingdata','IndexController@getListingData')->name('getalllistingdata');
