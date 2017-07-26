@@ -8,10 +8,21 @@ JObject.prototype = {
     },
     initEventListen : function () {
         $('button.see-more').click(j_obj.doOnSetSeeMoreFlag);
+        $('input.status').click(j_obj.updateStatus)
     },
     doOnSetSeeMoreFlag : function() {
         seemore_flag = $(this).attr('prop');
         j_obj.loadListingData(0);
+    },
+    updateStatus : function(listing_id) {
+        var status = 0;
+        ($('#'+listing_id).is(':checked')) ? status = 1 : status = 0;
+        _token = $('meta[name=csrf-token]').attr('content');
+        $.post('changestatus', { _token:_token, listing_id: listing_id, status: status }, function(resp){
+            if (resp === 'ok') {
+                
+            }
+        } );
     },
     loadListingData : function (flag) {
         var _token = $('meta[name=csrf-token]').attr('content');
@@ -34,4 +45,19 @@ JObject.prototype = {
 $(document).ready(function() {
     j_obj = new JObject();
     j_obj.init();
+
+
+    // $("input.status").click(function (){
+    //     var status = 0;
+    //     ($(this).is(':checked')) ? status = 1 : status = 0;
+    //     var listing_id = $(this)[0].id; 
+    //     alert(listing_id);
+    //     _token = $('meta[name=csrf-token]').attr('content');
+    //     $.post('changestatus', { _token:_token, listing_id: listing_id, status: status }, function(resp){
+    //         if (resp === 'ok') {
+                
+    //         }
+    //     } );
+    // });
+
 });

@@ -39,7 +39,7 @@ class IndexModel extends Model
 
         $data->orderBy('created_at', 'asc');
         if ( $init )
-            $data->offset(0)->limit(1);
+            $data->offset(0)->limit(5);
         return $data->get()->toArray();
     }
 }
