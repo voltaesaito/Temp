@@ -1,6 +1,13 @@
 @extends('layouts.app')
 @section('content')
-
+<style>
+    th{
+        text-align: center;
+    }
+    form {
+        padding:20px;
+    }
+</style>
     <div class="container">
         <h3>Wallet</h3>
         <div class="container">
@@ -12,7 +19,6 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>#</th>
                             <th>Coin</th>
                             <th>Abbrev</th>
                             <th>Amount</th>
@@ -22,103 +28,63 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Anna</td>
-                            <td>Pitt</td>
-                            <td>35</td>
-                            <td>New York</td>
-                            <td>USA</td>
-                            <td>USA</td>
-                        </tr>
+                        @foreach( $wallet_info as $wallet )
+                            <tr>
+                                <td>{{ $wallet['coin']  }}</td>
+                                <td>{{ $wallet['abbrev']  }}</td>
+                                <td>{{ $wallet['address']  }}</td>
+                                <td>{{ $wallet['address']  }}</td>
+                                <td><a href="#" class="a-wallet" data-toggle="collapse" data-target="#deposit" prop = "deposit" cointype="{{ $wallet['abbrev'] }}">Deposit BTC</a></td>
+                                <td><a href="#" class="a-wallet" data-toggle="collapse" data-target="#withdraw" prop = 'withdraw' cointype="{{ $wallet['abbrev'] }}">Withdraw BTC</a></td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="list-group">
-                <a href="#div_change_password" class="list-group-item menu-caption">Change Password</a>
-                <a href="#div_change_phone" class="list-group-item menu-caption">Change Phone Number</a>
-                <a href="#div_change_2fa" class="list-group-item menu-caption">Add/Change 2FAuthentication</a>
-                <a href="#div_verification" class="list-group-item menu-caption">Verification</a>
-            </div>
-        </div>
-        <div class="row">
-            @if ( Auth::user()->phone_verify == 0 )
-            <div class="col-md-12">
-                <div class="alert alert-info">
-                    <span>
-                        <i class="fa fa-exclamation"></i>&nbsp;
-                        
-                            You have not added a verified phone number to your account yet.
-                            <a class="btn btn-default profile-verified-info" href="">Verify phone number</a>
-                        
-                    </span>
+                <div class="col-md-12">
+                    <div id="deposit" class="collapse panel panel-default">
+                        <div class="panel-body">Deposit <span id="crypto_curency"></span></div>
+                        <form class="form">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label for="address">Address:</label>
+                                <input type="text" class="form-control" id="src_address">
+                            </div>
+                            <div class="form-group">
+                                <label for="private_key">Private:</label>
+                                <input type="text" class="form-control" id="private_key">
+                            </div>
+                            <div class="form-group">
+                                <label for="coin_amount">Amount:</label>
+                                <input type="number" class="form-control" id="wallet_amount">
+                                <label for="coin_amount">Deposit Amount:</label>
+                                <input type="number" class="form-control" id="deposit_amount">
+                            </div>
+                            <button type="button" class="btn btn-default" id="deposit">Deposit</button>
+                        </form>
+                    </div>
+                    <div id="withdraw" class="collapse panel panel-default">
+                        <div class="panel-body">Withdraw <span id="crypto_curency"></span></div>
+                        <form class="form">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label for="address">Address:</label>
+                                <input type="text" class="form-control" id="address">
+                            </div>
+                            <div class="form-group">
+                                <label for="coin_amount">Amount:</label>
+                                <input type="number" class="form-control" id="coin_amount">
+                                <label for="coin_amount">Deposit Amount:</label>
+                                <input type="number" class="form-control" id="withdraw_amount">
+                            </div>
+                            <button type="button" class="btn btn-default">Deposit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-            @endif
-            @if ( Auth::user()->id_verify == 0 )
-            <div class="col-md-12">
-                <div class="alert alert-success">
-                    <span>
-                        <i class="fa fa-exclamation"></i>&nbsp;
-                        
-                            You have not added a verified ID to your account yet.
-                            <a class="btn btn-default profile-verified-info" href="">Verify ID</a>
-                        
-                    </span>
-                </div>
-            </div>
-            @endif
-            <div class="col-md-12">
-                <a name="password"></a>
-                <span id="toc1"></span><h3 id="div_change_password">Change password</h3>
-                <p>
-                    <a href="{{ route('changepassword') }}"><i class="fa fa-arrow-right"></i> Change password</a>
-                </p>
-                <span id="toc2"></span>
-                <h3 id="div_change_phone">Change Phone Number</h3>
-                <p>
-                    <a href="{{ route('changephone') }}"><i class="fa fa-arrow-right"></i> Change Phone Number</a>
-                </p>
-                <span id="toc3"></span>
-                <h3 id="div_change_phone">Add/Change 2FAuthentication</h3>
-                <p>
-                    <a href="{{ route('change2fa') }}"><i class="fa fa-arrow-right"></i> Add/Change 2FAuthentication</a>
-                </p>
-                <span id="toc4"></span>
-                <h3 id="div_verification">Verification</h3>
-                <p>
-                    E-mail verified:
-                    <strong class="security-level-strong">yes</strong>
-                </p>
-                <p>
-                    Phone number verified:
-                    @if ( Auth::user()->phone_verify == 0 )
-                        <strong class="security-level-weak">no</strong>
-                    @else
-                        <strong class="security-level-strong">yes</strong>
-                    @endif
-                </p>
-                <p>
-                    @if( Auth::user()->phone_verify == 0 )
-                    <a href="{{ route('verifyphone') }}"><i class="fa fa-arrow-right"></i> Verify phone number</a>
-                    @endif
-                </p>
-                <p>
-                    Identity verified:
-                    @if( Auth::user()->id_verify == 0 )
-                        <strong class="security-level-weak">no</strong>
-                    @else
-                        <strong class="security-level-strong">yes</strong>
-                    @endif
-                </p>
-                <p>
-                    @if( Auth::user()->id_verify == 0 )
-                    <a href="{{ route('verifyid') }}"><i class="fa fa-arrow-right"></i> Verify identity</a>
-                    @endif
-                </p>
-            </div>
+
         </div>
     </div>
+<script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
+<script src="{{URL::asset('./js/wallet/index.js')}}" ></script>
 @endsection
-<script src="{{URL::asset('./js/user/userprofile.js')}}" ></script>

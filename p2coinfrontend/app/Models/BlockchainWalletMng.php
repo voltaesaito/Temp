@@ -25,6 +25,7 @@ class BlockchainWalletMng
     public function __construct() {
         $this->token = env('CYPHER_TOKEN');
         $this->apiContext = new ApiContext(new SimpleTokenCredential($this->token));
+//        $this->apiContext->setCoin($this->wallet_type);
     }
     public function setWalletType( $wallet_type ) {
         $this->wallet_type = $wallet_type;

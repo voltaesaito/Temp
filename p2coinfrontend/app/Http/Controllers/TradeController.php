@@ -262,7 +262,7 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
             $buy_list .= "<td>" . round($listing->coin_amount, 2) . " " . $listing->currency . "</td>";
             $buy_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $buy_list .= "<td>";
-            $buy_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . " class='btn btn-success btn-green'>BUY</a>";
+            $buy_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "' class='btn btn-success btn-green'>BUY</a>";
             $buy_list .= "</td>";                       
             $buy_list .= "</tr>";
         }
@@ -275,7 +275,7 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
             $sell_list .= "<td>" . round($listing->coin_amount, 2) . " " . $listing->currency . "</td>";
             $sell_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $sell_list .= "<td>";
-            $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . " class='btn btn-success btn-green'>BUY</a>";
+            $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "' class='btn btn-success btn-green'>BUY</a>";
             $sell_list .= "</td>";                       
             $sell_list .= "</tr>";
         }

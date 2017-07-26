@@ -18,9 +18,14 @@ class DashboardController extends Controller
         
 //        $wModel = new BlockchainWalletMng();
 //        $wModel->setWalletType("eth");
-//dd($wModel->getAddressBalance('0x9fb92762495705f73371e150b448e3229a07aa88'));
+////dd($wModel->getAddressBalance('0x9fb92762495705f73371e150b448e3229a07aa88'));
 //        $to_address = $wModel->generateAddress();
-////        dd($to_address);
+//        echo (strlen($to_address['private']))."\n";
+//        echo (strlen($to_address['public']));
+//        dd($to_address);
+//        $to_address = array('address'=>'4a5cab5a86a3baec6cdeccb7be2e0ebceb444898',
+//                            'private'=>''
+//                            'public'=>'asdfasdfajsweqiuweq9267198234');
 //        $from_address = array('private'=>'6ebe224d245c7c30d2ff23c8d5ea6d3c50e56a4b70028f633ac2f13f0d6637ee',
 //                            'public'=>'c6eaabb74607d1cf557aff8fb63494b271b001fc',
 //                            'address'=>'c6eaabb74607d1cf557aff8fb63494b271b001fc');

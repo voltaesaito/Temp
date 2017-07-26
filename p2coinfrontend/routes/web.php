@@ -50,7 +50,12 @@ Route::get('/chatroom', 'ChatRoomController@index')->name('chatroom');
 Route::get('/trademessage', 'TradeMessageController@index')->name('trademessage');
 Route::post('/createcontract', 'TradeMessageController@createcontract')->name('createcontract');
 Route::post('/addmessage', 'TradeMessageController@addmessage')->name('addmessage');
+
 Route::get('/wallet', 'WalletController@index')->name('wallet');
+Route::post('/deposit', 'WalletController@deposit')->name('deposit');
+Route::post('/withdraw', 'WalletController@whithdraw')->name('withdraw');
+
+
 Route::get('/settings', 'SettingsController@index')->name('wallet');
 Route::get('/userprofile', 'UserProfileController@index')->name('userprofile');
 Route::get('/verify/email/{token}', 'VerifyController@email')->name('verify/email/{token}');
