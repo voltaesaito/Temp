@@ -25,15 +25,16 @@ class ManageListingsController extends Controller
         
         $user = \Auth::user();
         $listings = Listings::all()->where('user_id', '=', $user->id)->sortByDesc('created_at');
-
+        $wmodel = new UserWallet();
         $user = \Auth::user();
-        $userWalletRow = UserWallet::all()->where('user_id', '=', $user->id)->first();
+        $btcaddress =$wmodel->getUserWallet($user->id, 'btc');
+        $btc_balance = 0;
         $model = new WalletManage();
-        $wallet_info = $model->getWalletBalanceByAddress($userWalletRow->wallet_address);
+        $wallet_info = $model->getWalletBalanceByAddress($btcaddress);
         $btc_balance= floatval($wallet_info->data->available_balance);
 
-        $model = new UserWallet();
-        $ethAddress = $model->getUserWallet($user->id, 'eth');
+
+        $ethAddress = $wmodel->getUserWallet($user->id, 'eth');
         $blockchain = new BlockchainWalletMng();
         $blockchain->setWalletType('eth');
         $balanceInfo = $blockchain->getAddressBalance($ethAddress);
@@ -100,11 +101,22 @@ class ManageListingsController extends Controller
     //07-26 updated
     public function addlistings($listing_id) {
         $user = \Auth::user();
-        $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first();       
-        $model = new WalletManage();
-        $wallet_info = $model->getWalletBalanceByAddress($userWalletInfo->wallet_address);
-        $coin_balance= floatval($wallet_info->data->available_balance);
-
+        $wmodel = new UserWallet();
+        // $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first(); 
+        if ( $listing_id == -1 ) {
+            $btcaddress =$wmodel->getUserWallet($user->id, 'btc');      
+            $model = new WalletManage();
+            $wallet_info = $model->getWalletBalanceByAddress($btcaddress);
+            $coin_balance= floatval($wallet_info->data->available_balance);
+        }
+        if ( $listing_id == -2 ) {
+            $ethAddress = $wmodel->getUserWallet($user->id, 'eth');
+            $blockchain = new BlockchainWalletMng();
+            $blockchain->setWalletType('eth');
+            $balanceInfo = $blockchain->getAddressBalance($ethAddress);
+            $coin_balance = $balanceInfo['balance'];
+        }
+// $coin_balance = 0;
         if ($listing_id < 0 ) {
             return view('manage.listings')->with('coin_balance', $coin_balance)->with('listing', 'NULL');
         }

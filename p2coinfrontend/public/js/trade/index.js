@@ -13,7 +13,10 @@ JObject.prototype = {
     },
     doOnClickSearchButtonClick : function (seemore_flag) {
         j_obj.loadListingData(0,seemore_flag);
-        $('#search_form').collapse('hide');
+        //$('#search_form').removeClass('in');
+        // $('#search_form').addClass('out');
+        // console.log($('#search_form'));
+         $('#search_form').collapse('hide');
     },
     doOnSetSeeMoreFlag : function() {
         seemore_flag = $(this).attr('prop');

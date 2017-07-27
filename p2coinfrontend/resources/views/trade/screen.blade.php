@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 
+<script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
 <style>
 .toggle .btn-warning { width: 150px; font-family: Roboto Med; font-size: 25px !important; }
 .searchbox .btn-warning { font-family: Roboto Black; width: 85%; font-size: 35px !important; }
@@ -359,6 +360,6 @@
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <script src="{{ asset('js/trade/index.js') }}"></script>  
 @endsection

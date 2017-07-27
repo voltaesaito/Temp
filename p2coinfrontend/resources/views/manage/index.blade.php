@@ -62,6 +62,8 @@ input:checked + .slider:before {
 </style>
 <!-- <script> var json_listing=<?php //echo json_encode($listing); ?> </script> -->
 
+<?php $btc_disabled=$eth_disabled=''; ?>
+
 <meta name="csrf-token" content="{{ Session::token() }}"> 
 <div class="container">
     <div class="row">
@@ -106,7 +108,7 @@ input:checked + .slider:before {
                 <tr style="background: #028840;">
                     <th colspan = '5'>
                         <div class="col-sm-6 text-left tbl-title">Ethereum</div>
-                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-1' }}" class="btn btn-white {{ $eth_disabled }}">+Add Listing</a></div>
+                        <div class="col-sm-6 text-right"><a href="/addlistings/{{ '-2' }}" class="btn btn-white {{ $eth_disabled }}">+Add Listing</a></div>
                     </th>
                 </tr>
                 <tr>
