@@ -65,3 +65,4 @@ Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::post('/getlistingdata','TradeController@getListingData')->name('getlistingdata');
 Route::post('/getlistingdatabyuser','ManageListingsController@getListingDataByUser')->name('getlistingdatabyuser');
 Route::post('/getalllistingdata','IndexController@getListingData')->name('getalllistingdata');
+Route::post('/getlastmessagelist','IndexController@getLastMessageList')->name('getlastmessagelist');

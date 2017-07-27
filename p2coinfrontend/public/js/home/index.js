@@ -8,6 +8,7 @@ JObject.prototype = {
     init : function() {
         this.initEventListen();
         this.loadListingData(1);
+        this.getLastMessageList();
     },
     initEventListen : function () {
         $('#search-btn').click(j_obj.doOnClickSearchButtonClick);
@@ -44,6 +45,12 @@ JObject.prototype = {
                 $('#sell_list').html(arr[2]);
             }
             
+        } );
+    },
+    getLastMessageList : function () {
+        var _token = $('meta[name=csrf-token]').attr('content');
+        $.post('getlastmessagelist', {_token, _token}, function(resp) {
+            $('#msg_list').html(resp);
         } );
     }
 }

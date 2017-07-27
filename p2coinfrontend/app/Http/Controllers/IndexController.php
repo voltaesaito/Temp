@@ -322,4 +322,24 @@ public function getListingData(Request $request) {
         exit;
         // return view('trade.screen')->with('buy_listings', $buy_listings)->with('sell_listings', $sell_listings)->with('location', $localinfo['country_full_name']);
     } 
+
+    public function getLastMessageList(){
+        $user = \Auth::user();
+
+        $lModel = new IndexModel();
+        $msg_listings = $lModel->getLastMessageList($user->id); 
+//        dd($msg_listings);
+
+        $msg_list = "";
+        foreach($msg_listings as $listing){
+            $msg_list .= "<li style='height: 50px;'><a href='#' style='height: 100%;'>";
+            $msg_list .= "<div class='col-sm-4' style='font-size: 16px; margin-top:10px;'><b>" . $listing->name . "</b></div>";
+            $msg_list .= "<div class='col-sm-8'>" . $listing->message_content . "</div>";
+            $msg_list .= "</a></li>";
+            $msg_list .= "<li class='divider'></li>";
+        }
+
+        echo $msg_list;
+        exit;
+    }
 }
