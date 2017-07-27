@@ -8,6 +8,12 @@ use App\Models\BlockchainWalletMng;
 use App\Models\UserWallet;
 use App\Models\WalletManage;
 
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\LabelAlignment;
+use Endroid\QrCode\QrCode;
+use Symfony\Component\HttpFoundation\Response;
+
+
 class WalletController extends Controller
 {
     //
@@ -54,6 +60,34 @@ class WalletController extends Controller
         exit;
     }
     public function withdraw(Request $request) {
+        $address = $request->address;
+        $coin_type = strtolower($request->coin_type);
+        $coin_amount = $request->coin_amount;
+        $user = \Auth::user();
+        $model = new UserWallet();
+        $fromAddressInfo = $model->getWalletInfo($user->id, $coin_type);
+        $fromAddress = array('address'=>$fromAddressInfo->wallet_address,'private'=>$fromAddressInfo->private);
+        $wModel = new BlockchainWalletMng();
+        $wModel->setWalletType( $coin_type );
 
+        $destAddress = array('address'=>$address, 'private'=>'');
+        $Skelton = $wModel->createTransaction($fromAddress, $destAddress, $coin_amount);
+        $ret = $wModel->sendTransaction($Skelton, $fromAddress['private']);
+        echo $ret;
+        exit;
+    }
+    public function generateqrcode( Request $request ) {
+
+        $qrCode = new QrCode($request->address);
+        $qrCode->setSize(300);
+// Directly output the QR code
+        header('Content-Type: '.$qrCode->getContentType());
+//        echo $qrCode->writeString();
+// Save it to a file
+        $url = public_path()."/assets/qrcode/{$request->address}.png";
+        $qrCode->writeFile($url);
+// Create a response object
+        echo "/assets/qrcode/{$request->address}.png";
+        exit;
     }
 }
