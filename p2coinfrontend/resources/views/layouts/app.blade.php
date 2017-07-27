@@ -25,6 +25,14 @@
             src: url({{ asset('fonts/roboto/Roboto-Regular.ttf') }});
         }
         @font-face {
+            font-family: Roboto Boldd;
+            src: url({{ asset('fonts/roboto/Roboto-Bold.ttf') }});
+        }
+        @font-face {
+            font-family: Roboto Regular;
+            src: url({{ asset('fonts/roboto/Roboto-Regular.ttf') }});
+        }
+        @font-face {
             font-family: Roboto Med;
             src: url({{ asset('fonts/roboto/Roboto-Medium.ttf') }});
         }
@@ -249,16 +257,10 @@
                                     <i class="fa fa-navicon fa-fw" style = "margin-top: 8px;"></i>
                                 </a>
 
-<<<<<<< HEAD
                                 <ul class="dropdown-menu up-arrow" style="width: 200px;">
                                     <li class="user-panel-dd menu-border"><a href="wallet"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
-=======
-                                <ul class="dropdown-menu up-arrow">
-                                    <li class="user-panel-dd menu-border"><a href="{{ route('wallet') }}"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
->>>>>>> deeb4517b96c443c1404ab8ae3ec6730c7c8459f
                                     <li class="divider"></li>  
                                     <li class="menu-border"><a href="{{ route('profile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
-
                                     <li class="divider"></li>  
                                     <li class="user-panel-dd menu-border"><a href="/accounts/wallet/"><i class="fa fa-truck fa-fw"></i>&nbsp;Open Trades</a></li>                                  
                                     <li class="divider"></li>

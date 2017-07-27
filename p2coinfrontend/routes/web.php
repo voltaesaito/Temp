@@ -32,7 +32,7 @@ Route::get('/chat','ChatController@chatPage')->name('chat');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/trade', 'TradeController@index')->name('trade');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-Route::get('/buy', 'BuyerController@index')->name('buyer');
+Route::post('/buy', 'BuyerController@index')->name('buyer');
 Route::get('/managelistings', 'ManageListingsController@index')->name('managelistings');
 Route::get('/messagebox', 'TradeMessageController@messagebox')->name('messagebox');
 Route::get('/addlistings/{listing_id}', 'ManageListingsController@addlistings')->name('addlistings/{listing_id}');
@@ -49,6 +49,7 @@ Route::get('/sell', 'SellerController@index')->name('seller');
 Route::get('/chatroom', 'ChatRoomController@index')->name('chatroom');
 Route::get('/trademessage', 'TradeMessageController@index')->name('trademessage');
 Route::post('/createcontract', 'TradeMessageController@createcontract')->name('createcontract');
+Route::post('/createcont', 'TradeMessageController@createcont')->name('createcont');
 Route::post('/addmessage', 'TradeMessageController@addmessage')->name('addmessage');
 
 Route::get('/wallet', 'WalletController@index')->name('wallet');

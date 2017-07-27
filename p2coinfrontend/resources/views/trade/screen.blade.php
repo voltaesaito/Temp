@@ -5,6 +5,8 @@
 .toggle .btn-warning { width: 150px; font-family: Roboto Med; font-size: 25px !important; }
 .searchbox .btn-warning { font-family: Roboto Black; width: 85%; font-size: 35px !important; }
 .margin-height { height: 35px;}
+.trade .title th {font-family: Roboto Boldd; color: #000 !important;}
+.table td {font-family: Roboto Regular; color: #818181 !important; text-align:center;}
 
 @media (min-width: 768px){
     .searchbox { margin: auto !important; width: 870px; height: 695px; border-radius: 30px; border: 1px solid #d7d7d7; padding-top: 60px; }
@@ -299,25 +301,29 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
             <h3 class="h-title text-center">Buy <font id="title1"></font></h3>
-        </div>
+        </div> -->
         <div class="col-md-12 title-content-body">
-            <div class="table-responsive">          
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th class="menu-caption text-center">Vendor</th>
-                            <th class="menu-caption text-center">Payment Method</th>
-                            <th class="menu-caption text-center">Price</th>
-                            <th class="menu-caption text-center">Limits</th>
-                            <th class="menu-caption text-center">Contract</th>
-                        </tr>
-                    </thead>
-                    <tbody id="buy_list">
-                    </tbody>
-                </table>
-            </div>
+            <!-- <div class="table-responsive">           -->
+            <table class="table table-bordered trade">
+                <thead>
+                    <tr style="background: #00b8e6;">
+                        <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
+                            Buy <font id="title1"></font>
+                        </th>
+                    </tr>
+                    <tr class="title">
+                        <th class="menu-caption text-center">Vendor</th>
+                        <th class="menu-caption text-center">Payment Method</th>
+                        <th class="menu-caption text-center">Price</th>
+                        <th class="menu-caption text-center">Limits</th>
+                        <th class="menu-caption text-center">Contract</th>
+                    </tr>
+                </thead>
+                <tbody id="buy_list">
+                </tbody>
+            </table>
         </div>
         <div class="col-md-12 text-center">
             <button class="btn btn-success btn-green see-more" prop="1">See More</button>
@@ -325,31 +331,34 @@
     </div>
     <div class="margin-height"></div>
     <div class="row">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
             <h3 class="h-title text-center">Sell <font id="title2"></font></h3>
-        </div>
+        </div> -->
         <div class="col-md-12 title-content-body">
-            <div class="table-responsive">          
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th class="menu-caption text-center">Vendor</th>
-                            <th class="menu-caption text-center">Payment Method</th>
-                            <th class="menu-caption text-center">Price</th>
-                            <th class="menu-caption text-center">Limits</th>
-                            <th class="menu-caption text-center">Contract</th>
-                        </tr>
-                    </thead>
-                    <tbody id="sell_list">
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-bordered trade">
+                <thead>
+                    <tr style="background: #028840;">
+                        <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
+                            Sell <font id="title2"></font>
+                        </th>
+                    </tr>
+                    <tr class="title">
+                        <th class="menu-caption text-center">Vendor</th>
+                        <th class="menu-caption text-center">Payment Method</th>
+                        <th class="menu-caption text-center">Price</th>
+                        <th class="menu-caption text-center">Limits</th>
+                        <th class="menu-caption text-center">Contract</th>
+                    </tr>
+                </thead>
+                <tbody id="sell_list">
+                </tbody>
+            </table>
         </div>
         <div class="col-md-12 text-center">
             <button class="btn btn-success btn-green see-more" prop="0">See More</button>
         </div>
     </div>
 </div>
-@endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="{{ asset('js/trade/index.js') }}"></script>
+<script src="{{ asset('js/trade/index.js') }}"></script>  
+@endsection

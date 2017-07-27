@@ -52,5 +52,5 @@ class Listings extends Model
         if ( $init )
             $data->offset(0)->limit(5);
         return $data->get();
-    }
+    } 
 }

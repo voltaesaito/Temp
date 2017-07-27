@@ -7,12 +7,21 @@ use App\Models\Listings;
 use App\Models\ContractModel;
 use App\Models\WalletManage;
 use App\Models\BlockchainWalletMng;
+use DB;
+
 
 class BuyerController extends Controller
 {
     //
     public function index(Request $request) {
-        $coin_type = $request->coin_type;
+        $user = \Auth::user();
+        $arr = explode('-', $request->param);
+
+        $listing_id = $arr[0];
+        $sender_id = $user->id;
+        $receiver_id = $arr[1];
+        $coin_type = $arr[2];
+
         $USDrate = 1;
         if ( $coin_type == 'btc' ) {
             $model = new WalletManage();
@@ -28,22 +37,20 @@ class BuyerController extends Controller
             $price_data = $model->getCurrentPrice();
 
             $USDrate = 202.23;
-//dd($price_data);
         }
 
-//dd($price_data);
-        $user = \Auth::user();
-        $listing_id = $request->listing_id;
-        $sender_id = $user->id;
-        $receiver_id = $request->user_id;
+        $data = DB::table('contract')->where('sender_id', '=', $sender_id)->where('receiver_id', '=', $receiver_id)->where('listing_id', '=', $listing_id)->get();
 
-        $newRow = new ContractModel();
-        $newRow->sender_id = $sender_id;
-        $newRow->receiver_id = $receiver_id;
-        $newRow->listing_id = $listing_id;
-        $status = $newRow->save();
-        if ( $status ) {
+        if(!count($data)){
+            $newRow = new ContractModel();
+            
+            $newRow->sender_id = $sender_id;
+            $newRow->receiver_id = $receiver_id;
+            $newRow->listing_id = $listing_id;
+            $status = $newRow->save();
             $contract_id = $newRow->id;
+        }else{
+            $contract_id = $data[0]->id;
         }
 
         $listings = listings::all()->where('id', '=', $listing_id);

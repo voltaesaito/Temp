@@ -1,5 +1,5 @@
-var contract_id;
-var receiver_id;
+//var contract_id;
+//var receiver_id;
 $(document).ready(function(){
     var contract_receiver_id = $("#user_menu li.active").attr('id');
     if (contract_receiver_id) {
@@ -11,10 +11,10 @@ $(document).ready(function(){
         contract_receiver_id = receiver_id;
     }
     $('#message_send').click(function() {
-        var contract_receiver_id = $("#user_menu li.active").attr('id');
-        var arr = contract_receiver_id.split('-');
-        receiver_id = arr[0];
-        contract_id = arr[1];
+        // var contract_receiver_id = $("#user_menu li.active").attr('id');
+        // var arr = contract_receiver_id.split('-');
+        // receiver_id = arr[0];
+        // contract_id = arr[1];
 
         var message_content = $('#chat-content').val();
         var _token = $('meta[name=csrf-token]').attr('content');
@@ -37,7 +37,7 @@ $(document).ready(function(){
         getMessageContentAndDraw( param );
     });
 
-    $('#release_transaction').click(function(){alert(123);
+    $('#release_transaction').click(function(){
         var _token = $('meta[name=csrf-token]').attr('content');
         $.post('gettransactionid', {contract_id:contract_id, _token:_token}, function(resp) {
             if ( resp != 'fail' ) {
@@ -46,10 +46,6 @@ $(document).ready(function(){
                 });
              }
         } );
-        // post_param = { transaction_id: transaction_id, contract_id: contract_id, _token: _token, receiver_id: receiver_id, sender_id: sender_id, listing_id:listing_id };
-        // $.post('withdraw', post_param, function(resp){
-        //     console.log(resp);
-        // });
     });
 });
 

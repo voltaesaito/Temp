@@ -9,6 +9,7 @@ JObject.prototype = {
     initEventListen : function () {
         $('#search-btn').click(j_obj.doOnClickSearchButtonClick);
         $('button.see-more').click(j_obj.doOnSetSeeMoreFlag);
+        $('button.buy').click(j_obj.doCreateContractAndGoTransaction)
     },
     doOnClickSearchButtonClick : function (seemore_flag) {
         j_obj.loadListingData(0,seemore_flag);
@@ -17,6 +18,29 @@ JObject.prototype = {
     doOnSetSeeMoreFlag : function() {
         seemore_flag = $(this).attr('prop');
         j_obj.loadListingData(0);
+    },
+    doCreateContractAndGoTransaction : function (param) {
+        var _token = $('meta[name=csrf-token]').attr('content');
+        var form = document.createElement("form");
+        var element1 = document.createElement("input"); 
+        var element2 = document.createElement("input"); 
+    
+        form.method = "POST";
+        form.action = "buy";   
+
+        element1.value=param;
+        element1.type = "hidden";
+        element1.name="param";
+        form.appendChild(element1);  
+
+        element2.value=_token;
+        element2.type = "hidden";
+        element2.name="_token";
+        form.appendChild(element2);
+
+        document.body.appendChild(form);
+
+        form.submit();
     },
     loadListingData : function (flag) {
         var _token = $('meta[name=csrf-token]').attr('content');
@@ -43,9 +67,10 @@ JObject.prototype = {
             
         } );
     }
-}
+}  
 
 $(document).ready(function(){
     j_obj = new JObject();
     j_obj.init();
 });
+

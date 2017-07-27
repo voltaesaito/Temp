@@ -256,13 +256,24 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
 
         $buy_list = "";
         foreach($buy_listings as $listing){
+            $data = DB::select("select case tbl.cnt when 0 THEN 0 else 1 end as flag
+                                from
+                                (select count(*) cnt from contract c
+                                join transaction_history th
+                                on c.id=th.contract_id
+                                where c.sender_id ={$user->id} and c.listing_id = {$listing->id} ) tbl");
+
+            $flag_data = $data[0];
             $buy_list .= "<tr>";
             $buy_list .= "<td>" . $listing->name . "</td>";
             $buy_list .= "<td>" . $listing->coin_type . "-" . $listing->payment_method . "</td>";
             $buy_list .= "<td>" . round($listing->coin_amount, 2) . " " . $listing->currency . "</td>";
             $buy_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $buy_list .= "<td>";
-            $buy_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "' class='btn btn-success btn-green'>BUY</a>";
+            if ( $flag_data->flag == 0 )
+                $buy_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-success btn-green buy'>BUY</button>";
+            else
+                $buy_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-success btn-green view'>View/Message</button>";
             $buy_list .= "</td>";                       
             $buy_list .= "</tr>";
         }
@@ -284,10 +295,14 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
             $sell_list .= "<td>" . round($listing->coin_amount, 5) . " " . strtoupper($listing->coin_type) . "</td>";
             $sell_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $sell_list .= "<td>";
+            // if ( $flag_data->flag == 0 )
+            //     $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "&coin_type=" . $listing->coin_type . "' class='btn btn-success btn-green'>BUY</a>";
+            // else
+            //     $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "&coin_type=" . $listing->coin_type . "' class='btn btn-success btn-green'>View/Message</a>";
             if ( $flag_data->flag == 0 )
-                $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "&coin_type=" . $listing->coin_type . "' class='btn btn-success btn-green'>BUY</a>";
+                $sell_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-success btn-green buy'>BUY</button>";
             else
-                $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "&coin_type=" . $listing->coin_type . "' class='btn btn-success btn-green'>View/Message</a>";
+                $sell_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-success btn-green view'>View/Message</button>";
             $sell_list .= "</td>";
             $sell_list .= "</tr>";
         }
@@ -295,5 +310,5 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
         echo $location . "@@@" . $buy_list . "@@@" . $sell_list;
         exit;
         // return view('trade.screen')->with('buy_listings', $buy_listings)->with('sell_listings', $sell_listings)->with('location', $localinfo['country_full_name']);
-    }
+    } 
 }

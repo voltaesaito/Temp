@@ -45,6 +45,7 @@ class TradeMessageController extends Controller
         
         return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id);
     }
+
     public function addmessage(Request $request) {
         header('Content-type:application/json');
         
@@ -65,7 +66,7 @@ class TradeMessageController extends Controller
         
         $userWalletModel = new UserWallet();
         $receiver_address = $userWalletModel->getUserWallet($receiver_id);
-// dd($user);
+
         $transModel = new TransactionHistory();
         $row = $transModel->getDataByContractId($contract_id);
         $coin_amount = $row->coin_amount;
@@ -120,10 +121,14 @@ class TradeMessageController extends Controller
 
         $transaction_id = $newRow->id;
 
+        $listings = listings::all()->where('id', '=', $listing_id);
+        foreach($listings as $list){
+            $listing = $list;
+            break;
+        }
+        $data = $this->getMsgListByContractId($contract_id);
 
-        return redirect()->action(
-            'TradeMessageController@index', ['transaction_id'=>$transaction_id, 'contract_id' => $contract_id, 'sender_id' => $sender_id, 'receiver_id' => $receiver_id, 'listing_id' => $listing_id]
-        );    
+        return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id);
     }
 
     public function messagebox(Request $request){
