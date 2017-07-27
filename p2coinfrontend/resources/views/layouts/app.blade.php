@@ -258,14 +258,8 @@
                                     <i class="fa fa-navicon fa-fw" style = "margin-top: 8px;"></i>
                                 </a>
 
-<<<<<<< HEAD
-                                <ul class="dropdown-menu up-arrow" style="width: 200px;">
-                                    <li class="user-panel-dd menu-border"><a href="wallet"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
-=======
                                 <ul class="dropdown-menu up-arrow">
                                     <li class="user-panel-dd menu-border"><a href="{{ route('wallet') }}"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
-
->>>>>>> 40dcd3109665eb7759d3dbf248e8cb2687dfc1e3
                                     <li class="divider"></li>  
                                     <li class="menu-border"><a href="{{ route('profile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
                                     <li class="divider"></li>  
