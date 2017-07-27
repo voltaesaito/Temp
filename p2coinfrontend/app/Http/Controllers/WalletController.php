@@ -77,7 +77,7 @@ class WalletController extends Controller
         exit;
     }
     public function generateqrcode( Request $request ) {
-        
+
         $qrCode = new QrCode($request->address);
         $qrCode->setSize(300);
 // Directly output the QR code
