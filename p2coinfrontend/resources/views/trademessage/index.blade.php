@@ -68,6 +68,7 @@
                     </div>
                     <div class="form-group">
                         <?php
+                        if (isset($request_amount)) {
                             if ( $request_amount > $balance ) {
                                 echo "<div class=\"alert alert-danger\">
                                           <strong>Warning!</strong> You can't withdraw $request_amount because your wallet has  $balance.
@@ -78,7 +79,9 @@
                                           <strong>Alarm!</strong> You will pay  $request_amount  for  $balance  .
                     </div><button type=\"button\" id=\"release_transaction\" class=\"btn btn-success btn-green\">Confirm Transaction</button>";
                             }
+                        }
                         ?>
+
 
                     </div>
                 </div>

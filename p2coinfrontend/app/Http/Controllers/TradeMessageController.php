@@ -48,6 +48,7 @@ class TradeMessageController extends Controller
         $coin_amount = $row->coin_amount;
 
         $tmp_data = DB::select("select coin_type from listings where id in ( select c.listing_id from contract c join transaction_history th on th.contract_id=c.id where th.transaction_id={$transaction_id})");
+//     dd("select coin_type from listings where id in ( select c.listing_id from contract c join transaction_history th on th.contract_id=c.id where th.transaction_id={$transaction_id})");
         $tmp = $tmp_data[0];
         $coin_type = $tmp->coin_type;
 
@@ -103,20 +104,25 @@ class TradeMessageController extends Controller
             $newId = $newRow->save();
         }
         $arr = $this->getMsgListByContractId($contract_id);
-        
-        $userWalletModel = new UserWallet();
-        $receiver_address = $userWalletModel->getUserWallet($receiver_id);
+        $fee = 0;
+//        try{
+//            $userWalletModel = new UserWallet();
+//            $receiver_address = $userWalletModel->getUserWallet($receiver_id);
+//
+//            $transModel = new TransactionHistory();
+//            $row = $transModel->getDataByContractId($contract_id);
+//            $coin_amount = $row->coin_amount;
+//
+//            $walletModel = new WalletManage();
+//            $fee = $walletModel->getTransFee($coin_amount, $receiver_address);
+//
+//            $senderBalance = $walletModel->getWalletBalanceByAddress($userWalletModel->getUserWallet($sender_id));
+//            $amount = $senderBalance->data->available_balance;
+//            ( $amount*1 > $fee['total'] ) ? $fee['status'] = 'enable' : $fee['status'] = 'disable';
+//        }catch(Exception $e) {
+//            $fee = 0;
+//        }
 
-        $transModel = new TransactionHistory();
-        $row = $transModel->getDataByContractId($contract_id);
-        $coin_amount = $row->coin_amount;
-
-        $walletModel = new WalletManage();
-        $fee = $walletModel->getTransFee($coin_amount, $receiver_address);        
-
-        $senderBalance = $walletModel->getWalletBalanceByAddress($userWalletModel->getUserWallet($sender_id));
-        $amount = $senderBalance->data->available_balance;
-        ( $amount*1 > $fee['total'] ) ? $fee['status'] = 'enable' : $fee['status'] = 'disable';
 
         $ret_arr['fee'] = $fee;
         $ret_arr['content'] = $arr;
