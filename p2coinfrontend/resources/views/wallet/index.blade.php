@@ -1,11 +1,14 @@
 @extends('layouts.app')
 @section('content')
 <style>
-    th{
+    th,td{
         text-align: center;
     }
     form {
         padding:20px;
+    }
+    .pull-center {
+        text-align: center;
     }
 </style>
     <div class="container">
@@ -35,58 +38,70 @@
                                 <td>{{ $wallet['abbrev']  }}</td>
                                 <td>{{ $wallet['amount']  }}</td>
                                 <td>{{ $wallet['address']  }}</td>
-                                <td><a href="#" class="a-wallet" prop = "deposit" cointype="{{ $wallet['abbrev'] }}">Deposit BTC</a></td>
-                                <td><a href="#" class="a-wallet" prop = 'withdraw' cointype="{{ $wallet['abbrev'] }}">Withdraw BTC</a></td>
+                                <td><a href="#" class="a-wallet" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_deposit" deposit_address="{{ $wallet['address']  }}" prop = "deposit" cointype="{{ $wallet['abbrev'] }}">Deposit {{ $wallet['abbrev'] }}</a></td>
+                                <td><a href="#" class="a-wallet" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_withdraw" prop = 'withdraw' cointype="{{ $wallet['abbrev'] }}">Withdraw {{ $wallet['abbrev'] }}</a></td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-12">
-                    <div id="div_deposit" class="panel panel-default">
-                        <div class="panel-body">Deposit <span id="crypto_curency"></span></div>
-                        <form class="form">
-                            <div class="form-group">
-                                <label for="src_address">Address:</label>
-                                <input type="text" class="form-control" id="src_address" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="private_key">Private:</label>
-                                <input type="text" class="form-control" id="private_key" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="wallet_amount">Amount:</label>
-                                <input type="text" class="form-control" id="wallet_amount" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="deposit_amount">Deposit Amount:</label>
-                                <input type="text" class="form-control" id="deposit_amount" required>
-                            </div>
-                            <button type="button" class="btn btn-default" id="btn_deposit">Deposit</button>
-                        </form>
-                    </div>
-                    {{--<div id="withdraw" class="collapse panel panel-default">--}}
-                        {{--<div class="panel-body">Withdraw <span id="crypto_curency"></span></div>--}}
-                        {{--<form class="form">--}}
-                            {{--{{ csrf_field() }}--}}
-                            {{--<div class="form-group">--}}
-                                {{--<label for="address">Address:</label>--}}
-                                {{--<input type="text" class="form-control" id="address">--}}
-                            {{--</div>--}}
-                            {{--<div class="form-group">--}}
-                                {{--<label for="coin_amount">Amount:</label>--}}
-                                {{--<input type="number" class="form-control" id="coin_amount">--}}
-                                {{--<label for="coin_amount">Deposit Amount:</label>--}}
-                                {{--<input type="number" class="form-control" id="withdraw_amount">--}}
-                            {{--</div>--}}
-                            {{--<button type="button" class="btn btn-default">Deposit</button>--}}
-                        {{--</form>--}}
-                    {{--</div>--}}
-                </div>
             </div>
 
         </div>
     </div>
+<div id="modal_deposit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header pull-center">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Deposit&nbsp;<label id="coin_string"></label></h4>
+                <h5 class="modal-title" id="modal_title"></h5>
+            </div>
+            <div class="modal-body">
+                <form class="form">
+                    <div class="form-group pull-center">
+                        <label for="label_address" id="label_address"></label>
+                        <img src="" id="img_qrcode" width="300px" height="300px" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                {{--<button type="button" class="btn btn-default" id="btn_deposit">Deposit</button>--}}
+                {{--<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>--}}
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="modal_withdraw" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Withdraw</h4>&nbsp;<label id="coin_string"></label>
+            </div>
+            <div class="modal-body">
+                <label>To withdraw <span id="crypto_currency"></span>, please enter the details:</label><br/>
+                <label> Note: This is not reversible!</label>
+                <form class="form">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="dest_address">Withdrawal address:</label>
+                        <input type="text" class="form-control" id="dest_address">
+                    </div>
+                    <div class="form-group">
+                        <label for="coin_amount">withdrawal:</label>
+                        <input type="number" class="form-control" id="coin_amount">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_withdraw">Withdraw</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
 <script src="{{URL::asset('./js/wallet/index.js')}}" ></script>
 @endsection

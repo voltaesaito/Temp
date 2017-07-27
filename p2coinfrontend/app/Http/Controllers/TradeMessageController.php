@@ -10,6 +10,7 @@ use DB;
 use App\Models\TransactionHistory;
 use App\Models\UserWallet;
 use App\Models\WalletManage;
+use App\Models\BlockchainWalletMng;
 
 class TradeMessageController extends Controller
 {
@@ -42,8 +43,47 @@ class TradeMessageController extends Controller
             $listing = $list;
             break;
         }
+
+        $row = TransactionHistory::all()->where('transaction_id','=',$transaction_id)->first();
+        $coin_amount = $row->coin_amount;
+
+        $tmp_data = DB::select("select coin_type from listings where id in ( select c.listing_id from contract c join transaction_history th on th.contract_id=c.id where th.transaction_id={$transaction_id})");
+        $tmp = $tmp_data[0];
+        $coin_type = $tmp->coin_type;
+
+        $flag = true;
+        if ( $coin_type == 'btc' ) {
+            $temp_row = UserWallet::all()->where('user_id', '=', $sender_id)->first();
+            $sender_wallet = $temp_row->wallet_address;
+            $temp_row = UserWallet::all()->where('user_id', '=', $receiver_id)->first();
+            $receiver_wallet = $temp_row->wallet_address;
+
+            $model = new WalletManage();
+            $data = $model->getTransFee($coin_amount, $receiver_wallet);
+            $request_amount = $data['total'];
+            $tmp = $model->getWalletBalanceByAddress($sender_wallet);
+            $balance = $tmp->data->available_balance;
+
+        }
+        if ( $coin_type == 'eth' ) {
+            $model = new UserWallet();
+            $sender_info = $model->getWalletInfo($sender_id, 'eth');
+            $from_address = array('address'=>$sender_info->wallet_address, 'private'=>$sender_info->private, 'public'=>$sender_info->public);
+            $receiver_info = $model->getWalletInfo($receiver_id, 'eth');
+            $to_address = array('address'=>$receiver_info->wallet_address, 'private'=>$receiver_info->private, 'public'=>$receiver_info->public);
+            $wModel = new BlockchainWalletMng();
+            $wModel->setWalletType( $coin_type );
+            $Skelton = $wModel->createTransaction($from_address, $to_address, $coin_amount);
+            $request_amount = floatval(($Skelton->tx->total+$Skelton->tx->fees)/1000000000000000000);
+            $tmp = $wModel->getAddressBalance($sender_info->wallet_address);
+            $balance = floatval($tmp['final_balance']/1000000000000000000);
+
+
+        }
         
-        return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id);
+        return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)
+            ->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id)
+            ->with('request_amount', $request_amount)->with('balance', $balance);
     }
     public function addmessage(Request $request) {
         header('Content-type:application/json');
