@@ -19,6 +19,7 @@
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
      <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/home/index.js') }}"></script>
     <style>
         @font-face {
             font-family: Roboto Regular;
@@ -141,7 +142,7 @@
 
         @media (min-width: 768px){
             .own-nav .dropdown-menu>li>a {
-                padding: 1px 80px 3px 10px !important;
+                /* padding: 1px 70px 3px 10px !important; */
             }
             .dropdown-menu .divider {
                 height: 1px;
@@ -176,7 +177,7 @@
             .menu-border a:hover { background: #4f5b69 !important; }
             .stick { display: block !important; }
             
-            .own-nav .dropdown-menu { right: 12px; left: auto; background-color: #2e353d; padding: 0; margin-top: 9px !important; }
+            .own-nav .dropdown-menu { right: 12px; left: auto; background-color: #2e353d; padding: 0; margin-top: 15px !important; width: 200px; }
             .up-arrow:before {
                 content:"\A";
                 border-bottom: 7px solid #2e353d;

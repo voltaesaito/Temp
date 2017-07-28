@@ -45,11 +45,14 @@ class IndexModel extends Model
 
     public function getLastMessageList( $user_id ) {
         $msg_listings = DB::table('trade_message')
+            ->join('contract', 'contract.id', '=', 'trade_message.contract_id')
+            ->join('listings', 'listings.id', '=', 'contract.listing_id')
             ->leftjoin('users', 'trade_message.sender_id', '=', 'users.id')
-            ->select('trade_message.*', 'users.name')
-            ->where( 'receiver_id', '=', $user_id )->where('is_read', '=', 0)
+            ->select('trade_message.*', 'users.name', 'contract.listing_id', 'listings.user_type', 'listings.user_id')
+            ->where( 'trade_message.receiver_id', '=', $user_id )->where('trade_message.is_read', '=', 0)
             ->orderBy('created_at', 'desc')
             ->get();
+//          dd($msg_listings);  
 
         $data = array();
         $contract_id = 0;

@@ -328,11 +328,23 @@ public function getListingData(Request $request) {
 
         $lModel = new IndexModel();
         $msg_listings = $lModel->getLastMessageList($user->id); 
-//        dd($msg_listings);
+        // dd($msg_listings);
 
         $msg_list = "";
+        $flag = 0;
         foreach($msg_listings as $listing){
-            $msg_list .= "<li style='height: 50px;'><a href='#' style='height: 100%;'>";
+            if($user->id == $listing->user_id){
+                if(!$listing->user_type)
+                    $flag = 0;
+                else
+                    $flag = 1;
+            }else{
+                if(!$listing->user_type)
+                    $flag = 1;
+                else
+                    $flag = 0;
+            }
+            $msg_list .= "<li style='height: 50px;'><a href='#' class='view-message' style='height: 100%;' onclick=\"j_obj.doViewMessages('" . $listing->contract_id . "-" . $listing->listing_id . "-" . $listing->sender_id . "-" . $user->id . "-".$flag."-1')\">";
             $msg_list .= "<div class='col-sm-4' style='font-size: 16px; margin-top:10px;'><b>" . $listing->name . "</b></div>";
             $msg_list .= "<div class='col-sm-8'>" . $listing->message_content . "</div>";
             $msg_list .= "</a></li>";
