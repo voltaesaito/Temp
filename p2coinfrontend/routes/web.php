@@ -24,6 +24,9 @@ Route::post('/changepersonphonenumber', 'Auth\ChangeEmailController@changeperson
 Route::get('/change2fa', 'Auth\ChangeEmailController@twofaindex')->name('change2fa');
 Route::get('/verifyphone', 'Auth\VerifyPhoneController@index')->name('verifyphone');
 Route::get('/verifyid', 'Auth\VerifyIDController@index')->name('verifyid');
+Route::get('/verifyready', 'Auth\RegisterController@verifyready')->name('verifyready');
+
+
 Route::post('/chat','ChatController@sendMessage')->name('chat');
  
 Route::get('/chat','ChatController@chatPage')->name('chat');

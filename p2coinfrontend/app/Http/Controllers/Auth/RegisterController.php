@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/verifyready';
 
     /**
      * Create a new controller instance.
@@ -121,13 +121,17 @@ class RegisterController extends Controller
         $user->verified = 1;
         if($user->save()){
 
-            $userWallet = new UserWallet();
-            $model = new WalletManage();
-            $wallet_arr = $model->generateWallet();
-            $walletRow->user_id = $user->id;
-            $walletRow->wallet_address = $wallet_arr['address'];
-            $walletRow->save();
+//            $userWallet = new UserWallet();
+//            $model = new WalletManage();
+//            $wallet_arr = $model->generateWallet();
+//            $walletRow->user_id = $user->id;
+//            $walletRow->wallet_address = $wallet_arr['address'];
+//            $walletRow->save();
             return view('auth.login');
         }
+    }
+
+    public function verifyready() {
+        return view('auth.verifyready');
     }
 }
