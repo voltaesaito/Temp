@@ -1,8 +1,12 @@
 $(document).ready(function(){
-
-    var Web3 = require('web3');
-    var web3 = new Web3(Web3.givenProvider);
-    console.log(web3);
+    $('#coin_type').change(function(){
+        console.log($(this));
+        var coin = $(this).val();
+        $('#span_title').html(coin.toUpperCase());
+    });
+    // var Web3 = require('web3');
+    // var web3 = new Web3(Web3.givenProvider);
+    // console.log(web3);
 
     // $.get( "https://chain.so/api/v2/get_info/ETH", function( response ) {
     //     console.log(response);
