@@ -70,3 +70,8 @@ Route::post('/getlistingdata','TradeController@getListingData')->name('getlistin
 Route::post('/getlistingdatabyuser','ManageListingsController@getListingDataByUser')->name('getlistingdatabyuser');
 Route::post('/getalllistingdata','IndexController@getListingData')->name('getalllistingdata');
 Route::post('/getlastmessagelist','IndexController@getLastMessageList')->name('getlastmessagelist');
+
+Route::get('/opentrade','OpenTradeController@index')->name('opentrade');
+
+Route::get('/chart','ChartController@index')->name('chart');
+Route::post('/getchartdatabycoin','ChartController@getchartdatabycoin')->name('getchartdatabycoin');

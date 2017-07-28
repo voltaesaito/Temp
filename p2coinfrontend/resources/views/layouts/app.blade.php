@@ -263,9 +263,9 @@
                                     <li class="divider"></li>  
                                     <li class="menu-border"><a href="{{ route('profile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
                                     <li class="divider"></li>  
-                                    <li class="user-panel-dd menu-border"><a href="/accounts/wallet/"><i class="fa fa-truck fa-fw"></i>&nbsp;Open Trades</a></li>                                  
+                                    <li class="user-panel-dd menu-border"><a href=" {{ route("opentrade") }}"><i class="fa fa-truck fa-fw"></i>&nbsp;Open Trades</a></li>
                                     <li class="divider"></li>
-                                    <li class="user-panel-dd menu-border"><a href="/accounts/wallet/"><i class="fa fa-bar-chart fa-fw"></i>&nbsp;Charts</a></li>                                  
+                                    <li class="user-panel-dd menu-border"><a href="{{ route('chart') }}"><i class="fa fa-bar-chart fa-fw"></i>&nbsp;Charts</a></li>
                                     <li class="divider"></li>
                                     <li class="user-panel-dd menu-border"><a href="/settings"><i class="fa fa-sliders fa-fw"></i>&nbsp;Settings</a></li>                                  
                                     <li class="divider"></li>

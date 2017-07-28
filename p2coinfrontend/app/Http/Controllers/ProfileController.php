@@ -18,8 +18,10 @@ class ProfileController extends Controller
             $userWalletInfo = new UserWallet();
             $user = \Auth::user();
             $from_date = date_create($user->created_at);
+//            $from_date = date_create("2013-01-01");
             $to_date = date_create(date('Y-m-d H:m:s'));
             $diff = date_diff($from_date, $to_date);
+//            dd($diff);
             $trader_age = $diff->format("%d days %h hours %i minutes %s seconds");
             $userWalletAddress = $userWalletInfo->getUserWallet($user->id);
             return view('profile.index')->with('wallet_address', $userWalletAddress)->with('user', $user)
