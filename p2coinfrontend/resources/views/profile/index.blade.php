@@ -15,7 +15,7 @@
             <div class="panel-body">
                 <div class="row">
                     <label class="col-md-4">Trader Status</label>
-                    <label class="col-md-4" id="div_trader_status"></label>
+                    <label class="col-md-4" id="div_trader_status">Online</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Trades</label>
