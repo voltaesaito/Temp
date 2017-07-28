@@ -52,7 +52,7 @@
                                 <div class="pad" id="ajax_message">
                                     @foreach( $data as $msg_content )
                                         <div class="alert alert-{{$msg_content['user_state']}}">
-                                            <strong>{{ $msg_content['created_at'] }}</strong><br>
+                                            <strong>{{ $msg_content['name'] }} - {{ $msg_content['created_at'] }}</strong><br>
                                             <p>{{ $msg_content['message_content'] }}</p>
                                         </div>
                                     @endforeach 

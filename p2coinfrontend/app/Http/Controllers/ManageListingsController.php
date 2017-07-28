@@ -122,7 +122,19 @@ class ManageListingsController extends Controller
         }
         if ( $listing_id > 0 ) {
             $listing = Listings::all()->where('id', '=', $listing_id )->first()->toArray();
-
+            if ( $listing['coin_type'] == 'btc' ) {
+                $btcaddress =$wmodel->getUserWallet($user->id, 'btc');      
+                $model = new WalletManage();
+                $wallet_info = $model->getWalletBalanceByAddress($btcaddress);
+                $coin_balance= floatval($wallet_info->data->available_balance);
+            }
+            if ( $listing['coin_type'] == 'eth' ) {
+                $ethAddress = $wmodel->getUserWallet($user->id, 'eth');
+                $blockchain = new BlockchainWalletMng();
+                $blockchain->setWalletType('eth');
+                $balanceInfo = $blockchain->getAddressBalance($ethAddress);
+                $coin_balance = $balanceInfo['balance'];
+            }
             return view('manage.listings')->with('coin_balance', $coin_balance)->with('listing', $listing);
         }
     }

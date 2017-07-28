@@ -7,6 +7,7 @@ use App\Models\TradeMessageModel;
 use App\Models\Listings;
 use Illuminate\Foundation\Auth\User;
 use DB;
+use App\Models\ContractModel;
 use App\Models\TransactionHistory;
 use App\Models\UserWallet;
 use App\Models\WalletManage;
@@ -31,40 +32,53 @@ class TradeMessageController extends Controller
      */
     public function index(Request $request)
     {
-        $listing_id = $request->listing_id;
-        $contract_id = $request->contract_id;
-        $sender_id = $request->sender_id;
-        $receiver_id = $request->receiver_id;
-        $transaction_id = $request->transaction_id;
-        $data = $this->getMsgListByContractId($contract_id);
+        $arr = explode('-', $request->param);
+        $contract_id    = $arr[0];
+        $listing_id     = $arr[1];
+        $sender_id      = $arr[2];
+        $receiver_id    = $arr[3];
+        $user_type      = $arr[4];
+        $back           = $arr[5];
 
-        $listings = listings::all()->where('id', '=', $listing_id);
-        foreach($listings as $list){
-            $listing = $list;
-            break;
+        if($user_type){
+            $coin_sender_id = $sender_id;
+            $coin_receiver_id = $receiver_id;
+        }else{
+            $coin_sender_id = $receiver_id;
+            $coin_receiver_id = $sender_id;
         }
 
-        $row = TransactionHistory::all()->where('transaction_id','=',$transaction_id)->first();
+        $listing = listings::all()->where('id', '=', $listing_id)->first();
+        $coin_type = $listing->coin_type;
+
+        // dd($request->param);
+
+        $data = $this->getMsgListByContractId($contract_id);
+
+        $row = TransactionHistory::all()->where('contract_id','=',$contract_id)->where('coin_sender_id','=',$coin_sender_id)->where('coin_receiver_id','=',$coin_receiver_id)->first();
+        $transaction_id = $row->transaction_id;
         $coin_amount = $row->coin_amount;
 
-        $tmp_data = DB::select("select coin_type from listings where id in ( select c.listing_id from contract c join transaction_history th on th.contract_id=c.id where th.transaction_id={$transaction_id})");
-//     dd("select coin_type from listings where id in ( select c.listing_id from contract c join transaction_history th on th.contract_id=c.id where th.transaction_id={$transaction_id})");
-        $tmp = $tmp_data[0];
-        $coin_type = $tmp->coin_type;
-
         $flag = true;
+        $request_amount = $coin_amount;
         if ( $coin_type == 'btc' ) {
-            $temp_row = UserWallet::all()->where('user_id', '=', $sender_id)->first();
-            $sender_wallet = $temp_row->wallet_address;
-            $temp_row = UserWallet::all()->where('user_id', '=', $receiver_id)->first();
-            $receiver_wallet = $temp_row->wallet_address;
+            $model = new UserWallet();
+            $sender_info = $model->getWalletInfo($sender_id, 'btc');
+            $sender_wallet = $sender_info->wallet_address;
+            $receiver_info = $model->getWalletInfo($receiver_id, 'btc');
+            $receiver_wallet = $receiver_info->wallet_address;
 
-            $model = new WalletManage();
-            $data = $model->getTransFee($coin_amount, $receiver_wallet);
-            $request_amount = $data['total'];
-            $tmp = $model->getWalletBalanceByAddress($sender_wallet);
+// dd($coin_amount); 
+            $model = new WalletManage();  
+// dd($sender_wallet);   
+            $tmp = $model->getWalletBalanceByAddress($sender_wallet);           
             $balance = $tmp->data->available_balance;
+            if ( $balance > $coin_amount ) {
+                $data = $model->getTransFee($coin_amount, $receiver_wallet);           
+                $request_amount = $data['total'];
 
+            }
+            
         }
         if ( $coin_type == 'eth' ) {
             $model = new UserWallet();
@@ -78,12 +92,15 @@ class TradeMessageController extends Controller
             $request_amount = floatval(($Skelton->tx->total+$Skelton->tx->fees)/1000000000000000000);
             $tmp = $wModel->getAddressBalance($sender_info->wallet_address);
             $balance = floatval($tmp['final_balance']/1000000000000000000);
-
-
         }
         
-        return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)
+        if(!$back)
+            return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)
             ->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id)
+            ->with('request_amount', $request_amount)->with('balance', $balance);
+        else
+            return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)
+            ->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $receiver_id)->with('receiver_id', $sender_id)
             ->with('request_amount', $request_amount)->with('balance', $balance);
     }
 
@@ -197,7 +214,12 @@ class TradeMessageController extends Controller
     }
 
     private function getMsgListByContractId( $contract_id ) {
-        $datas = TradeMessageModel::all()->where('contract_id', '=', $contract_id);
+//        $datas = TradeMessageModel::all()->where('contract_id', '=', $contract_id);
+        $datas = DB::table('trade_message')
+                    ->join('users', 'users.id', '=', 'trade_message.sender_id')
+                    ->select('trade_message.*', 'users.name')
+                    ->where('contract_id', '=', $contract_id)
+                    ->get();
         $arr = array();
         $user = \Auth::user();
         $current_id = $user->id;
@@ -210,6 +232,7 @@ class TradeMessageController extends Controller
                             'receiver_id'       => $data->receiver_id,
                             'message_content'   => $data->message_content,
                             'user_state'        => $user_state,
+                            'name'              => $data->name,
                             'created_at'        => date('H:m:s M j,Y',strtotime($data->created_at)));
         }
         return $arr;

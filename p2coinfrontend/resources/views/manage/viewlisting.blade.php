@@ -11,7 +11,7 @@
         <p class="col-md-12 text-center">
             <h3 class="h-title">View Listing</h3>
         </p>
-        <p class="col-sm-12" style="margin-top: 0px;">
+        <p class="col-sm-12" style="margin-top: l0px;">
             Coin Type : {{ $listing->coin_type }}
         </p>
         <p class="col-sm-12"> 
@@ -33,7 +33,7 @@
             Terms of Trade : {{ $listing->terms_of_trade }}
         </p>
         <p class="col-sm-12"> 
-            Payment Details : {{ $listing->payment_details }}sadadasdasdasdasdasdasdaasdasdasdasda asd asd asd asd asd asd sadasdadasd asd asd asd asd
+            Payment Details : {{ $listing->payment_details }}
         </p>
         <p class="col-sm-12" style="margin-top: 40px;"> 
             <a class="btn btn-success btn-green" onclick="window.history.back();">Return</a>
