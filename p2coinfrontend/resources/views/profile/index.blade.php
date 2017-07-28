@@ -27,27 +27,39 @@
                 </div>
                 <div class="row">
                     <label class="col-md-4">Feedback Score</label>
-                    <label class="col-md-4" id="div_feedback_score"></label>
+                    <label class="col-md-4" id="div_feedback_score">100%</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Trader Age</label>
-                    <label class="col-md-4" id="div_trader_age"></label>
+                    <label class="col-md-4" id="div_trader_age">{{ $trader_age }}</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Language</label>
-                    <label class="col-md-4" id="div_language"></label>
+                    <label class="col-md-4" id="div_language">{{ "English" }}</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Phone Verified</label>
-                    <label class="col-md-4" id="div_phone_verify"></label>
+                    <label class="col-md-4" id="div_phone_verify">
+                        @if ( Auth::user()->phone_verify == 0 )
+                            <strong class="security-level-weak">no</strong>
+                        @else
+                            <strong class="security-level-strong">yes</strong>
+                        @endif
+                    </label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">ID Verified</label>
-                    <label class="col-md-4" id="div_id_verify"></label>
+                    <label class="col-md-4" id="div_id_verify">
+                        @if ( Auth::user()->id_verify == 0 )
+                            <strong class="security-level-weak">no</strong>
+                        @else
+                            <strong class="security-level-strong">yes</strong>
+                        @endif
+                    </label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Blocked by</label>
-                    <label class="col-md-4" id="div_blocked_by"></label>
+                    <label class="col-md-4" id="div_blocked_by">0</label>
                 </div>
             </div>
             <div class="row">
