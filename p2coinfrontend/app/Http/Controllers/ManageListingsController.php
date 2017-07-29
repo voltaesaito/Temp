@@ -58,7 +58,7 @@ class ManageListingsController extends Controller
         $lModel = new Listings();
 
         $btc_listings = $lModel->getListingsDataByUser($user->id, 'btc', $flag);
-//        dd($btc_listings);
+//        dd($user->id);
         
         $btc_list = "";
         foreach($btc_listings as $listing){

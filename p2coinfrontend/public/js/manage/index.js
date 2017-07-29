@@ -2,7 +2,7 @@ var seemore_flag = -1;
 function JObject() {
 }
 JObject.prototype = {
-    init : function() {
+    init : function() { 
         this.initEventListen();
         this.loadListingData(1);
     },
@@ -23,7 +23,7 @@ JObject.prototype = {
                 
             }
         } );
-    },
+    },  
     loadListingData : function (flag) {
         var _token = $('meta[name=csrf-token]').attr('content');
         $.post('getlistingdatabyuser', { flag: flag, _token: _token }, function(resp) {
@@ -40,24 +40,9 @@ JObject.prototype = {
             }
         } );
     }
-}
+}  
 
-$(document).ready(function() {
+$(document).ready(function() { 
     j_obj = new JObject();
     j_obj.init();
-
-
-    // $("input.status").click(function (){
-    //     var status = 0;
-    //     ($(this).is(':checked')) ? status = 1 : status = 0;
-    //     var listing_id = $(this)[0].id; 
-    //     alert(listing_id);
-    //     _token = $('meta[name=csrf-token]').attr('content');
-    //     $.post('changestatus', { _token:_token, listing_id: listing_id, status: status }, function(resp){
-    //         if (resp === 'ok') {
-                
-    //         }
-    //     } );
-    // });
-
 });

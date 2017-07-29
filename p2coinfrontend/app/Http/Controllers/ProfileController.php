@@ -22,12 +22,16 @@ class ProfileController extends Controller
             $diff = date_diff($from_date, $to_date);
             $trader_age = $diff->format("%d days %h hours %i minutes %s seconds");
             $userWalletAddress = $userWalletInfo->getUserWallet($user->id);
+
+
+
             return view('profile.index')->with('wallet_address', $userWalletAddress)->with('user', $user)
                 ->with(['buy_title'=>'Buy Bitcoins from BTC Trade','sell_title'=>'Sell Bitcoins from BTC Trade', 'trader_age'=>$trader_age]);
         }
         catch( Exception $e ) {
             return redirect()->action('/');
         }
-        
     } 
+
+    
 }

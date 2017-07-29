@@ -3,22 +3,29 @@
 @section('content')
 <style>
 .border-welcome{
-    border-radius:10px;
-    border:lightgrey 1.5px solid;
+    border-radius:5px;
+    /* border:lightgrey 1.5px solid; */
     margin-bottom:20px;
-    min-height:140px;
-    background-image:url('./public/assets/images/image.png');
+    min-height:240px;
+    background-image:url('./public/assets/images/banner.png');
     background-repeat: no-repeat;
 }
+h1.banner-title { color: white; font-family: Roboto Bla; color: white !important; margin-top: 50px; font-size: 56px;}
+.banner .btn { width: 150px; height: 50px; }
+/* .btn-reg { padding-left: } */
 </style>
 <div class="container">
-    <div class="row">
+    <div class="row banner">
         <div class="col-md-12 border-welcome">
-            <h3 class="h-title text-center">Welcome to P2Coin.net</h3>
-            <div class="row">
-                <div class="col-md-offset-4 col-md-5">
-                    <div><strong>Do you have your account?</strong> To start, please click <a href="{{ route('login') }}" >Login.</a></div>
-                    <div><strong> Not a member?</strong>Please <a href="{{ route('register') }}" >sign up</a>It’s fast and simple.</div>
+            <div class="col-md-3">
+                <img src="{{ asset('./assets/images/banner_boy.png') }}" style="width: 100%;">
+            </div>
+            <div class="col-md-9" style="margin-top: 30px;">
+                <h1 class="banner-title">Welcome to P2Coin.net</h1>
+                <div class="row col-md-offset-2">
+                    <button type="button" class="btn btn-white">REGISTER</button>
+                    <button type="button" class="btn btn-white" style="margin-left: 20px;">LOG IN</button>
+                </div>
             </div>
         </div>
     </div>

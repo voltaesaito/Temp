@@ -273,7 +273,7 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
                 $buy_list .= "<button type='button' onclick=\"j_obj.doViewMessages('" . $data[0]->id . "-" . $listing->id . "-" . $user->id . "-" . $listing->user_id . "-1-0')\" class='btn btn-success btn-green view'>View/Message</button>";
             $buy_list .= "</td>";                       
             $buy_list .= "</tr>";
-        }
+        }  
 
         $sell_list = "";
         foreach($sell_listings as $listing){

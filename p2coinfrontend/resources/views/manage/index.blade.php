@@ -125,11 +125,12 @@ input:checked + .slider:before {
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <button class="btn btn-success btn-green see-more" prop="eth">See More</button>
+            <button class="btn btn-success btn-green see-more" prop="eth">See More</button> 
         </div>
     </div>
 </div>
-@endsection
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{URL::asset('./js/manage/index.js')}}" ></script>
+@endsection
+
