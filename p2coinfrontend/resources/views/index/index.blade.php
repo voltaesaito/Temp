@@ -11,7 +11,7 @@
     background-repeat: no-repeat;
 }
 h1.banner-title { color: white; font-family: Roboto Bla; color: white !important; margin-top: 50px; font-size: 56px;}
-.banner .btn { width: 150px; height: 50px; }
+.banner .btn { width: 150px; height: 50px; line-height: 100%; }
 /* .btn-reg { padding-left: } */
 </style>
 <div class="container">
@@ -23,8 +23,8 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
             <div class="col-md-9" style="margin-top: 30px;">
                 <h1 class="banner-title">Welcome to P2Coin.net</h1>
                 <div class="row col-md-offset-2">
-                    <button type="button" class="btn btn-white">REGISTER</button>
-                    <button type="button" class="btn btn-white" style="margin-left: 20px;">LOG IN</button>
+                    <button href="{{ route('register') }}" type="button" class="btn btn-white" onclick="doOnHref('register')" >REGISTER</button>
+                    <button href="{{ route('login') }}" type="button" class="btn btn-white" style="margin-left: 20px;"  onclick="doOnHref('login')">LOG IN</button>
                 </div>
             </div>
         </div>
@@ -360,6 +360,11 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
     </div>
 </div>
 @endsection
-
+<script>
+    function doOnHref(route_name) {
+        window.location.href=route_name;
+        window.reload();
+    }
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{ asset('js/home/index.js') }}"></script>
