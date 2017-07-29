@@ -73,7 +73,7 @@ JObject.prototype = {
     },
     getLastMessageList : function () {
         var _token = $('meta[name=csrf-token]').attr('content');
-        $.post('getlastmessagelist', {_token, _token}, function(resp) {
+        $.post('getlastmessagelist', {_token: _token}, function(resp) {
             $('#msg_list').html(resp);
         } );
     }

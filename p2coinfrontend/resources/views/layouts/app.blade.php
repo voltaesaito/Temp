@@ -14,6 +14,7 @@
     <link href="{{ asset('css/fontawesome.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app_ext.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('./css/cryptocoins.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
@@ -237,14 +238,14 @@
                                     CURRENCY<b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li class="user-panel-dd"><div class="menu-currency" id="btc"><i class="fa fa-btc fa-fw"></i>&nbsp;BTC</div></li>
-                                    <li class="user-panel-dd"><div class="menu-currency" id="eth"><i class="fa fa-sort fa-fw"></i>&nbsp;ETH</div></li>
+                                    <li class="user-panel-dd"><div class="menu-currency" id="btc"><i class="cc BTC"></i>&nbsp;BTC</div></li>
+                                    <li class="user-panel-dd"><div class="menu-currency" id="eth"><i class="cc ETH"></i>&nbsp;ETH</div></li>
                                 </ul>
                             </li> 
                         </li>
                         <li style="margin-right: 20px;">
-                            <div id="div_btc" ><i class="fa fa-btc fa-fw" style="color: #028841; padding-top:7px;"></i>&nbsp;{{ session()->get('btc_amount') }}</div>
-                            <div id="div_eth" style="display:none;"><i class="fa fa-sort fa-fw" style="color: #028841; padding-top:7px;"></i>&nbsp;{{ session()->get('eth_amount') }}</div>
+                            <div id="div_btc" style="padding-top:5px;"><i class="cc BTC" style="color: #717975; margin-top:7px;"></i>&nbsp;{{ session()->get('btc_amount') }}</div>
+                            <div id="div_eth" style="display:none;padding-top:5px;"><i class="cc ETH" style="color: #717975; margin-top:7px;"></i>&nbsp;{{ session()->get('eth_amount') }}</div>
                         </li>
                         @endif
                         @if (Auth::guest())

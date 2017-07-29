@@ -13,11 +13,11 @@
 </style>
     <div class="container">
         {{ csrf_field() }}
-        <h3>Wallet</h3>
+        <label>BTC: ${{ $price_data['btc'] }}</label>/<label>ETH: ${{ $price_data['eth'] }}</label>
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h4>Total worth:</h4>
+                    <h4>Total worth:&nbsp;${{ $total_worth }}</h4>
                 </div>
                 <div class="col-md-12 table-responsive">
                     <table class="table">
@@ -37,7 +37,7 @@
                                 <td>{{ $wallet['coin']  }}</td>
                                 <td>{{ $wallet['abbrev']  }}</td>
                                 <td>{{ $wallet['amount']  }}</td>
-                                <td>{{ $wallet['address']  }}</td>
+                                <td>${{ $wallet['price_usd']  }}</td>
                                 <td><a href="#" class="a-wallet" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_deposit" deposit_address="{{ $wallet['address']  }}" prop = "deposit" cointype="{{ $wallet['abbrev'] }}">Deposit {{ $wallet['abbrev'] }}</a></td>
                                 <td><a href="#" class="a-wallet" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_withdraw" prop = 'withdraw' cointype="{{ $wallet['abbrev'] }}">Withdraw {{ $wallet['abbrev'] }}</a></td>
                             </tr>
@@ -86,17 +86,33 @@
                 <form class="form">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="dest_address">Withdrawal address:</label>
-                        <input type="text" class="form-control" id="dest_address">
+                        <div class="col-md-12">
+                            <label for="dest_address">Withdrawal address:</label>
+                            <input type="text" class="form-control" id="dest_address" readonly>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="coin_amount">withdrawal:</label>
-                        <input type="number" class="form-control" id="coin_amount">
+                        <div class="col-md-12">
+                            <label for="group_pin_code">2FA One Time Pin:</label>
+                            <div class="input-group">
+                                <input class="numberinput form-control" id="pin_code" name="pin_code" required>
+                                <a id="btn_authorize" class="btn input-group-addon">Authorize</a>
+                            </div>
+                                <div id="invalid_title" class="hidden" style="color: red; font-weight: 800;">INVALID</div>
+                        </div>
+                        {{--<input type="text" class="form-control" id="pin_code">--}}
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="coin_amount">withdrawal:</label>
+                            <input type="number" class="form-control" id="coin_amount" readonly>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_withdraw">Withdraw</button>
+                <button type="button" class="btn btn-default hidden" id="btn_withdraw">Withdraw</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
 

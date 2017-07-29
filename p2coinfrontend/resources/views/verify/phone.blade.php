@@ -15,7 +15,7 @@
                 <div class="row" >
                     <div class="col-md-12"><label>P2Coin will send you a PIN code to verify your phone.</label></div>
                     <div class="col-md-6 col-sm-8 col-xs-12"><input id="phone"  class="form-control" type="tel"></div>
-                    <div class="col-md-2"><button type="button" class="btn btn-success btn-green">Request Code</button></div>
+                    <div class="col-md-2"><button type="button" id="btn_request_code" class="btn btn-success btn-green">Request Code</button></div>
                 </div>
                 <div class="form-group">
                     <label for="usr">Recieve verification code by Text(SMS).</label>

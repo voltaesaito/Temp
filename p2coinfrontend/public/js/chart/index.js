@@ -56,7 +56,7 @@ console.log(resp);
                                 enabled: false
                             },
                             title: {
-                                text: $('a.a_view_chart').attr('title')+'Historical Data'
+                                text: $('a.a_view_chart').attr('title')+' Historical Data'
                             },
                             subtitle: {
                                 text: ''

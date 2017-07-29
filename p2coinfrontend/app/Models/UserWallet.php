@@ -19,4 +19,21 @@ class UserWallet extends Model
         $row = self::all()->where('user_id', '=', $user_id)->where('wallet_type', '=', $wallet_type)->first();
         return $row;
     }
+    public function getCurrentPrice() {
+        $ch = curl_init("https://api.coinmarketcap.com/v1/ticker/bitcoin/?convert=USD");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $btc_data_str = json_decode(curl_exec($ch));
+        curl_close($ch);
+
+
+        $ch = curl_init("https://api.coinmarketcap.com/v1/ticker/ethereum/?convert=USD");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $eth_data_str = json_decode(curl_exec($ch));
+        curl_close($ch);
+
+        $btc = $btc_data_str[0];
+        $eth = $eth_data_str[0];
+        $return_data = array('btc'=>$btc->price_usd, 'eth'=>$eth->price_usd);
+        return $return_data;
+    }
 }

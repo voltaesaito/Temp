@@ -30,15 +30,25 @@ class WalletController extends Controller
         $wallet_info = array();
         $user = Auth::user();
         $model = new UserWallet();
+        $price_data = $model->getCurrentPrice();
         $btcAddress = $model->getUserWallet($user->id, 'btc');
-        $wallet_info[] = array('coin'=>'Bitcoin', 'abbrev'=>'BTC', 'address'=>$btcAddress, 'amount'=>0);
+        $btcWallet = new WalletManage();
+        $btcWData = $btcWallet->getWalletBalanceByAddress($btcAddress);
+
+        $btc_amount = $btcWData->data->available_balance;
+        $btc_price_usd = floatval(number_format($btc_amount*$price_data['btc'],2,'.',','));
+
+
+        $wallet_info[] = array('coin'=>'Bitcoin', 'abbrev'=>'BTC', 'address'=>$btcAddress, 'amount'=>floatval($btc_amount), 'price_usd'=>$btc_price_usd);
         $ethAddress = $model->getUserWallet($user->id, 'eth');
         $blockchain = new BlockchainWalletMng();
         $blockchain->setWalletType('eth');
         $balanceInfo = $blockchain->getAddressBalance($ethAddress);
-        $wallet_info[] = array('coin'=>'Ethereum', 'abbrev'=>'ETH', 'address'=>$ethAddress, 'amount'=>$balanceInfo['balance']);
 
-        return view('wallet.index')->with('wallet_info', $wallet_info);
+        $eth_price_usd = floatval(number_format( $balanceInfo['balance']*$price_data['eth'],2,'.',','));
+        $wallet_info[] = array('coin'=>'Ethereum', 'abbrev'=>'ETH', 'address'=>$ethAddress, 'amount'=>floatval($balanceInfo['balance']),'price_usd'=>$eth_price_usd );
+
+        return view('wallet.index')->with('wallet_info', $wallet_info)->with('total_worth', ($btc_price_usd+$eth_price_usd))->with('price_data', $price_data);
     }
     public function deposit(Request $request) {
         $src_address = $request->src_address;

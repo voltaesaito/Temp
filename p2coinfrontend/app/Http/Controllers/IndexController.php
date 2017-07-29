@@ -265,7 +265,7 @@ class IndexController extends Controller
         
     }    
 
-public function getListingData(Request $request) {
+    public function getListingData(Request $request) {
 
         $flag = $request->flag;
         $localinfo = session()->get('locationinfo');

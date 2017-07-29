@@ -22,7 +22,11 @@ Route::post('/resetpassword', 'Auth\ChangePasswordController@resetpassword')->na
 Route::get('/changephone', 'Auth\ChangeEmailController@changephone')->name('changephone');
 Route::post('/changepersonphonenumber', 'Auth\ChangeEmailController@changepersonphonenumber')->name('changepersonphonenumber');
 Route::get('/change2fa', 'Auth\ChangeEmailController@twofaindex')->name('change2fa');
+Route::get('/check2fa', 'Auth\ChangeEmailController@check2fa')->name('check2fa');
+
+
 Route::get('/verifyphone', 'Auth\VerifyPhoneController@index')->name('verifyphone');
+Route::get('/getpincode', 'Auth\VerifyPhoneController@getpincode')->name('getpincode');
 Route::get('/verifyid', 'Auth\VerifyIDController@index')->name('verifyid');
 Route::get('/verifyready', 'Auth\RegisterController@verifyready')->name('verifyready');
 

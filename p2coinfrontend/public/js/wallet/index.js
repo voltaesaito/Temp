@@ -4,6 +4,9 @@
 function CStandard() {
     this.coin_type = 'eth';
     this.action = 'deposit';
+    $('#pin_code').focusin();
+
+
 }
 CStandard.prototype = {
     init : function() {
@@ -13,7 +16,11 @@ CStandard.prototype = {
         $('a.a-wallet').click(cObj.doOnClickWalletAction);
         $('#btn_deposit').click(cObj.doOnWalletDeposit);
         $('#btn_withdraw').click(cObj.doOnWalletWithdraw);
-
+        $('#btn_authorize').click(cObj.doOnAuthorize);
+        $('#pin_code').keypress(function(event){
+            if ( event.keyCode == 13 )
+                cObj.doOnAuthorize();
+        });
     },
     doOnClickWalletAction : function () {
         cObj.coin_type = $(this).attr('cointype');
@@ -45,8 +52,23 @@ CStandard.prototype = {
         var coin_amount = $('#coin_amount').val();
         var _token = $('meta[name=csrf-token]').attr('content');
         $.post('coinwithdraw', { address: address, coin_amount: coin_amount,  coin_type: cObj.coin_type,  _token: _token }, function(resp){
-            if (resp) {
 
+        });
+    },
+    doOnAuthorize : function() {
+        if($('#pin_code').val()=='') return;
+        $.get('check2fa?code='+$('#pin_code').val(), function(resp){
+            if (resp=='ok') {
+                $('#btn_withdraw').removeClass('hidden');
+                $('#dest_address').removeAttr('readonly');
+                $('#coin_amount').removeAttr('readonly');
+                $('#invalid_title').addClass('hidden');
+            }
+            else {
+                $('#btn_withdraw').addClass('hidden');
+                $('#dest_address').addClass('readonly');
+                $('#coin_amount').addClass('readonly');
+                $('#valid_title').removeClass('hidden');
             }
         });
     }
