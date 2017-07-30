@@ -40,16 +40,39 @@ class TradeMessageController extends Controller
         $user_type      = $arr[4];
         $back           = $arr[5];
 
-        if($user_type){
-            $coin_sender_id = $sender_id;
-            $coin_receiver_id = $receiver_id;
-        }else{
-            $coin_sender_id = $receiver_id;
-            $coin_receiver_id = $sender_id;
-        }
 
         $listing = listings::all()->where('id', '=', $listing_id)->first();
         $coin_type = $listing->coin_type;
+
+        $user = \Auth::user();
+        if ( $back == 1 ) { //  dis irection
+            if( $user->id == $listing->user_id ){
+                if ( !$user_type ){
+                    $coin_sender_id = $user->id;
+                    $coin_receiver_id = $sender_id;
+                }else {
+                    $coin_sender_id = $sender_id;
+                    $coin_receiver_id = $user->id;
+                }
+            } else {
+                if ( !$user_type ){
+                    $coin_sender_id = $sender_id;
+                    $coin_receiver_id = $user->id;
+                } else {
+                    $coin_sender_id = $user->id;
+                    $coin_receiver_id = $sender_id;
+                }
+            }
+        } else {
+            if ($user_type) {
+                $coin_sender_id = $sender_id;
+                $coin_receiver_id = $receiver_id;
+            } else {
+                $coin_sender_id = $receiver_id;
+                $coin_receiver_id = $sender_id;
+            }
+        }
+
 
         // dd($request->param);
 
@@ -61,30 +84,31 @@ class TradeMessageController extends Controller
 
         $flag = true;
         $request_amount = $coin_amount;
+//dd($coin_sender_id,$coin_receiver_id, $sender_id, $coin_type);
         if ( $coin_type == 'btc' ) {
             $model = new UserWallet();
-            $sender_info = $model->getWalletInfo($sender_id, 'btc');
+            $sender_info = $model->getWalletInfo($coin_sender_id, 'btc');
             $sender_wallet = $sender_info->wallet_address;
-            $receiver_info = $model->getWalletInfo($receiver_id, 'btc');
+            $receiver_info = $model->getWalletInfo($coin_receiver_id, 'btc');
             $receiver_wallet = $receiver_info->wallet_address;
 
 // dd($coin_amount); 
             $model = new WalletManage();  
-// dd($sender_wallet);   
+// dd($sender_wallet);
             $tmp = $model->getWalletBalanceByAddress($sender_wallet);           
             $balance = $tmp->data->available_balance;
             if ( $balance > $coin_amount ) {
-                $data = $model->getTransFee($coin_amount, $receiver_wallet);           
-                $request_amount = $data['total'];
+                $tmpdata = $model->getTransFee($coin_amount, $receiver_wallet);
+                $request_amount = $tmpdata['total'];
 
             }
             
         }
         if ( $coin_type == 'eth' ) {
             $model = new UserWallet();
-            $sender_info = $model->getWalletInfo($sender_id, 'eth');
+            $sender_info = $model->getWalletInfo($coin_sender_id, 'eth');
             $from_address = array('address'=>$sender_info->wallet_address, 'private'=>$sender_info->private, 'public'=>$sender_info->public);
-            $receiver_info = $model->getWalletInfo($receiver_id, 'eth');
+            $receiver_info = $model->getWalletInfo($coin_receiver_id, 'eth');
             $to_address = array('address'=>$receiver_info->wallet_address, 'private'=>$receiver_info->private, 'public'=>$receiver_info->public);
             $wModel = new BlockchainWalletMng();
             $wModel->setWalletType( $coin_type );
@@ -117,7 +141,7 @@ class TradeMessageController extends Controller
             $newRow->contract_id = $contract_id;
             $newRow->sender_id = $sender_id;
             $newRow->receiver_id = $receiver_id;
-            $newRow->message_content = $message_content;
+            $newRow->message_content = htmlentities($message_content);
             $newId = $newRow->save();
         }
         $arr = $this->getMsgListByContractId($contract_id);
@@ -157,12 +181,12 @@ class TradeMessageController extends Controller
         $price = $request->price;
         $message_content = "<strong>BTH : </strong>" . $coin_amount;
 
-        $newRow = new TradeMessageModel();
-        $newRow->contract_id = $contract_id;
-        $newRow->sender_id = $sender_id;
-        $newRow->receiver_id = $receiver_id;
-        $newRow->message_content = $message_content;
-        $newId = $newRow->save();
+//        $newRow = new TradeMessageModel();
+//        $newRow->contract_id = $contract_id;
+//        $newRow->sender_id = $sender_id;
+//        $newRow->receiver_id = $receiver_id;
+//        $newRow->message_content = htmlentities($message_content);
+//        $newId = $newRow->save();
 
 
         $listing_row = Listings::find($listing_id);
@@ -219,6 +243,7 @@ class TradeMessageController extends Controller
                     ->join('users', 'users.id', '=', 'trade_message.sender_id')
                     ->select('trade_message.*', 'users.name')
                     ->where('contract_id', '=', $contract_id)
+                    ->orderBy('created_at', 'asc')
                     ->get();
         $arr = array();
         $user = \Auth::user();

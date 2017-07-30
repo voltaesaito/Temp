@@ -8,6 +8,7 @@ use App\Models\ContractModel;
 use App\Models\WalletManage;
 use App\Models\BlockchainWalletMng;
 use DB;
+use App\Models\UserWallet;
 
 
 class BuyerController extends Controller
@@ -53,12 +54,15 @@ class BuyerController extends Controller
             $contract_id = $data[0]->id;
         }
 
-        $listings = listings::all()->where('id', '=', $listing_id);
-        foreach($listings as $list){
-            $listing = $list;
-            break;
-        }
-        
-        return view('buy.index')->with('price_rate',$USDrate)->with('listing', $listing)->with('contract_id', $contract_id)->with('receiver_id', $receiver_id)->with('coin_type', $coin_type)->with('listing_id', $listing_id);
+        $listing = listings::all()->where('id', '=', $listing_id)->first();
+//        foreach($listings as $list){
+//            $listing = $list;
+//            break;
+//        }
+        $model = new UserWallet();
+        $price_data = $model->getCurrentPrice();
+        return view('buy.index')->with('price_rate',$USDrate)->with('listing', $listing)
+            ->with('price_data', $price_data)
+            ->with('contract_id', $contract_id)->with('receiver_id', $receiver_id)->with('coin_type', $coin_type)->with('listing_id', $listing_id);
     }
 }

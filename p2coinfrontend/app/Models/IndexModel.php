@@ -54,15 +54,12 @@ class IndexModel extends Model
             ->get();
 //          dd($msg_listings);  
 
-        $data = array();
-        $contract_id = 0;
-        foreach($msg_listings as $listing){
-            if($contract_id != $listing->contract_id){
-                $data[] = $listing;
-                $contract_id = $listing->contract_id;
-            }
-        }
-        return $data;
+//        $data = array();
+//        $contract_id = 0;
+//        foreach($msg_listings as $listing){
+//                $data[] = $listing;
+//        }
+        return $msg_listings;
     }
 
 }

@@ -6,7 +6,6 @@ function CStandard() {
     this.action = 'deposit';
     $('#pin_code').focusin();
 
-
 }
 CStandard.prototype = {
     init : function() {

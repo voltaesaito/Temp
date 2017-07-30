@@ -187,7 +187,14 @@
                 position: absolute;
                 left: 175px;
                 top: -7px;
-            }        
+            }
+            .msg-content {
+                word-wrap: break-word;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding-bottom: 3px;
+            }
         }
 
     </style>

@@ -26,7 +26,7 @@ class Listings extends Model
         $data = DB::table('listings')
             ->join('users', 'users.id', '=', 'listings.user_id')
             ->select('listings.*', 'users.name')
-            ->where( 'user_id', '<>', $user_id )->where( 'is_closed', '=', '0')->where('status', '=',1 )->where('user_type', '=', $type);
+            ->where( 'user_id', '<>', $user_id )->where( 'is_closed', '=', '0')->where('status', '=',1 )->where('user_type', '=', $type)->where('is_closed', '=', 0);
 
         if ( $filter_param['coin_amount']>0 )
             $data->where('coin_amount', '>=', $filter_param['coin_amount']);

@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\IndexModel;
+use App\Models\WalletManage;
+use App\Models\UserWallet;
+use App\Models\BlockchainWalletMng;
 
 
 class IndexController extends Controller
 {
     //
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
     public $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>"American Samoa","AD"=>"Andorra","AO"=>"Angola","AI"=>"Anguilla",
         "AQ"=>"Antarctica",
         "AG"=>"Antigua and Barbuda",
@@ -246,6 +253,24 @@ class IndexController extends Controller
     public function index(Request $request){
 
         try{
+
+            $user = \Auth::user();
+            if ( $user ) {
+                $userWalletRow = UserWallet::all()->where('user_id', '=', $user->id)->first();
+                $model = new WalletManage();
+                $wallet_info = $model->getWalletBalanceByAddress($userWalletRow->wallet_address);
+                $coin_balance= floatval($wallet_info->data->available_balance);
+
+                $model = new UserWallet();
+                $ethAddress = $model->getUserWallet($user->id, 'eth');
+                $blockchain = new BlockchainWalletMng();
+                $blockchain->setWalletType('eth');
+                $balanceInfo = $blockchain->getAddressBalance($ethAddress);
+                session()->put('btc_amount', $coin_balance);
+                session()->put('eth_amount', $balanceInfo['balance']);
+            }
+
+
             $request_location_info = json_decode($request->location_info);
             $locationInfo = array('ip'=>$request_location_info->ip,
                                 'city'=>$request_location_info->city,
@@ -344,11 +369,11 @@ class IndexController extends Controller
                 else
                     $flag = 0;
             }
-            $msg_list .= "<li style='height: 50px;'><a href='#' class='view-message' style='height: 100%;' onclick=\"j_obj.doViewMessages('" . $listing->contract_id . "-" . $listing->listing_id . "-" . $listing->sender_id . "-" . $user->id . "-".$flag."-1')\">";
-            $msg_list .= "<div class='col-sm-4' style='font-size: 16px; margin-top:10px;'><b>" . $listing->name . "</b></div>";
-            $msg_list .= "<div class='col-sm-8'>" . $listing->message_content . "</div>";
+            $msg_list .= "<li style='height: 20px;border:1px dotted lightgrey;'><a href='#' class='view-message' style='height: 100%;padding: 0px!important;' onclick=\"j_obj.doViewMessages('" . $listing->contract_id . "-" . $listing->listing_id . "-" . $listing->sender_id . "-" . $user->id . "-".$flag."-1')\">";
+            $msg_list .= "<div class='col-sm-4'><strong>" . $listing->name . "</strong></div>";
+            $msg_list .= "<div class='col-sm-8 msg-content'>" . $listing->message_content . "</div>";
             $msg_list .= "</a></li>";
-            $msg_list .= "<li class='divider'></li>";
+//            $msg_list .= "<li class='divider'></li>";
         }
 
         echo $msg_list;

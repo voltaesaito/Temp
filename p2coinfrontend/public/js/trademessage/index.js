@@ -42,6 +42,13 @@ $(document).ready(function(){
         $.post('gettransactionid', {contract_id:contract_id, _token:_token}, function(resp) {
             if ( resp != 'fail' ) {
                 $.post('withdraw', {transaction_id: resp, _token:_token}, function(resp){
+                    // $.get()
+
+                    $.get('getwalletamountbycoin', function(resp){
+                        $('#label_btc_amount').html(resp.btc);
+                        $('#label_eth_amount').html(resp.eth);
+                    });
+                    $('#release_transaction').hide();
                     console.log(resp);
                 });
              }

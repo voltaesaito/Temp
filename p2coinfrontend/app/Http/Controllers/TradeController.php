@@ -273,6 +273,7 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
         $buy_list = "";
         foreach($buy_listings as $listing){
             $data = DB::table("contract")
+                        ->join('transaction_history', 'transaction_history.contract_id', '=', 'contract.id')
                         ->select('id')
                         ->where('sender_id', '=', $user->id)->where('receiver_id', '=', $listing->user_id)->where('listing_id', '=', $listing->id)
                         ->get();
@@ -295,6 +296,7 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
         foreach($sell_listings as $listing){
 
             $data = DB::table("contract")
+                        ->join('transaction_history', 'transaction_history.contract_id', '=', 'contract.id')
                         ->select('id')
                         ->where('sender_id', '=', $user->id)->where('receiver_id', '=', $listing->user_id)->where('listing_id', '=', $listing->id)
                         ->get();

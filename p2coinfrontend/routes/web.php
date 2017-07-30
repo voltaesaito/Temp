@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('/index', 'IndexController@index')->name('index'); 
+Route::post('/index', 'IndexController@index')->name('index');
 Auth::routes();
 
 Route::get('/changepassword', 'Auth\ChangePasswordController@index')->name('changepassword');
@@ -34,7 +34,7 @@ Route::get('/verifyready', 'Auth\RegisterController@verifyready')->name('verifyr
 Route::post('/chat','ChatController@sendMessage')->name('chat');
  
 Route::get('/chat','ChatController@chatPage')->name('chat');
-
+Route::get('/getwalletamountbycoin', 'WalletController@getwalletamountbycoin')->name('getwalletamountbycoin');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/trade', 'TradeController@index')->name('trade');

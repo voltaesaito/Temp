@@ -381,7 +381,9 @@
                             <input class="textinput textInput form-control" id="price_equation" name="price_equation" type="text" value="btc_in_usd"> 
                         </div>
                         <div class="dynamic-info">
-                            <span class="price-info-text">Trade price with current market value <strong class="price-info">2608.20 USD / BTC</strong></span> 
+                            <span class="price-info-text">Trade price with current market value
+                                <label>BTC: ${{ $price_data['btc'] }}</label>/<label>ETH: ${{ $price_data['eth'] }}</label>
+                            </span>
                         </div>
                     </div>
                     <div class="col-sm-6">

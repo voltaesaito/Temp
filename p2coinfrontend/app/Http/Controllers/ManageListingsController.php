@@ -10,6 +10,7 @@ use App\Models\UserWallet;
 use App\Models\TransactionHistory;
 use App\Models\ContractModel;
 use App\Models\BlockchainWalletMng;
+//use App\Models\Listings;
 use DB;
 
 class ManageListingsController extends Controller
@@ -45,10 +46,12 @@ class ManageListingsController extends Controller
         $eth_disabled = "";
         if ( $eth_balance == 0 ) $eth_disabled = " disabled";
 
+        $price_data = $wmodel->getCurrentPrice();
+
         session()->put('btc_amount', $btc_balance);
         session()->put('eth_amount', $eth_balance);
 
-        return view('manage.index')->with("btc_disabled", $btc_disabled)->with("eth_disabled", $eth_disabled);
+        return view('manage.index')->with("btc_disabled", $btc_disabled)->with("eth_disabled", $eth_disabled)->with('price_data', $price_data);
     }
 
     //Managelistings Pages
@@ -117,8 +120,9 @@ class ManageListingsController extends Controller
             $coin_balance = $balanceInfo['balance'];
         }
 // $coin_balance = 0;
+        $price_data = $wmodel->getCurrentPrice();
         if ($listing_id < 0 ) {
-            return view('manage.listings')->with('coin_balance', $coin_balance)->with('listing', 'NULL');
+            return view('manage.listings')->with('coin_balance', $coin_balance)->with('listing', 'NULL')->with('price_data', $price_data);
         }
         if ( $listing_id > 0 ) {
             $listing = Listings::all()->where('id', '=', $listing_id )->first()->toArray();
@@ -135,7 +139,7 @@ class ManageListingsController extends Controller
                 $balanceInfo = $blockchain->getAddressBalance($ethAddress);
                 $coin_balance = $balanceInfo['balance'];
             }
-            return view('manage.listings')->with('coin_balance', $coin_balance)->with('listing', $listing);
+            return view('manage.listings')->with('coin_balance', $coin_balance)->with('listing', $listing)->with('price_data', $price_data);
         }
     }
 
@@ -221,37 +225,46 @@ class ManageListingsController extends Controller
         $sender_id = $row->coin_sender_id;
         $receiver_id = $row->coin_receiver_id;
 
-        $tmp_data = DB::select("select coin_type from listings where id in ( select c.listing_id from contract c join transaction_history th on th.contract_id=c.id where th.transaction_id={$transaction_id})");
+        $tmp_data = DB::select("select id, coin_type from listings where id in ( select c.listing_id from contract c join transaction_history th on th.contract_id=c.id where th.transaction_id={$transaction_id})");
         $tmp = $tmp_data[0];
         $coin_type = $tmp->coin_type;
+        $listing_id = $tmp->id;
 
-        if ( $coin_type == 'btc' ) {
-            $temp_row = UserWallet::all()->where('user_id', '=', $sender_id)->first();
-            $sender_wallet = $temp_row->wallet_address;
-            $temp_row = UserWallet::all()->where('user_id', '=', $receiver_id)->first();
-            $receiver_wallet = $temp_row->wallet_address;
+        try{
+            if ( $coin_type == 'btc' ) {
+                $temp_row = UserWallet::all()->where('user_id', '=', $sender_id)->first();
+                $sender_wallet = $temp_row->wallet_address;
+                $temp_row = UserWallet::all()->where('user_id', '=', $receiver_id)->first();
+                $receiver_wallet = $temp_row->wallet_address;
 
-            $model = new WalletManage();
-            $data = $model->getTransFee($coin_amount, $receiver_wallet);
-            $model->withdrawExt($data['amount'], $data['site_fee'], $sender_wallet, $receiver_wallet);
+                $model = new WalletManage();
+                $data = $model->getTransFee($coin_amount, $receiver_wallet);
+                $model->withdrawExt($data['amount'], $data['site_fee'], $sender_wallet, $receiver_wallet);
+            }
+            if ( $coin_type == 'eth' ) {
+                $model = new UserWallet();
+                $sender_info = $model->getWalletInfo($sender_id, 'eth');
+                $from_address = array('address'=>$sender_info->wallet_address, 'private'=>$sender_info->private, 'public'=>$sender_info->public);
+                $receiver_info = $model->getWalletInfo($receiver_id, 'eth');
+                $to_address = array('address'=>$receiver_info->wallet_address, 'private'=>$receiver_info->private, 'public'=>$receiver_info->public);
+                $wModel = new BlockchainWalletMng();
+                $wModel->setWalletType( $coin_type );
+                $Skelton = $wModel->createTransaction($from_address, $to_address, $coin_amount);
+                $ret = $wModel->sendTransaction($Skelton, $from_address['private']);
+
+//                echo json_encode(array('from'=>$wModel->getAddressBalance($from_address['address']),'to'=>$wModel->getAddressBalance($to_address['address'])));
+//                exit;
+            }
+            $listing = Listings::find($listing_id);
+            $listing->is_closed = 1;
+            $listing->save();
+
+            echo 'ok';
         }
-        if ( $coin_type == 'eth' ) {
-            $model = new UserWallet();
-            $sender_info = $model->getWalletInfo($sender_id, 'eth');
-            $from_address = array('address'=>$sender_info->wallet_address, 'private'=>$sender_info->private, 'public'=>$sender_info->public);
-            $receiver_info = $model->getWalletInfo($receiver_id, 'eth');
-            $to_address = array('address'=>$receiver_info->wallet_address, 'private'=>$receiver_info->private, 'public'=>$receiver_info->public);
-            $wModel = new BlockchainWalletMng();
-            $wModel->setWalletType( $coin_type );
-            $Skelton = $wModel->createTransaction($from_address, $to_address, $coin_amount);
-            $ret = $wModel->sendTransaction($Skelton, $from_address['private']);
-
-            echo json_encode(array('from'=>$wModel->getAddressBalance($from_address['address']),'to'=>$wModel->getAddressBalance($to_address['address'])));
-            exit;
+        catch(Exception $e) {
+            echo 'fail';
         }
 
-
-        echo 'ok';
         exit;
     }
     public function gettransactionid( Request $request ) {

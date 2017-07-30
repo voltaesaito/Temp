@@ -100,4 +100,10 @@ class WalletController extends Controller
         echo "/assets/qrcode/{$request->address}.png";
         exit;
     }
+    public function getwalletamountbycoin() {
+        $model = new UserWallet();
+        $price_data = $model->getCurrentPrice();
+        echo json_encode($price_data);
+        exit;
+    }
 }
