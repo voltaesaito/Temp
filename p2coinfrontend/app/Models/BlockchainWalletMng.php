@@ -68,6 +68,12 @@ class BlockchainWalletMng
     public function getAddressBalance( $address ) {
         $addressClient = new AddressClient($this->apiContext);
         try {
+//            $url = "https://api.blockcypher.com/v1/eth/main/addrs/".$address."/balance?token=".$this->token;
+//            $ch = curl_init("https://api.blockcypher.com/v1/eth/main/txs/new?token={$this->token}");
+//            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//            $addressBalance = curl_exec($ch);
+//            curl_close($ch);
+//dd($address_info);
             $addressBalance = $addressClient->getBalance($address);
         } catch (Exception $ex) {
             ResultPrinter::printError("Get Only Address Balance", "Address Balance", $address, null, $ex);

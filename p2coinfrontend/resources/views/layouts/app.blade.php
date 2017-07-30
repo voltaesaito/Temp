@@ -20,6 +20,7 @@
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
      <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/global.js') }}"></script>
     <script src="{{ asset('js/home/index.js') }}"></script>
     <style>
         @font-face {
@@ -249,19 +250,25 @@
                             </li> 
                         </li>
                         <li style="margin-right: 20px;">
-                            <div id="div_btc" style="padding-top:5px;"><i class="cc BTC" style="color: #717975; margin-top:7px;"></i>&nbsp;{{ session()->get('btc_amount') }}</div>
-                            <div id="div_eth" style="display:none;padding-top:5px;"><i class="cc ETH" style="color: #717975; margin-top:7px;"></i>&nbsp;{{ session()->get('eth_amount') }}</div>
+                            <div id="div_btc" style="padding-top:5px;">
+                                <i class="cc BTC" style="color: #717975; margin-top:7px;"></i>&nbsp;
+                                <label id="label_btc_amount" ></label>
+                            </div>
+                            <div id="div_eth" style="display:none;padding-top:5px;">
+                                <i class="cc ETH" style="color: #717975; margin-top:7px;"></i>&nbsp;
+                                <label id="label_eth_amount" ></label>
+                            </div>
                         </li>
                         @endif
                         @if (Auth::guest())
                             <li><a class="menu-a" href="{{ route('login') }}">Log In</a></li>
                             <li><a class="menu-a" href="{{ route('register') }}">SignUp</a></li>
-                        @else                            
+                        @else
                             <li class="dropdown user-panel-dd stick">
                                 <a href="#">|</a>
                             </li>                    
                             <li class="dropdown user-panel-dd own-nav">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#user_dropdown" aria-expanded="false">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="" aria-expanded="false">
                                     <i class="fa fa-navicon fa-fw" style = "margin-top: 8px;"></i>
                                 </a>
 
