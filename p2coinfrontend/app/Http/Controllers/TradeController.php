@@ -323,4 +323,58 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
         exit;
         // return view('trade.screen')->with('buy_listings', $buy_listings)->with('sell_listings', $sell_listings)->with('location', $localinfo['country_full_name']);
     } 
+
+    public function getOpenTrades(){
+        $user = \Auth::user();
+        $user_id = $user->id;
+
+        //
+        $sell_listings = DB::table('listings l')
+                        ->join('users u', 'l.user_id', '=', 'u.id')
+                        ->join('contract c', 'l.id', '=', 'c.listing_id')
+                        ->join('transaction_history t', 't.contract_id', '=', 'c.id')
+                        ->select('c.*', 'u.name', 't.coin_amount', 'l.payment_method')
+                        ->where('l.is_closed', '=', '1')->where('c.sender_id', '=', $user->id)->where('u.user_type', '=', 0)
+                        ->where('l.user_id', '=', 'c.receiver_id')
+                        ->orderBy('c.created_at', 'desc')
+                        ->get();
+        $sell_list = "";
+        foreach($sell_listings as $listing){
+            $sell_list .= "<tr>";
+            $sell_list .= "<td>" . $listing->id . "</td>";
+            $sell_list .= "<td>" . $listing->name . "</td>";
+            $sell_list .= "<td>" . $listing->coin_amount . "</td>";
+            $sell_list .= "<td>" . $listing->coin_amount . "</td>";
+            $sell_list .= "<td>" . $listing->payment_method . "</td>";
+            $sell_list .= "<td>-</td>";
+            $sell_list .= "<td>" . $listing->created_at . "</td>";
+            $sell_list .= "</tr>";
+        }
+
+        //
+        $buy_listings = DB::table('listings l')
+                        ->join('users u', 'l.user_id', '=', 'u.id')
+                        ->join('contract c', 'l.id', '=', 'c.listing_id')
+                        ->join('transaction_history t', 't.contract_id', '=', 'c.id')
+                        ->select('c.*', 'u.name', 't.coin_amount', 'l.payment_method')
+                        ->where('l.is_closed', '=', '1')->where('c.receiver_id', '=', $user->id)->where('u.user_type', '=', 1)
+                        ->where('l.user_id', '=', 'c.sender_id')
+                        ->orderBy('c.created_at', 'desc')
+                        ->get();
+        $buy_list = "";
+        foreach($buy_listings as $listing){
+            $buy_list .= "<tr>";
+            $buy_list .= "<td>" . $listing->id . "</td>";
+            $buy_list .= "<td>" . $listing->name . "</td>";
+            $buy_list .= "<td>" . $listing->coin_amount . "</td>";
+            $buy_list .= "<td>" . $listing->coin_amount . "</td>";
+            $buy_list .= "<td>" . $listing->payment_method . "</td>";
+            $buy_list .= "<td>-</td>";
+            $buy_list .= "<td>" . $listing->created_at . "</td>";
+            $buy_list .= "</tr>";
+        }
+
+        echo $sell_list . "@@@" . $buy_list;
+        exit;
+    }
 }
