@@ -2,26 +2,35 @@
  * Created by administrator on 7/28/17.
  */
 $(document).ready(function(){
-    $('a.a_view_chart').click(function() {
+    $('.a_view_chart').click(function() {
+
         $(".modal-title").html($(this).attr('title')+" Chart");
         var coin = $(this).attr('id');
         var _token = $('meta[name=csrf-token]').attr('content');
         ( coin == 'eth' ) ? url = 'https://graphs.coinmarketcap.com/currencies/ethereum/' : url = 'https://graphs.coinmarketcap.com/currencies/bitcoin/';
         // $.get(url, function(resp){
         $.post('getchartdatabycoin',{coin:coin,_token:_token}, function(resp){
-            var price_usd = resp.price_usd;
-            var price_btc = resp.price_btc;
+
+            // var tmp_market_data = resp.market_cap_by_available_supply;
+            
+            var tmp_price_usd = resp.price_usd;
+            var tmp_price_btc = resp.price_btc;
             var volume_usd = [];
-            var market_data_resp = resp.market_cap_by_available_supply;
+            var price_usd = [];
+            var price_btc = [];
+            var tmp_market_data_resp = resp.market_cap_by_available_supply;
             var market_data = [];
-            $.each(market_data_resp, function(){
-                market_data.push([this[0], this[1]/10000000]);
+            $.each(tmp_market_data_resp, function(){
+                market_data.push([this[0], this[1]]);
             });
             $.each(resp.volume_usd, function(){
-                volume_usd.push([this[0], this[1]/1000000]);
+                volume_usd.push([this[0], this[1]]);
             });
             $.each(resp.price_btc, function(){
-                price_btc.push([this[0], this[1]*10000]);
+                price_btc.push([this[0], this[1]]);
+            });
+            $.each(resp.price_usd, function(){
+                price_usd.push([this[0], this[1]*10000000]);
             });
             // $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
                 var detailChart;
@@ -30,17 +39,16 @@ console.log(resp);
 
                     // create the detail chart
                     function createDetail(masterChart) {
-
+console.log(masterChart.axes[1].max);
                         // prepare the detail chart
                         var detailData = [],
                             detailStart = price_usd[0][0];
-
                         $.each(masterChart.series[0].data, function () {
                             if (this.x >= detailStart) {
                                 detailData.push(this.y);
                             }
                         });
-
+console.log(detailData);
                         // create a detail chart referenced by a global variable
                         detailChart = Highcharts.chart('detail-container', {
                             chart: {
@@ -56,7 +64,7 @@ console.log(resp);
                                 enabled: false
                             },
                             title: {
-                                text: $('a.a_view_chart').attr('title')+' Historical Data'
+                                text: $('.a_view_chart').attr('title')+' Historical Data'
                             },
                             subtitle: {
                                 text: ''
@@ -74,10 +82,10 @@ console.log(resp);
                                 formatter: function () {
 console.log(this.points[0].color);
                                     return Highcharts.dateFormat('%A %B %e %Y', this.x) + ':<br/>' +
-                                        "<div style='width:10px;height:10px;color:"+this.points[3].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[3].series.name + ": " + this.points[3].y + 'USD</strong></span><br/>' +
-                                        "<div style='width:10px;height:10px;color:"+this.points[0].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[0].series.name + ": " + this.points[0].y + '</strong></span><br/>' +
-                                        "<div style='width:10px;height:10px;color:"+this.points[1].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[1].series.name + ": " + this.points[1].y + '</strong></span><br/>' +
-                                        "<div style='width:10px;height:10px;color:"+this.points[2].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[2].series.name + ": " + this.points[2].y + 'USD</strong></span><br/>'
+                                        "<div style='width:10px;height:10px;background-color:"+this.points[3].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[3].series.name + ": " + this.points[3].y + 'USD</strong></span><br/>' +
+                                        "<div style='width:10px;height:10px;background-color:"+this.points[0].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[0].series.name + ": " + this.points[0].y + '</strong></span><br/>' +
+                                        "<div style='width:10px;height:10px;background-color:"+this.points[1].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[1].series.name + ": " + this.points[1].y + '</strong></span><br/>' +
+                                        "<div style='width:10px;height:10px;background-color:"+this.points[2].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[2].series.name + ": " + this.points[2].y + 'USD</strong></span><br/>'
                                         ;
                                 },
                                 shared: true
@@ -304,6 +312,6 @@ console.log(this.points[0].color);
             // });
             // console.log(resp);
         });
-        $('#chart_dialog').modal('show');
+        // $('#chart_dialog').modal('show');
     });
 });

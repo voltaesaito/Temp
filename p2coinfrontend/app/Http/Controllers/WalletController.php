@@ -101,9 +101,26 @@ class WalletController extends Controller
         exit;
     }
     public function getwalletamountbycoin() {
+        $user = Auth::user();
         $model = new UserWallet();
         $price_data = $model->getCurrentPrice();
-        echo json_encode($price_data);
+        $btcAddress = $model->getUserWallet($user->id, 'btc');
+        $btcWallet = new WalletManage();
+        $btcWData = $btcWallet->getWalletBalanceByAddress($btcAddress);
+
+        $btc_amount = $btcWData->data->available_balance;
+        $btc_price_usd = floatval(number_format($btc_amount*$price_data['btc'],2,'.',','));
+
+
+        $wallet_info['btc'] = floatval($btc_amount);
+        $ethAddress = $model->getUserWallet($user->id, 'eth');
+        $blockchain = new BlockchainWalletMng();
+        $blockchain->setWalletType('eth');
+        $balanceInfo = $blockchain->getAddressBalance($ethAddress);
+
+        $eth_price_usd = floatval(number_format( $balanceInfo['balance']*$price_data['eth'],2,'.',','));
+        $wallet_info['eth'] = floatval($balanceInfo['balance']);
+        echo json_encode($wallet_info);
         exit;
     }
 }

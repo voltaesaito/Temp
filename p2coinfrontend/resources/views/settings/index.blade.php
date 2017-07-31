@@ -3,14 +3,14 @@
 
     <div class="container">
         <h3>Settings</h3>
-        <div class="container">
-            <div class="list-group">
-                <a href="#div_change_password" class="list-group-item menu-caption">Change Password</a>
-                <a href="#div_change_phone" class="list-group-item menu-caption">Change Phone Number</a>
-                <a href="#div_change_2fa" class="list-group-item menu-caption">Add/Change 2FAuthentication</a>
-                <a href="#div_verification" class="list-group-item menu-caption">Verification</a>
-            </div>
-        </div>
+        {{--<div class="container">--}}
+            {{--<div class="list-group">--}}
+                {{--<a href="#div_change_password" class="list-group-item menu-caption">Change Password</a>--}}
+                {{--<a href="#div_change_phone" class="list-group-item menu-caption">Change Phone Number</a>--}}
+                {{--<a href="#div_change_2fa" class="list-group-item menu-caption">Add/Change 2FAuthentication</a>--}}
+                {{--<a href="#div_verification" class="list-group-item menu-caption">Verification</a>--}}
+            {{--</div>--}}
+        {{--</div>--}}
         <div class="row">
             @if ( Auth::user()->phone_verify == 0 )
             <div class="col-md-12">
@@ -19,7 +19,7 @@
                         <i class="fa fa-exclamation"></i>&nbsp;
                         
                             You have not added a verified phone number to your account yet.
-                            <a class="btn btn-default profile-verified-info" href="">Verify phone number</a>
+                            <a class="btn btn-default profile-verified-info" href="{{ route('verifyphone') }}">Verify phone number</a>
                         
                     </span>
                 </div>
@@ -32,7 +32,7 @@
                         <i class="fa fa-exclamation"></i>&nbsp;
                         
                             You have not added a verified ID to your account yet.
-                            <a class="btn btn-default profile-verified-info" href="">Verify ID</a>
+                            <a class="btn btn-default profile-verified-info" href="{{ route('verifyid') }}">Verify ID</a>
                         
                     </span>
                 </div>

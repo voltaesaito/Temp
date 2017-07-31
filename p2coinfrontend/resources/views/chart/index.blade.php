@@ -56,7 +56,7 @@
                                         <td>${{ number_format($btc_data['24h_volume_usd'],2,".",",") }}</td>
                                         <td style="color:{{ $btcColorStr }}">{{ number_format($btc_data['percent_change_24h'],2,".",",") }}%</td>
                                         <td>
-                                            <a href="#" id="btc" title="Bitcoin" class="a_view_chart">View Chart</a>
+                                            <button type="button" id="btc" title="Bitcoin" data-toggle="modal" data-target="#chart_dialog" class="btn btn-default a_view_chart">View Chart</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -67,7 +67,7 @@
                                         <td>${{ number_format($eth_data['24h_volume_usd'],2,".",",") }}</td>
                                         <td style="color:{{ $ethColorStr }}">{{ number_format($eth_data['percent_change_24h'],2,".",",") }}%</td>
                                         <td>
-                                            <a href="#" id="eth" title="Ethereum" class="a_view_chart">View Chart</a>
+                                            <button type="button" id="eth" title="Ethereum" data-toggle="modal" data-target="#chart_dialog" class="btn btn-default a_view_chart">View Chart</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -97,6 +97,5 @@
     </div>
 </div>
 <script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{{URL::asset('./js/chart/index.js')}}" ></script>
 @endsection
