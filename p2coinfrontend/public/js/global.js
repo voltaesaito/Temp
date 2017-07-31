@@ -15,7 +15,7 @@ function doRealTime(){
             $('#label_eth_amount').html(repjson.eth);
 console.log(price_data, typeof(price_data));
         });
-    },60000);
+    },30000);
 }
 $(function(){
     doRealTime();
