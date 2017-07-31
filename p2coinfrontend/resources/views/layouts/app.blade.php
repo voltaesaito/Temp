@@ -225,8 +225,8 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav left-menu">
                         <?php $tradeCls = ""; ?>
-                        <?php ( strpos(URL::current(), 'trade') === false ) ? $tradeCls = "" : $tradeCls = "menu-a-sel"; ?>
-                        <li><a class="menu-a {{ $tradeCls }}" href="{{ route('trade') }}" style="margin-right: 10px;">TRADE</a></li>
+                        <?php ( (strpos(URL::current(), 'trades') === false) ) ? $tradeCls = "" : $tradeCls = "menu-a-sel"; ?>
+                        <li><a class="menu-a {{ $tradeCls }}" href="{{ route('trades') }}" style="margin-right: 10px;">TRADE</a></li>
                         @if (!Auth::guest())
                         <?php ( strpos(URL::current(), 'managelistings') === false ) ? $tradeCls = "" : $tradeCls = "menu-a-sel"; ?>
                             <li><a class="menu-a {{ $tradeCls }}" href="{{ route('managelistings') }}">MANAGE LISTINGS</a></li>

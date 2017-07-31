@@ -37,7 +37,7 @@ Route::get('/chat','ChatController@chatPage')->name('chat');
 Route::get('/getwalletamountbycoin', 'WalletController@getwalletamountbycoin')->name('getwalletamountbycoin');
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/trade', 'TradeController@index')->name('trade');
+Route::get('/trades', 'TradeController@index')->name('trades');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::post('/buy', 'BuyerController@index')->name('buyer');
 Route::get('/managelistings', 'ManageListingsController@index')->name('managelistings');

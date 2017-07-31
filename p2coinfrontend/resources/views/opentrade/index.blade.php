@@ -16,8 +16,7 @@
         }
     </style>
     <div class="container">
-        {{ csrf_field() }}
-        <div class="container">
+         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h3>Open Trades</h3>
@@ -91,5 +90,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
+    <!-- <script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script> -->
 @endsection
