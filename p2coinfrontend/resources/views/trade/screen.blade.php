@@ -19,9 +19,8 @@
 </style>
 
 @section('content')
-
 {{ csrf_field() }}
-
+<script> var real_location = '{{ $real_location }}';</script>
 <div class="container">
     <div class="row text-center toggle">
         <button data-toggle="collapse" data-target="#search_form" class="btn btn-warning gradient-btn">Search</button>
@@ -35,7 +34,7 @@
         <div class="first-input"><input type="text" id="coin_amount" name="coin_amount" placeholder="Amount"/></div>
         <div class="second-input">
             <select id="coin_type" name="coin_type">
-                <option value="none">Currency</option><option value="btc">BTH</option><option value="eth">ETH</option>
+                <option value="none">Currency</option><option value="btc">BTC</option><option value="eth">ETH</option>
             </select>
         </div>
         <div class="second-input">

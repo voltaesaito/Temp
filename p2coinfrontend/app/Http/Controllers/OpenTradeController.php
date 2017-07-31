@@ -28,8 +28,6 @@ class OpenTradeController extends Controller
                         ->orderBy('contract.created_at', 'desc')
                         ->get();
 
-//        dd($sell_listings);
-        //
         $buy_listings = DB::table('listings')
                         ->join('users', 'listings.user_id', '=', 'users.id')
                         ->join('contract', 'listings.id', '=', 'contract.listing_id')

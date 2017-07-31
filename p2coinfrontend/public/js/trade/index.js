@@ -2,7 +2,8 @@ var seemore_flag = -1;
 function JObject() {
 }
 JObject.prototype = {
-    init : function() {
+    init : function() {//alert(real_location);
+        $('#location').val(real_location);
         this.initEventListen();
         this.loadListingData(1);
     },
@@ -17,7 +18,7 @@ JObject.prototype = {
          $('#search_form').collapse('hide');
     },
     doOnSetSeeMoreFlag : function() {
-        seemore_flag = $(this).attr('prop');
+        seemore_flag = $(this).attr('prop'); 
         j_obj.loadListingData(0);
     },
     doCreateContractAndGoTransaction : function (param) {
@@ -88,7 +89,6 @@ JObject.prototype = {
                 $('#title2').html(arr[0]);
                 $('#sell_list').html(arr[2]);
             }
-            
         } );
     }
 }  
