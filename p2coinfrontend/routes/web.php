@@ -43,7 +43,7 @@ Route::post('/buy', 'BuyerController@index')->name('buyer');
 Route::get('/managelistings', 'ManageListingsController@index')->name('managelistings');
 Route::get('/messagebox', 'TradeMessageController@messagebox')->name('messagebox');
 Route::get('/addlistings/{listing_id}', 'ManageListingsController@addlistings')->name('addlistings/{listing_id}');
-//Route::get('/editlistings/{listing_id}', 'ManageListingsController@editlistings')->name('editlistings/{listing_id}');
+
 Route::get('/viewlisting/{listing_id}', 'ManageListingsController@viewlisting')->name('viewlisting/{listing_id}');
 Route::get('/getuserbalance', 'ManageListingsController@userbalance')->name('getuserbalance');
 Route::post('/storelistings', 'ManageListingsController@storelistings')->name('storelistings');
