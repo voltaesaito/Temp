@@ -251,7 +251,7 @@ class IndexController extends Controller
         "ZW"=>"Zimbabwe");
 
     public function index(Request $request){
-
+        session()->reflash();
         try{
 
             $user = \Auth::user();

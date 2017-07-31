@@ -73,7 +73,7 @@ class BlockchainWalletMng
 //            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 //            $addressBalance = curl_exec($ch);
 //            curl_close($ch);
-//dd($address_info);
+//dd($addressBalance);
             $addressBalance = $addressClient->getBalance($address);
         } catch (Exception $ex) {
             ResultPrinter::printError("Get Only Address Balance", "Address Balance", $address, null, $ex);
