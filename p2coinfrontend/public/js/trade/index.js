@@ -75,6 +75,8 @@ JObject.prototype = {
         var payment_method = $('#payment_method').val();
         $.post('getlistingdata', {coin_amount:coin_amount, coin_type:coin_type, location:location, payment_method:payment_method, _token:_token, flag: flag }, function(resp) {
             var arr = resp.split('@@@');
+            $('#buy_list').empty();
+            $('#sell_list').empty();
             if ( seemore_flag == -1 ) {
                 $('#title1').html(arr[0]);
                 $('#title2').html(arr[0]);
