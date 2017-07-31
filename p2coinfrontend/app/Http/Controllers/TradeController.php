@@ -23,6 +23,9 @@ class TradeController extends Controller
         $model = new WalletManage();
         $wallet_info = $model->getWalletBalanceByAddress($userWalletRow->wallet_address);
         $coin_balance= floatval($wallet_info->data->available_balance);
+        
+        $localinfo = session()->get('locationinfo');
+        // dd($localinfo);
 
         $model = new UserWallet();
         $ethAddress = $model->getUserWallet($user->id, 'eth');
@@ -31,7 +34,7 @@ class TradeController extends Controller
         $balanceInfo = $blockchain->getAddressBalance($ethAddress);
         session()->put('btc_amount', $coin_balance);
         session()->put('eth_amount', $balanceInfo['balance']);
-        return view('trade.screen');
+        return view('trade.screen')->with('real_location', $localinfo['country']);
     }
 
     public function getListingData(Request $request) {
