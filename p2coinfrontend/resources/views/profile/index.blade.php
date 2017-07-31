@@ -119,11 +119,11 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div>{{ $user->name }}</div>
-            <div>{{ $user->email }}</div>
-            <div>{{ $wallet_address }}</div>
-        </div>    
+        {{--<div class="container">--}}
+            {{--<div>{{ $user->name }}</div>--}}
+            {{--<div>{{ $user->email }}</div>--}}
+            {{--<div>{{ $wallet_address }}</div>--}}
+        {{--</div>    --}}
     </div>
 </div>
 @endsection
