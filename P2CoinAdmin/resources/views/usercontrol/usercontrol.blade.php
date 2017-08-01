@@ -58,7 +58,7 @@
                     </td>
                     <td class="center"> {{ $user->created_at }} </td>
                     <td align=center>
-                        <button class="view_user btn btn-success" type="button" user_id="{{ $user->id }}" onclick="doOnViewDetail(this)">View Detail
+                        <button class="view_user btn blue btn-outline sbold" type="button" user_id="{{ $user->id }}" onclick="doOnViewDetail(this)">View Detail
                         </button>
                     </td>
                 </tr>

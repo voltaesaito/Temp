@@ -70,19 +70,29 @@
                     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                         <li class="nav-item start active open">
                             <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="icon-home"></i>
+                                <i class="fa fa-dashboard"></i>
                                 <span class="title">Dashboard</span>
                                 <span class="selected"></span>
                                 <span class="arrow open"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li class="nav-item start active open">
+                                <li class="nav-item start open">
                                     <a href="{{ route('statistics') }}" class="nav-link ">
                                         <i class="icon-bar-chart"></i>
                                         <span class="title">Statistics</span>
                                         <!-- <span class="selected"></span> -->
                                     </a>
                                 </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item start active open">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-home"></i>
+                                <span class="title">User Management</span>
+                                <span class="selected"></span>
+                                <span class="arrow open"></span>
+                            </a>
+                            <ul class="sub-menu">
                                 <li class="nav-item start ">
                                     <a href="/usercontrol" class="nav-link ">
                                         <i class="icon-user"></i>
@@ -90,11 +100,21 @@
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="" class="nav-link ">
+                                    <a href="{{ route('changeverified') }}" class="nav-link ">
                                         <i class="icon-tag"></i>
                                         <span class="title">Change Verified ID</span>
                                     </a>
                                 </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item start active open">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-bank"></i>
+                                <span class="title">Trade Management</span>
+                                <span class="selected"></span>
+                                <span class="arrow open"></span>
+                            </a>
+                            <ul class="sub-menu">
                                 <li class="nav-item start ">
                                     <a href="{{ route('listingscontrol') }}" class="nav-link ">
                                         <i class="icon-notebook"></i>
@@ -102,31 +122,31 @@
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="" class="nav-link ">
+                                    <a href="{{ route('opentrade') }}" class="nav-link ">
                                         <i class="icon-globe"></i>
                                         <span class="title">Open Trades</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="" class="nav-link ">
+                                    <a href="{{ route('disputes') }}" class="nav-link ">
                                         <i class="icon-bulb"></i>
                                         <span class="title">Disputes</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="" class="nav-link ">
+                                    <a href="{{ route('deposits') }}" class="nav-link ">
                                         <i class="icon-wrench"></i>
                                         <span class="title">Deposits</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="" class="nav-link ">
+                                    <a href="{{ route('withdrawals') }}" class="nav-link ">
                                         <i class="icon-diamond"></i>
                                         <span class="title">Withdrawals</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="" class="nav-link ">
+                                    <a href="{{ route('websitewallet') }}" class="nav-link ">
                                         <i class="icon-wallet"></i>
                                         <span class="title">Website Wallet</span>
                                     </a>

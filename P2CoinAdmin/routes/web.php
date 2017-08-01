@@ -24,3 +24,16 @@ Route::get('/userdetail/{userid}', 'UserControlController@userdetail')->name('us
 
 Route::get('/listingscontrol', 'ListingsControlController@index')->name('listingscontrol');
 Route::get('/viewalllistings', 'ListingsControlController@viewalllistings')->name('viewalllistings');
+
+Route::get('/opentrade', 'OpenTradeController@index')->name('opentrade');
+
+Route::get('/changeverified', 'ChangeVerifiedUserController@index')->name('changeverified');
+Route::get('/changestatus', 'ChangeVerifiedUserController@changestatus')->name('changestatus');
+
+Route::get('/disputes', 'DisputesController@index')->name('disputes');
+
+Route::get('/deposits', 'DepositsController@index')->name('deposits');
+
+Route::get('/withdrawals', 'WithdrawalsController@index')->name('withdrawals');
+
+Route::get('/websitewallet', 'WebsiteWalletController@index')->name('websitewallet');

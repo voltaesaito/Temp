@@ -2,9 +2,9 @@
 
 @section('content')
 <style>
- .email-input  {
-     width:400px;
-     min-width:180px;
+ .btn-action  {
+     width:100%;
+     height:100%;
  }
 </style>
 <div class="panel panel-default">
@@ -18,7 +18,7 @@
                         <div class="portlet box blue-ebonyclay">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-gift"></i>Listings Control</div>
+                                    <i class="fa fa-gift"></i>Open Trades</div>
                                 <div class="tools">
                                     <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
                                     <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
@@ -29,27 +29,44 @@
                             <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
                                 <form action="#" class="form-horizontal">
-                                    <div class="form-actions">
+                                    <!-- <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-                                                <button type="button" id = "view_all_listings" class="btn dark btn-outline sbold">View All Listings</button>
-                                                <button type="button" id="view_reported_listings" class="btn dark btn-outline sbold">View Reported Listings</button>
+                                                <button type="button" id = "view_all_listings" class="btn btn-circle green">View All Listings</button>
+                                                <button type="button" id="view_reported_listings" class="btn btn-circle green">View Reported Listings</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="form-body">
                                         <table class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
                                             <thead>
                                                 <tr role="row">
-                                                    <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 47px;">Seller</th>
-                                                    <th class="sorting_desc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="descending" aria-label=" Username : activate to sort column ascending" style="width: 93px;">Currency</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Email : activate to sort column ascending" style="width: 148px;">Terms Of Trade</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Joined : activate to sort column ascending" style="width: 67px;">Payment_Details</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Actions : activate to sort column ascending" style="width: 70px;">Delete</th>
+                                                    <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 47px;">Lister</th>
+                                                    <th class="sorting_desc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="descending" aria-label=" Username : activate to sort column ascending" style="width: 93px;">Partner</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Email : activate to sort column ascending" style="width: 148px;">Amount in Coin</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Joined : activate to sort column ascending" style="width: 67px;">Amount in Fiat</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Actions : activate to sort column ascending" style="width: 70px;">Status</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Actions : activate to sort column ascending" style="width: 70px;">End trade</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Actions : activate to sort column ascending" style="width: 70px;">Release Escrow</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="form_body-container">
-                                                
+                                            @foreach( $trade_arr as $trade )
+                                                <tr class="gradeX odd" role="row">
+                                                    <td align=center>{{ $trade['seller'] }}</td>
+                                                    <td align=center>{{ $trade['buyer'] }}</td>
+                                                    <td align=center>{{ $trade['coin_amount'] }} {{ strtoupper($trade['coin_type']) }}</td>
+                                                    <td align=center>${{ $trade['fiat_amount'] }}</td>
+                                                    <td align=center>{{ $trade['payment_name'] }}</td>
+                                                    @if ( $trade['is_closed'] == 0 )
+                                                        <td align=center><label class="btn btn-action">-</label></td>
+                                                        <td align=center><button type="button" class="btn red btn-action btn-outline sbold" id="btn_release">Release</button></td>
+                                                    @else
+                                                        <td align=center><label class="btn lightblue btn-action">End</label></td>
+                                                        <td align=center></td>
+                                                    @endif
+                                                </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>
