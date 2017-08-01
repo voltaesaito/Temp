@@ -12,8 +12,9 @@ class IndexController extends Controller
         $user_rate = $active_users/$total_users*100;
 
         $nowdate = date("Y-m-d H:m:s", strtotime(date("Y-m-d H:m:s")));
-        $yesterday = date("Y-m-d H:m:s", strtotime("-1 days", $nowdate));
-        // dd(date("Y-m-d H:m:s", $nowdate), date("Y-m-d H:m:s", $yesterday));
+        $yesterday = date("Y-m-d H:m:s", strtotime("-1 days", strtotime($nowdate)));
+        session()->put('total_users', '500');
+        session()->put('active_users', '300');
         return view('index.index')->with(['total_users'=>$total_users, 'active_users'=>$active_users,'user_rate'=>$user_rate]);
     }
 }

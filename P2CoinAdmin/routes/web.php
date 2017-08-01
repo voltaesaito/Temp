@@ -15,3 +15,12 @@
 //     return view('welcome');
 // });
 Route::get('/', 'IndexController@index');
+
+Route::get('/statistics', 'StatisticsController@index')->name('statistics');
+
+Route::get('/usercontrol', 'UserControlController@index')->name('usercontrol');
+Route::post('/getuserbysearch', 'UserControlController@getuserbysearch')->name('getuserbysearch');
+Route::get('/userdetail/{userid}', 'UserControlController@userdetail')->name('userdetail/{$userid}');
+
+Route::get('/listingscontrol', 'ListingsControlController@index')->name('listingscontrol');
+Route::get('/viewalllistings', 'ListingsControlController@viewalllistings')->name('viewalllistings');

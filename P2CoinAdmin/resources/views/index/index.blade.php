@@ -1,7 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
+<style>
+    .admin-button {
+        height: 50px;
+    }
+    .btn-event {
+        width:100%; height:100%;
+        font-size:22px;font-weight:300;
+    }
+</style>
+
+<!-- <div class="row">
+    
+    
     <div class="col-lg-6 col-xs-12 col-sm-12">
         <div class="portlet light bordered">
             <div class="portlet-title">
@@ -46,5 +58,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 @endsection

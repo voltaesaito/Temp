@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
-    <!--<![endif]-->
-    <!-- BEGIN HEAD -->
-
     <head>
         <meta charset="utf-8" />
-        <title>P2CoinAdmin</title>
+        <title>P2CoinAdmin</title> <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Preview page of Metronic Admin Theme #4 for statistics, charts, recent events and reports" name="description" />
@@ -39,13 +37,19 @@
         <div class="page-header navbar navbar-fixed-top">
             <div class="page-header-inner ">
                 <div class="page-logo">
-                    <a href="index.html">
-                        <img src="{{ asset('./assets/layouts/layout4/img/logo-light.png') }}" alt="logo" class="logo-default" /> </a>
+                    <a href="#">
+                        <!-- <img src="{{ asset('./assets/layouts/layout4/img/logo-light.png') }}" alt="logo" class="logo-default" />  -->
+                    </a>
                     <div class="menu-toggler sidebar-toggler">
                     </div>
                 </div>
+                <div class="page-head">
+                    <div class="page-title">
+                        <h1>P2Coin Admin Panel</h1>
+                    </div>
+                </div>
                 <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
-                <div class="page-top">
+                <!-- <div class="page-top">
                     <form class="search-form" action="page_general_search_2.html" method="GET">
                         <div class="input-group">
                             <input type="text" class="form-control input-sm" placeholder="Search..." name="query">
@@ -56,7 +60,7 @@
                             </span>
                         </div>
                     </form>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="clearfix"> </div>
@@ -73,24 +77,58 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item start active open">
-                                    <a href="index.html" class="nav-link ">
+                                    <a href="{{ route('statistics') }}" class="nav-link ">
                                         <i class="icon-bar-chart"></i>
-                                        <span class="title">Dashboard 1</span>
-                                        <span class="selected"></span>
+                                        <span class="title">Statistics</span>
+                                        <!-- <span class="selected"></span> -->
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="dashboard_2.html" class="nav-link ">
+                                    <a href="/usercontrol" class="nav-link ">
+                                        <i class="icon-user"></i>
+                                        <span class="title">User Control</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start ">
+                                    <a href="" class="nav-link ">
+                                        <i class="icon-tag"></i>
+                                        <span class="title">Change Verified ID</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start ">
+                                    <a href="{{ route('listingscontrol') }}" class="nav-link ">
+                                        <i class="icon-notebook"></i>
+                                        <span class="title">Listings Control</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start ">
+                                    <a href="" class="nav-link ">
+                                        <i class="icon-globe"></i>
+                                        <span class="title">Open Trades</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start ">
+                                    <a href="" class="nav-link ">
                                         <i class="icon-bulb"></i>
-                                        <span class="title">Dashboard 2</span>
-                                        <span class="badge badge-success">1</span>
+                                        <span class="title">Disputes</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="dashboard_3.html" class="nav-link ">
-                                        <i class="icon-graph"></i>
-                                        <span class="title">Dashboard 3</span>
-                                        <span class="badge badge-danger">5</span>
+                                    <a href="" class="nav-link ">
+                                        <i class="icon-wrench"></i>
+                                        <span class="title">Deposits</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start ">
+                                    <a href="" class="nav-link ">
+                                        <i class="icon-diamond"></i>
+                                        <span class="title">Withdrawals</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start ">
+                                    <a href="" class="nav-link ">
+                                        <i class="icon-wallet"></i>
+                                        <span class="title">Website Wallet</span>
                                     </a>
                                 </li>
                             </ul>
@@ -100,18 +138,14 @@
             </div>
             <div class="page-content-wrapper">
                 <div class="page-content">
-                    <div class="page-head">
-                        <div class="page-title">
-                            <h1>P2Coin Admin Panel</h1>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="dashboard-stat2 bordered">
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-green-sharp">
-                                            <span data-counter="counterup" data-value="{{ $total_users }}">0</span>
+                                            <span data-counter="counterup" data-value="500">0</span>
                                             <small class="font-green-sharp"></small>
                                         </h3>
                                         <small>Total Users</small>
@@ -138,7 +172,7 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-red-haze">
-                                            <span data-counter="counterup" data-value="{{ $active_users }}">0</span>
+                                            <span data-counter="counterup" data-value="300">0</span>
                                         </h3>
                                         <small>Active Users</small>
                                     </div>
@@ -148,13 +182,13 @@
                                 </div>
                                 <div class="progress-info">
                                     <div class="progress">
-                                        <span style="width: {{ $user_rate }}%;" class="progress-bar progress-bar-success red-haze">
-                                            <span class="sr-only">{{ $user_rate }}% change</span>
+                                        <span style="width:60%;" class="progress-bar progress-bar-success red-haze">
+                                            <span class="sr-only">60% change</span>
                                         </span>
                                     </div>
                                     <div class="status">
                                         <div class="status-title"> Rate </div>
-                                        <div class="status-number"> {{ $user_rate }}% </div>
+                                        <div class="status-number"> 60% </div>
                                     </div>
                                 </div>
                             </div>
