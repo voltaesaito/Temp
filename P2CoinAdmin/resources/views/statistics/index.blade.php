@@ -143,7 +143,6 @@
 
 
     </div>
-  </div>
 </div>
 <script src="{{ asset('./assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('./js/statistics.js') }}" type="text/javascript"></script>

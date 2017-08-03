@@ -17,12 +17,29 @@ class StatisticsController extends Controller
         (is_null($request->year)) ? $year = date('Y') : $year = $request->year;
         (is_null($request->month)) ? $month = date('m') : $month = $request->month;
         
-        $data = DB::select(DB::raw("select SUM(coin_amount) as trade, date_format(created_at, '%Y-%m-%d') real_day 
-                                from transaction_history 
-                                where created_at like '".$year."-".$month."-%' 
-                                group by real_day"));
+        //Bitcoin
+        $data = DB::select(DB::raw("select l.coin_type ctype, SUM(t.coin_amount) as amount, date_format(t.created_at, '%Y-%m-%d') real_day 
+                                from transaction_history t
+                                join contract c on (c.id = t.contract_id)
+                                join listings l on (c.listing_id = l.id)
+                                where t.created_at like '".$year."-".$month."-%' 
+                                group by l.coin_type, real_day
+                                order by l.coin_type asc"));
 
-        echo json_encode($data);
+        $days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $data_list = array();
+        foreach($data as $row){
+            $data_list[$row->ctype][date('j', strtotime($row->real_day))] = round($row->amount * 0.005, 8);
+        }
+
+        $coin_list = array();
+        for($i = 1; $i <= $days; $i++){
+            $coin_list['day'][] = $i;
+            $coin_list['btc'][] = (isset($data_list['btc'][$i])) ? $data_list['btc'][$i] : 0;
+            $coin_list['eth'][] = (isset($data_list['eth'][$i])) ? $data_list['eth'][$i] : 0;
+        }
+
+        echo json_encode($coin_list);
         exit;
     }
 

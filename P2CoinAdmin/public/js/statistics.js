@@ -2,7 +2,7 @@ var ChartsAmcharts = function() {
     var getVolume = function() {
         var _token = $('meta[name=csrf-token]').attr('content');
         $('#volume_bar').html("Loading...");
-        $.post('getrevenu', {year:'2017', month:'07', _token: _token}, function(resp){
+        $.post('getvolume', {year:'2017', month:'07', _token: _token}, function(resp){
             $('#volume_bar').html("");
             var days = resp.day;
             var btc_list = resp.btc;
