@@ -25,6 +25,12 @@ Route::get('/userdetail/{userid}', 'UserControlController@userdetail')->name('us
 Route::get('/listingscontrol', 'ListingsControlController@index')->name('listingscontrol');
 Route::get('/viewalllistings', 'ListingsControlController@viewalllistings')->name('viewalllistings');
 
+Route::post('/getvolume', 'StatisticsController@getVolume')->name('getvolume');
+Route::post('/getrevenu', 'StatisticsController@getRevenu')->name('getrevenu');
+Route::post('/gettrades', 'StatisticsController@getTrades')->name('gettrades');
+Route::post('/getlistings', 'StatisticsController@getListings')->name('getlistings');
+Route::post('/getsignupusers', 'StatisticsController@getSignUpUsers')->name('getsignupusers');
+
 Route::get('/opentrade', 'OpenTradeController@index')->name('opentrade');
 
 Route::get('/changeverified', 'ChangeVerifiedUserController@index')->name('changeverified');

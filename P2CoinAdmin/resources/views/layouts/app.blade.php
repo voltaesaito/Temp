@@ -302,14 +302,8 @@
         <script src="{{ asset('./assets/global/plugins/counterup/jquery.counterup.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('./assets/global/plugins/amcharts/amcharts/amcharts.js') }}" type="text/javascript"></script>
         <script src="{{ asset('./assets/global/plugins/amcharts/amcharts/serial.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('./assets/global/plugins/amcharts/amcharts/pie.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('./assets/global/plugins/amcharts/amcharts/radar.js') }}" type="text/javascript"></script>
         <script src="{{ asset('./assets/global/plugins/amcharts/amcharts/themes/light.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('./assets/global/plugins/amcharts/amcharts/themes/patterns.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('./assets/global/plugins/amcharts/amcharts/themes/chalk.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('./assets/global/plugins/amcharts/ammap/ammap.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('./assets/global/plugins/amcharts/ammap/maps/js/worldLow.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('./assets/global/plugins/amcharts/amstockcharts/amstock.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('./assets/global/plugins/echarts/echarts.js') }}" type="text/javascript"></script>
         <script src="{{ asset('./assets/global/plugins/fullcalendar/fullcalendar.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('./assets/global/plugins/horizontal-timeline/horizontal-timeline.js') }}" type="text/javascript"></script>
         <script src="{{ asset('./assets/global/plugins/flot/jquery.flot.min.js') }}" type="text/javascript"></script>
@@ -336,6 +330,7 @@
         <script src="{{ asset('./assets/layouts/layout4/scripts/demo.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('./assets/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('./assets/layouts/global/scripts/quick-nav.min.js') }}" type="text/javascript"></script>
+        <!-- <script src="{{ asset('./assets/pages/scripts/charts-amcharts.js') }}" type="text/javascript"></script> -->
         <!-- END THEME LAYOUT SCRIPTS -->
         <script>
             $(document).ready(function()
