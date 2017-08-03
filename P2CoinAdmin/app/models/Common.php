@@ -8,6 +8,7 @@ use DB;
 class Common extends Model
 {
     //
+    private $wallet_data;
     public function getUserList( $useremail=null, $username=null ) {
         $data = DB::table('users')->select('users.*');        
         if ( !is_null($useremail) ) $data->where('email', 'like', "%".$useremail."%");
@@ -40,7 +41,7 @@ class Common extends Model
                     ->join('contract', 'listings.id', '=', 'contract.listing_id')
                     ->join('transaction_history', 'transaction_history.contract_id', '=', 'contract.id')
                     ->select('transaction_history.*','listings.*', 'users.name','users.email')
-//                        ->where('listings.user_id', '=', 'contract.receiver_id')
+                    ->where('listings.is_closed', '<>', '0')
                     ->orderBy('contract.created_at', 'desc')
                     ->get();
         return $trades;
@@ -74,5 +75,88 @@ class Common extends Model
             return false;
         }
         
+    }
+    public function getPendingWithdrawals() {
+        $transaction_history_data = DB::table('transaction_history')->select()->distinct()->where('status_col', '=', '0')->get()->toArray();
+        $transaction_history_data = DB::table('listings')
+                        ->join('contract', 'listings.id', '=', 'contract.listing_id')
+                        ->join('transaction_history', 'transaction_history.contract_id', '=', 'contract.id')
+                        ->select('contract.*', 'listings.coin_type', 'transaction_history.*', 'listings.payment_method')
+                        ->where('listings.is_closed', '=', '0')
+                        ->orderBy('contract.created_at', 'desc')
+                        ->get();
+        $user_list = DB::table('users')->select()->get()->toArray();
+        $this->wallet_data = DB::table('user_wallet')->select()->get()->toArray();
+
+        $user_data = array();
+        foreach( $user_list as $list ) {
+            $user_data[$list->id] = array('name'=>$list->name, 'email'=>$list->email, 'wallet_info'=>$this->getArrayDataFromWallet($list->id));
+        }
+        $transaction_arr = array();
+        $status_arr = array('progressing','pending','released');
+        foreach ($transaction_history_data as $transaction ) {
+            $ret_arr = array();
+            $ret_arr['sender'] = $user_data[$transaction->coin_sender_id];
+            $ret_arr['receiver'] = $user_data[$transaction->coin_receiver_id];
+            $ret_arr['coin_amount'] = $transaction->coin_amount;
+            $ret_arr['date'] = $transaction->created_at;
+            $ret_arr['status'] = $status_arr[$transaction->status_col];
+            $ret_arr['coin_type'] = $transaction->coin_type;
+            $transaction_arr[] = $ret_arr;
+        }
+
+        return $transaction_arr;
+    }
+    public function getArrayDataFromWallet( $user_id ) {
+        $ret_arr = array();
+        foreach( $this->wallet_data as $info ){
+            if ( $info->user_id == $user_id ) {
+                $ret_arr[$info->wallet_type]['wallet_address'] = $info->wallet_address;
+                $ret_arr[$info->wallet_type]['private'] = $info->private;
+                $ret_arr[$info->wallet_type]['public'] = $info->public;
+                // $ret_arr['type'] = $info->wallet_type;
+            }
+        }
+        return $ret_arr;
+    }
+    public function getWithdrawalHistory() {
+        $withdrawal_history_data = DB::table('users')
+            ->join('withdrawal_history', 'users.id', '=', 'withdrawal_history.user_id')
+            ->select('withdrawal_history.*', 'users.name')
+//            ->where('listings.is_closed', '=', '0')
+            ->orderBy('withdrawal_history.created_at', 'desc')
+            ->get();
+        return $withdrawal_history_data->toArray();
+    }
+    public function deleteListing($listing_id) {
+        try {
+            DB::table('listings')->where('id', '=', $listing_id)->delete();
+            return 'true';
+        }
+        catch( Exception $exp ) {
+            return 'fail';
+        }
+    }
+    public function updateListingStatus($listing_id, $is_closed_status) {
+        try{
+            DB::table('listings')
+                ->where('id', '=',$listing_id)
+                ->update(['is_closed'=>$is_closed_status]);
+            return true;
+        }
+        catch(exception $exp) {
+            return false;
+        }
+
+    }
+    public function changeuserBlockStatus($user_id, $type, $status) {
+        $status = 1 - $status;
+        $ret = DB::table('user_login_status')->where('user_id', '=', $user_id)
+                ->update(['block_'.$type=>$status]);
+        return $ret;
+    }
+    public function getUserStatus($user_id) {
+        $data = DB::table('user_login_status')->where('user_id', '=', $user_id)->get();
+        return $data[0];
     }
 }

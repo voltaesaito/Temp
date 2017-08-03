@@ -26,12 +26,18 @@ class ListingsControlController extends Controller
                     </td>
                     <td class='center'>".$listing->payment_method."</td>
                     <td align=center>
-                        <button class='view_user btn btn-success' type='button' user_id='".$listing->id."' onclick='doOnDelete(this)'>Delete
-                        </button>
+                        <a class='delete_listing btn red btn-outline' data-toggle='modal' href='#confirm_dialog' listing_id='".$listing->id."' onclick='doOnDelete(this)'>Delete
+                        </a>
                     </td>
                 </tr>";
         }
         echo $retHTML;
+        exit;
+    }
+    public function deletelisting($listing_id) {
+
+        $model = new Common();
+        echo $model->deleteListing($listing_id);
         exit;
     }
 }

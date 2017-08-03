@@ -21,9 +21,11 @@ Route::get('/statistics', 'StatisticsController@index')->name('statistics');
 Route::get('/usercontrol', 'UserControlController@index')->name('usercontrol');
 Route::post('/getuserbysearch', 'UserControlController@getuserbysearch')->name('getuserbysearch');
 Route::get('/userdetail/{userid}', 'UserControlController@userdetail')->name('userdetail/{$userid}');
+Route::post('/blockuser', 'UserControlController@blockuser')->name('blockuser');
 
 Route::get('/listingscontrol', 'ListingsControlController@index')->name('listingscontrol');
 Route::get('/viewalllistings', 'ListingsControlController@viewalllistings')->name('viewalllistings');
+Route::get('/deletelisting/{listing_id}', 'ListingsControlController@deletelisting');
 
 Route::post('/getvolume', 'StatisticsController@getVolume')->name('getvolume');
 Route::post('/getrevenu', 'StatisticsController@getRevenu')->name('getrevenu');
@@ -32,6 +34,7 @@ Route::post('/getlistings', 'StatisticsController@getListings')->name('getlistin
 Route::post('/getsignupusers', 'StatisticsController@getSignUpUsers')->name('getsignupusers');
 
 Route::get('/opentrade', 'OpenTradeController@index')->name('opentrade');
+Route::post('/releasetrade', 'OpenTradeController@releasetrade')->name('releasetrade');
 
 Route::get('/changeverified', 'ChangeVerifiedUserController@index')->name('changeverified');
 Route::get('/changestatus', 'ChangeVerifiedUserController@changestatus')->name('changestatus');

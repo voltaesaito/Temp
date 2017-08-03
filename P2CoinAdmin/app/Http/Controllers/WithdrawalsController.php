@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\models\Common;
 
 class WithdrawalsController extends Controller
 {
     //
     public function index() {
-        return view('withdrawals.index');
+        $model = new Common();
+        $data = $model->getWithdrawalHistory();
+        $status_arr = array('pending');
+        return view('withdrawals.index')->with(['data'=>$data,'status_arr'=>$status_arr]);
     }
 }

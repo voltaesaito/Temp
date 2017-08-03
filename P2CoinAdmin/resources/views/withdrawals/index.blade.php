@@ -36,7 +36,7 @@
                                         <table class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
                                             <thead>
                                                 <tr role="row">
-                                                    <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 47px;">Address</th>
+                                                    <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 360px;">Address</th>
                                                     <th class="sorting_desc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="descending" aria-label=" Username : activate to sort column ascending" style="width: 80px;">User</th>
                                                     <th class="sorting_desc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="descending" aria-label=" Username : activate to sort column ascending" style="width: 80px;">Amount</th>
                                                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Email : activate to sort column ascending" style="width: 80px;">Currency</th>
@@ -46,7 +46,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody id='data_area'>
-                                                
+                                                @foreach($data as $d)
+                                                    <tr>
+                                                        <td>{{ $d->from_wallet_address }}<i class="fa fa-send"></i>{{ $d->to_wallet_address }}</td>
+                                                        <td>{{ $d->name }}</td>
+                                                        <td>{{ $d->coin_amount }}</td>
+                                                        <td>{{ strtoupper($d->coin_type) }}</td>
+                                                        <td>{{ date("j m, Y", strtotime($d->created_at)) }}</td>
+                                                        <td>{{ $status_arr[$d->status] }}</td>
+                                                        <td>{{ $d->confirmations }}</td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

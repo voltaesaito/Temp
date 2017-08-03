@@ -64,8 +64,26 @@
     </div>
   </div>
 </div>
+<div id="confirm_dialog" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"P2coin.net</h4>
+            </div>
+            <div class="modal-body">
+                <p> Are you sure you want to delete this listing? </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+                <button type="button" data-dismiss="modal" class="btn green" onclick="doOnForceDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="{{ asset('./assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
 <script>
+    var listing_id;
 $(document).ready(function(){
     $('#view_all_listings').click(doOnViewAllListings);
 $('#view_all_listings').click(function(){
@@ -78,7 +96,7 @@ $('#view_all_listings').click(function(){
             tbodyStr = '';
             for(i=0;i<data.length;i++) {
                 tmp = data[i];
-                tbodyStr += '<tr class="gradeX odd" role="row"><td>'+tmp.id+'</td><td class="sorting_1">'+tmp.name+'</td><td><a href="mailto:userwow@gmail.com">'+tmp.email+'</a></td><td class="center">'+ tmp.created_at + '</td><td align=center><button class="view_user btn btn-success" type="button" user_id="'+tmp.id+'" onclick="doOnViewDetail(this)">View Detail</button></td></tr>';
+                tbodyStr += '<tr class="gradeX odd" role="row"><td>'+tmp.id+'</td><td class="sorting_1">'+tmp.name+'</td><td><a href="mailto:userwow@gmail.com">'+tmp.email+'</a></td><td class="center">'+ tmp.created_at + '</td><td align=center><button class="view_user btn red out-line" type="button" user_id="'+tmp.id+'" onclick="doOnViewDetail(this)">View Detail</button></td></tr>';
             }
             $('#data_area').html(tbodyStr);
         });
@@ -87,6 +105,15 @@ $('#view_all_listings').click(function(){
 function doOnViewAllListings() {
     $.get('viewalllistings', function(resp_html){
         $('#form_body-container').html(resp_html);
+    });
+}
+function doOnDelete(listingObj) {
+    listing_id = $(listingObj).attr('listing_id');
+
+}
+function doOnForceDelete() {
+    $.get('deletelisting/'+listing_id, function(resp){
+
     });
 }
 </script>

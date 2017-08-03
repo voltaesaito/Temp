@@ -37,7 +37,8 @@
         <div class="page-header navbar navbar-fixed-top">
             <div class="page-header-inner ">
                 <div class="page-logo">
-                    <a href="#">
+                    <a href="/">
+                        <h3 alt="logo" class="logo-default" >P2Coin Admin</h3>
                         <!-- <img src="{{ asset('./assets/layouts/layout4/img/logo-light.png') }}" alt="logo" class="logo-default" />  -->
                     </a>
                     <div class="menu-toggler sidebar-toggler">
@@ -45,7 +46,7 @@
                 </div>
                 <div class="page-head">
                     <div class="page-title">
-                        <h1>P2Coin Admin Panel</h1>
+                        <!-- <h1>P2Coin Admin Panel</h1> -->
                     </div>
                 </div>
                 <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
