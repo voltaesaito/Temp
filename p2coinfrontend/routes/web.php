@@ -58,6 +58,7 @@ Route::post('/trademessage', 'TradeMessageController@index')->name('trademessage
 Route::post('/createcontract', 'TradeMessageController@createcontract')->name('createcontract');
 Route::post('/createcont', 'TradeMessageController@createcont')->name('createcont');
 Route::post('/addmessage', 'TradeMessageController@addmessage')->name('addmessage');
+Route::post('/dispute', 'TradeMessageController@dispute')->name('dispute');
 
 Route::get('/wallet', 'WalletController@index')->name('wallet');
 Route::post('/deposit', 'WalletController@deposit')->name('deposit');

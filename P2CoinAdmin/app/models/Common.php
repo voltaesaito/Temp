@@ -164,5 +164,9 @@ class Common extends Model
     public function getVolume() {
         return 3200;
     }
+
+    public function getRevenuValue(){
+        return 320;
+    }
     /****/
 }
