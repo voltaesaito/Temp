@@ -41,7 +41,7 @@
                             <div class = "panel panel-default terms">
                                 <div class="pad">
                                     <h4 class="text-center"><b>payment_details</b></h4>
-                                    <p class="pad">{{ $listing['payment_details'] }}</p>
+                                    <p class="pad">{{ $listing['payment_details'] }}</p>      
                                 </div>
                             </div>
                          </div>
@@ -68,6 +68,12 @@
                     </div>
                     <div class="form-group">
                         <?php
+                        if($listing->is_closed == 1){
+                            if(!$status_col)
+                                echo "<div id=\"disput_html\"><button type=\"button\" id=\"dispute\" class=\"btn btn-success btn-green\">Dsipute</button></div>";
+                            else
+                                echo "<div class='alert alert-danger'><strong>Disputing!</strong></div>";
+                        }else{
                         if (isset($request_amount)) {
                             if ( $request_amount > $balance ) {
                                 echo "<div class=\"alert alert-danger\">
@@ -80,6 +86,7 @@
                     </div><button type=\"button\" id=\"release_transaction\" class=\"btn btn-success btn-green\">Confirm Transaction</button>";
                             }
                         }
+                        }
                         ?>
 
 
@@ -90,5 +97,5 @@
     </div>
 </div>
 <script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
-<script src="{{ asset('./js/trademessage/index.js') }}"></script>
+<script src="{{ asset('./js/trademessage/index.js') }}"></script>  
 @endsection

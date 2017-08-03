@@ -24,7 +24,7 @@ class TradeMessageController extends Controller
     {
         $this->middleware('auth');
     }
-
+   
     /**
      * Show the application dashboard.
      *
@@ -119,11 +119,11 @@ class TradeMessageController extends Controller
         }
         
         if(!$back)
-            return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)
+            return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('status_col', $row->status_col)
             ->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id)
             ->with('request_amount', $request_amount)->with('balance', $balance);
         else
-            return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)
+            return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('status_col', $row->status_col)
             ->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $receiver_id)->with('receiver_id', $sender_id)
             ->with('request_amount', $request_amount)->with('balance', $balance);
     }
@@ -216,6 +216,12 @@ class TradeMessageController extends Controller
         $data = $this->getMsgListByContractId($contract_id);
 
         return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id);
+    }
+
+    public function dispute(Request $request){
+        DB::table('transaction_history')->where('transaction_id', '=', $request->transaction_id)->update(['status_col'=>1]);
+        echo "ok";
+        exit;
     }
 
     public function messagebox(Request $request){

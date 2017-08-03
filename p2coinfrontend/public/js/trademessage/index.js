@@ -23,6 +23,13 @@ $(document).ready(function(){
         message_content: message_content, message_state:"0" };
         getMessageContentAndDraw( param );
     });
+    $('#dispute').click(function(){
+        var _token = $('meta[name=csrf-token]').attr('content');
+        $.post('dispute', {transaction_id: transaction_id, _token:_token}, function(resp) {
+            if(resp=='ok')
+                $('#disput_html').html("<div class='alert alert-danger'><strong>Disputing!</strong></div>");
+        });
+    });
     $('a.contract').click(function(){
         var id = $("#user_menu li.active").attr('id');
         var parentNode = $(this)[0].parentNode;
