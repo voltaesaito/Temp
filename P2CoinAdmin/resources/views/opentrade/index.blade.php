@@ -58,9 +58,9 @@
                                                     <td align=center>{{ $trade['coin_amount'] }} {{ strtoupper($trade['coin_type']) }}</td>
                                                     <td align=center>${{ $trade['fiat_amount'] }}</td>
                                                     <td align=center>{{ $trade['payment_name'] }}</td>
-                                                    @if ( $trade['is_closed'] == 0 )
+                                                    @if ( $trade['is_closed'] == 1 )
                                                         <td align=center><label class="btn btn-action">-</label></td>
-                                                        <td align=center><button type="button" class="btn red btn-action btn-outline sbold" id="btn_release">Release</button></td>
+                                                        <td align=center><button type="button" class="btn red btn-action btn-outline sbold" id="btn_release" onclick="doOnRelease({{ json_encode($trade) }})">Release</button></td>
                                                     @else
                                                         <td align=center><label class="btn lightblue btn-action">End</label></td>
                                                         <td align=center></td>
@@ -84,27 +84,15 @@
 <script src="{{ asset('./assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
 <script>
 $(document).ready(function(){
-    $('#view_all_listings').click(doOnViewAllListings);
-$('#view_all_listings').click(function(){
-        var user_name = $('#user_name').val();
-        var user_email = $('#user_email').val();
-        var _token = $('meta[name=csrf-token]').attr('content');
-        $.post('getuserbysearch', { user_name: user_name, user_email:user_email, _token:_token }, function(resp){
-            $('#data_area').empty();
-            data = JSON.parse(resp);
-            tbodyStr = '';
-            for(i=0;i<data.length;i++) {
-                tmp = data[i];
-                tbodyStr += '<tr class="gradeX odd" role="row"><td>'+tmp.id+'</td><td class="sorting_1">'+tmp.name+'</td><td><a href="mailto:userwow@gmail.com">'+tmp.email+'</a></td><td class="center">'+ tmp.created_at + '</td><td align=center><button class="view_user btn btn-success" type="button" user_id="'+tmp.id+'" onclick="doOnViewDetail(this)">View Detail</button></td></tr>';
-            }
-            $('#data_area').html(tbodyStr);
-        });
-    });
+
 });
-function doOnViewAllListings() {
-    $.get('viewalllistings', function(resp_html){
-        $('#form_body-container').html(resp_html);
+function doOnRelease(json_trade_obj) {
+    var _token = $('meta[name=csrf-token]').attr('content');
+    json_trade_obj['_token'] = _token;
+    $.post('releasetrade', json_trade_obj, function(resp){
+window.location.reload();
     });
+//    console.log(json_trade_obj);
 }
 </script>
 @endsection

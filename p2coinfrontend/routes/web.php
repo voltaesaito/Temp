@@ -79,3 +79,8 @@ Route::get('/opentrade','OpenTradeController@index')->name('opentrade');
 
 Route::get('/chart','ChartController@index')->name('chart');
 Route::post('/getchartdatabycoin','ChartController@getchartdatabycoin')->name('getchartdatabycoin');
+
+Route::group(array('prefix' => 'api/v1'), function() {
+    Route::get('getwalletbalance/{btc_address}/{eth_address}', 'RestAPIController@getwalletbalance');
+    Route::get('dowithdraw/{transaction_id}', 'RestAPIController@dowithdraw');
+});
