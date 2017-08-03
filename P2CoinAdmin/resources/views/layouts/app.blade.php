@@ -166,7 +166,7 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-green-sharp">
-                                            <span data-counter="counterup" data-value="500">0</span>
+                                            <span data-counter="counterup" data-value="{{ $volume }}">0</span>
                                             <small class="font-green-sharp"></small>
                                         </h3>
                                         <small>Total Users</small>

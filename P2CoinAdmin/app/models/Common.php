@@ -159,4 +159,10 @@ class Common extends Model
         $data = DB::table('user_login_status')->where('user_id', '=', $user_id)->get();
         return $data[0];
     }
+
+    /** Main Chart(Statics part) */
+    public function getVolume() {
+        return 3200;
+    }
+    /****/
 }

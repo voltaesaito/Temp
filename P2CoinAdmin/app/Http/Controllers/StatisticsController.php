@@ -9,7 +9,7 @@ class StatisticsController extends Controller
 {
     //
     public function index() {
-        return view('statistics.index');
+        return view('statistics.index')->with(['volume'=>$this->volume]);
     }
 
     public function getVolume(Request $request) {
