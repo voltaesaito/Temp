@@ -11,10 +11,11 @@ use App\models\Common;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    public $volume, $revenu;
+    public $totalusers, $volume, $revenu;
     public function  __construct() {
         $model = new Common();
-        $this->volume = $model->getVolume();
+        $this->totalusers = $model->getTotalUsers();
+        $this->volume = $model->getVolumeValue();
         $this->revenu = $model->getRevenuValue();
     }
 }

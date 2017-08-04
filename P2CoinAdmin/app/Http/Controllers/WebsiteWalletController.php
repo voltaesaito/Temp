@@ -23,6 +23,6 @@ class WebsiteWalletController extends Controller
         $pricedata =$model->getCurrentPrice();
         $wallet_data = $model->getPendingWithdrawals();
 //        dd($server_wallet_info);
-        return view('websitewallet.index')->with(['price_data'=>$pricedata, 'wallet_data'=>$wallet_data,'btc_info'=>$server_wallet_info->btc,'eth_info'=>$server_wallet_info->eth]);
+        return view('websitewallet.index')->with(['price_data'=>$pricedata, 'wallet_data'=>$wallet_data,'btc_info'=>$server_wallet_info->btc,'eth_info'=>$server_wallet_info->eth, 'totalusers'=>$this->totalusers, 'volume'=>$this->volume]);
     }
 }

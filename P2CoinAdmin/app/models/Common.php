@@ -161,8 +161,28 @@ class Common extends Model
     }
 
     /** Main Chart(Statics part) */
-    public function getVolume() {
-        return 3200;
+    public function getTotalUsers(){
+        $data = DB::select("select count(email) as cnt from users");
+        return $data[0]->cnt;
+    }
+
+    public function getVolumeValue() {
+        $start_time = Date('2017-07-30 00:00:00');
+        $end_time = Date('2017-07-30 23:59:59');
+
+        $data = DB::select(DB::raw("select l.coin_type ctype, SUM(t.coin_amount) as amount 
+                                from transaction_history t
+                                join contract c on (c.id = t.contract_id)
+                                join listings l on (c.listing_id = l.id)
+                                where t.created_at > '". $start_time . "' and t.created_at <= '" . $end_time . "' 
+                                group by l.coin_type"));
+
+        $data_list = array();
+        foreach($data as $row){
+            $data_list[$row->ctype] = number_format($row->amount, 8, '.',',');
+        }
+
+        return $data_list;
     }
 
     public function getRevenuValue(){
@@ -170,12 +190,12 @@ class Common extends Model
     }
     /****/
 
-
     public function sendNotification($user_id, $msg_content)
     {
         $values = array('sender_id' => -3000, 'receiver_id' => $user_id, 'message_content' => $msg_content, 'contract_id' => -3000, 'created_at' => Date('Y-m-d H:i:s'), 'updated_at' => Date('Y-m-d H:i:s'));
         return DB::table('trade_message')->insert($values);
     }
+
     public function getDesiputeList() {
         $data  = DB::select("SELECT th.coin_sender_id, th.coin_receiver_id, l.id listing_id, dh.dispute_reason, l.is_closed, c.id contract_id FROM dispute_history dh
                             join `transaction_history` th 
@@ -187,4 +207,30 @@ class Common extends Model
                             where l.is_closed<3;");
         return $data;
     }
+
+    public function getMsgListByContractId( $contract_id, $user_id ) {
+        $datas = DB::table('trade_message')
+                    ->join('users', 'users.id', '=', 'trade_message.sender_id')
+                    ->select('trade_message.*', 'users.name')
+                    ->where('contract_id', '=', $contract_id)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+
+        $arr = array();
+        $current_id = $user_id;
+        foreach( $datas as $data ) {
+            $user_state = 'success left-content';
+            if($current_id == $data->sender_id)
+                $user_state = 'info right-content';
+            $arr[] = array( 'contract_id'       => $data->contract_id,
+                            'sender_id'         => $data->sender_id,
+                            'receiver_id'       => $data->receiver_id,
+                            'message_content'   => $data->message_content,
+                            'user_state'        => $user_state,
+                            'name'              => $data->name,
+                            'created_at'        => date('H:m:s M j,Y',strtotime($data->created_at)));
+        }
+        return $arr;
+    }
+    
 }

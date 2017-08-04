@@ -23,7 +23,7 @@ class OpenTradeController extends Controller
             $trade_arr['fiat_amount'] = $fiat_amount;
             $ret_arr[] = $trade_arr;
         }
-        return view('opentrade.index')->with('trade_arr', $ret_arr);
+        return view('opentrade.index')->with(['trade_arr'=> $ret_arr, 'totalusers'=>$this->totalusers, 'volume'=>$this->volume]);
     }
     public function releasetrade( Request $request ) {
         $transaction_id = $request->transaction_id;

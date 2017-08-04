@@ -168,7 +168,7 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-green-sharp">
-                                            <span data-counter="counterup" data-value="500">0</span>
+                                            <span data-counter="counterup" data-value="{{ $totalusers }}">0</span>
                                             <small class="font-green-sharp"></small>
                                         </h3>
                                         <small>Total Users</small>
@@ -221,7 +221,8 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-blue-sharp">
-                                            <span data-counter="counterup" data-value="567"></span>
+                                            <span data-counter="counterup" data-value="<?php echo preg_replace("/\.?0*$/",'',$volume['btc']); ?>"></span>/
+                                            <span data-counter="counterup" data-value="<?php echo preg_replace("/\.?0*$/",'',$volume['eth']); ?>"></span>
                                         </h3>
                                         <small>24H Volume</small>
                                     </div>
@@ -247,7 +248,8 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-purple-soft">
-                                            <span data-counter="counterup" data-value="276"></span>
+                                            <span data-counter="counterup" data-value="<?php echo preg_replace("/\.?0*$/",'',number_format($volume['btc']*0.005, 8, '.', ',')); ?>"></span>/
+                                            <span data-counter="counterup" data-value="<?php echo preg_replace("/\.?0*$/",'',number_format($volume['eth']*0.005, 8, '.', ',')); ?>"></span>
                                         </h3>
                                         <small>24H Revenue</small>
                                     </div>

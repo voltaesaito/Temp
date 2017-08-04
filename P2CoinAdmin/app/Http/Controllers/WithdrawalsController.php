@@ -12,6 +12,6 @@ class WithdrawalsController extends Controller
         $model = new Common();
         $data = $model->getWithdrawalHistory();
         $status_arr = array('pending');
-        return view('withdrawals.index')->with(['data'=>$data,'status_arr'=>$status_arr]);
+        return view('withdrawals.index')->with(['data'=>$data,'status_arr'=>$status_arr, 'totalusers'=>$this->totalusers, 'volume'=>$this->volume]);
     }
 }

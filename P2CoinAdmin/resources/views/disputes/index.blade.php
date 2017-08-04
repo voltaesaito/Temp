@@ -9,6 +9,8 @@
         display:block;
         /*width:35%;*/
     }
+    .left-content { margin-right: 50px; }
+    .right-content { margin-left: 50px; }
 </style>
 <div class="panel panel-default">
 {{ csrf_field() }}
@@ -61,7 +63,7 @@
                                                         <td>{{ $dispute['receiver'] }}</td>
                                                         <td>{{ $dispute['sender'] }}</td>
                                                         <td class="td-wrap">{{ $dispute['dispute_reason'] }}</td>
-                                                        <td><a href="" class="btn blue btn-outline" contract_id="{{ $dispute['contract_id'] }}" onclick="doOnSHowMessage()">View</a></td>
+                                                        <td><a href="#" class="btn blue btn-outline" user_id = "{{ $dispute['user_id'] }}" contract_id="{{ $dispute['contract_id'] }}" id="viewmessage">View</a></td>
                                                         <td><a href="" class="btn blue btn-outline" >End</a></td>
                                                         <td><a href="" class="btn blue btn-outline" >Release</a></td>
                                                     </tr>
@@ -80,24 +82,19 @@
     </div>
   </div>
 </div>
+
+<div id="view_message" class="modal container fade" tabindex="-1" data-focus-on="input:first">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">View Messages</h4>
+    </div>
+    <div class="modal-body" id='msg_list'>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-outline dark">Close</button>
+    </div>
+</div>
+
 <script src="{{ asset('./assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
-<script>
-$(document).ready(function(){
-    $('.status').change(function(){
-
-        chk_btn_id = $(this).attr('id');
-        user_id = $(this).attr('uid');
-        type = $(this).attr('prop');
-
-        var status = 0;
-        ($('#'+chk_btn_id).is(':checked')) ? status = 1 : status = 0;
-        _token = $('meta[name=csrf-token]').attr('content');
-        $.get('changestatus', { _token:_token, user_id: user_id, status: status, type:type }, function(resp){
-            if (resp === 'ok') {
-                
-            }
-        });
-    });
-});
-</script>
+<script src="{{ asset('./js/dispute.js') }}" type="text/javascript"></script>
 @endsection

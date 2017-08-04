@@ -41,6 +41,7 @@ Route::get('/changeverified', 'ChangeVerifiedUserController@index')->name('chang
 Route::get('/changestatus', 'ChangeVerifiedUserController@changestatus')->name('changestatus');
 
 Route::get('/disputes', 'DisputesController@index')->name('disputes');
+Route::post('/viewmessages', 'DisputesController@getMsgListByContractId')->name('viewmessages');
 
 Route::get('/deposits', 'DepositsController@index')->name('deposits');
 

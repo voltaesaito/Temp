@@ -11,7 +11,7 @@ class UserControlController extends Controller
     public function index() {
         $model = new Common();
         $userlist = $model->getUserList();
-        return view('usercontrol.usercontrol')->with('userlist', $userlist);
+        return view('usercontrol.usercontrol')->with(['userlist'=> $userlist, 'totalusers'=>$this->totalusers, 'volume'=>$this->volume]);
     }
     public function getuserbysearch(Request $request) {
         $user_name = $request->user_name;
@@ -34,7 +34,7 @@ class UserControlController extends Controller
         $userInfo['user_status'] = 'Active';
         $userInfo['ip_address'] = '23.54.76.39';
         $userInfo['user_id'] = $userid;
-        return view('usercontrol.userdetail')->with('user_info', $userInfo);
+        return view('usercontrol.userdetail')->with(['user_info'=> $userInfo, 'totalusers'=>$this->totalusers, 'volume'=>$this->volume]);
     }
     public function blockuser(Request $request) {
         $user_id = $request->user_id;

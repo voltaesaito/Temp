@@ -15,6 +15,6 @@ class IndexController extends Controller
         $yesterday = date("Y-m-d H:m:s", strtotime("-1 days", strtotime($nowdate)));
         session()->put('total_users', '500');
         session()->put('active_users', '300');
-        return view('index.index')->with(['total_users'=>$total_users, 'active_users'=>$active_users,'user_rate'=>$user_rate]);
+        return view('index.index')->with(['totalusers'=>$this->totalusers, 'volume'=>$this->volume, 'active_users'=>$active_users,'user_rate'=>$user_rate]);
     }
 }

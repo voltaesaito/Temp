@@ -9,7 +9,7 @@ class ListingsControlController extends Controller
 {
     //
     public function index() {
-        return view("listingscontrol.index");
+        return view("listingscontrol.index")->with(['totalusers'=>$this->totalusers,'volume'=>$this->volume]);
     }
     public function viewalllistings() {
         header("Content-type:application/html");
