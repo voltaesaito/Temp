@@ -1,8 +1,8 @@
 $(document).ready(function(){
-    $('#viewmessage').click(function(){
-        user_id = $('#viewmessage').attr('user_id');
-        contract_id = $('#viewmessage').attr('contract_id');
-        _token = $('meta[name=csrf-token]').attr('content');
+    $('.viewmessage').click(function(){
+        user_id = $(this).attr('user_id');
+        contract_id = $(this).attr('contract_id');
+       _token = $('meta[name=csrf-token]').attr('content');
         $.post('viewmessages', { _token: _token, contract_id: contract_id, user_id: user_id }, function(resp){
             $('#msg_list').html(resp);
             $('#view_message').modal('show');

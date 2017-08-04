@@ -63,7 +63,7 @@
                                                         <td>{{ $dispute['receiver'] }}</td>
                                                         <td>{{ $dispute['sender'] }}</td>
                                                         <td class="td-wrap">{{ $dispute['dispute_reason'] }}</td>
-                                                        <td><a href="#" class="btn blue btn-outline" user_id = "{{ $dispute['user_id'] }}" contract_id="{{ $dispute['contract_id'] }}" id="viewmessage">View</a></td>
+                                                        <td><a href="#" class="btn blue btn-outline viewmessage" user_id = "{{ $dispute['user_id'] }}" contract_id="{{ $dispute['contract_id'] }}" id="viewmessage">View</a></td>
                                                         <td><a href="" class="btn blue btn-outline" >End</a></td>
                                                         <td><a href="" class="btn blue btn-outline" >Release</a></td>
                                                     </tr>
