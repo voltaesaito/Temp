@@ -52,7 +52,7 @@
                                                         <td>{{ $d->name }}</td>
                                                         <td>{{ $d->coin_amount }}</td>
                                                         <td>{{ strtoupper($d->coin_type) }}</td>
-                                                        <td>{{ date("j m, Y", strtotime($d->created_at)) }}</td>
+                                                        <td>{{ date("j M, Y", strtotime($d->created_at)) }}</td>
                                                         <td>{{ $status_arr[$d->status] }}</td>
                                                         <td>{{ $d->confirmations }}</td>
                                                     </tr>

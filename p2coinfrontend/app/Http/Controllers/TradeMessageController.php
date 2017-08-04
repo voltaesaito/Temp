@@ -12,6 +12,7 @@ use App\Models\TransactionHistory;
 use App\Models\UserWallet;
 use App\Models\WalletManage;
 use App\Models\BlockchainWalletMng;
+use App\Models\DisputeHistory;
 
 class TradeMessageController extends Controller
 {
@@ -118,14 +119,28 @@ class TradeMessageController extends Controller
             $balance = floatval($tmp['final_balance']/1000000000000000000);
         }
         
+        $dispModel = new DisputeHistory();
+        $disput_status = $dispModel->getDisputeStatus($transaction_id);
+
         if(!$back)
             return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('status_col', $row->status_col)
             ->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id)
-            ->with('request_amount', $request_amount)->with('balance', $balance);
+            ->with('request_amount', $request_amount)->with('balance', $balance)->with('disput_status', $disput_status );
         else
             return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('status_col', $row->status_col)
             ->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $receiver_id)->with('receiver_id', $sender_id)
-            ->with('request_amount', $request_amount)->with('balance', $balance);
+            ->with('request_amount', $request_amount)->with('balance', $balance)->with('disput_status', $disput_status );
+    }
+
+    public function setdispute(Request $request) {
+        $transaction_id = $request->transaction_id;
+        $content = $request->content;
+        $newRow = new DisputeHistory();
+        $newRow->transaction_id = $transaction_id;
+        $newRow->dispute_reason = $content;
+        $newRow->save();
+        echo 'ok';
+        exit;
     }
 
     public function addmessage(Request $request) {

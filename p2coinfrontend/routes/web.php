@@ -55,6 +55,8 @@ Route::post('/gettransactionid', 'ManageListingsController@gettransactionid')->n
 Route::get('/sell', 'SellerController@index')->name('seller');
 Route::get('/chatroom', 'ChatRoomController@index')->name('chatroom');
 Route::post('/trademessage', 'TradeMessageController@index')->name('trademessage');
+Route::post('/setdispute', 'TradeMessageController@setdispute')->name('setdispute');
+
 Route::post('/createcontract', 'TradeMessageController@createcontract')->name('createcontract');
 Route::post('/createcont', 'TradeMessageController@createcont')->name('createcont');
 Route::post('/addmessage', 'TradeMessageController@addmessage')->name('addmessage');

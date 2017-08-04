@@ -61,6 +61,14 @@ $(document).ready(function(){
              }
         } );
     });
+    $('#btn_commit').click(function(){
+        var _token = $('meta[name=csrf-token]').attr('content');
+        var transaction_id = $(this).attr('attr_trans_id');
+        var content = $('#comment').val();
+        $.post('setdispute', { _token:_token, transaction_id:transaction_id, content: content}, function(resp){
+
+        })
+    });
 });
 
 function getMessageContentAndDraw( param ) {
