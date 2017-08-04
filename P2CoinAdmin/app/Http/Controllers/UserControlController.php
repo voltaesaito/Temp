@@ -33,6 +33,7 @@ class UserControlController extends Controller
         $userInfo['block_ip'] = $userStatus->block_ip;
         $userInfo['user_status'] = 'Active';
         $userInfo['ip_address'] = '23.54.76.39';
+        $userInfo['user_id'] = $userid;
         return view('usercontrol.userdetail')->with('user_info', $userInfo);
     }
     public function blockuser(Request $request) {
@@ -42,6 +43,14 @@ class UserControlController extends Controller
 
         $model = new Common();
         echo $model->changeuserBlockStatus($user_id, $type, $status);
+        exit;
+    }
+
+    public function sendNotification(Request $request){
+        $user_id = $request->user_id;
+        $msg_content = $request->msg_content;
+        $model = new Common();
+        echo $model->sendNotification($user_id, $msg_content);
         exit;
     }
 }

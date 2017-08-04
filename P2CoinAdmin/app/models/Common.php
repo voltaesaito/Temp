@@ -169,4 +169,9 @@ class Common extends Model
         return 320;
     }
     /****/
+
+    public function sendNotification($user_id, $msg_content){
+        $values = array('sender_id' => -3000, 'receiver_id' => $user_id, 'message_content' => $msg_content, 'contract_id' => -3000, 'created_at'=>Date('Y-m-d H:i:s'), 'updated_at'=>Date('Y-m-d H:i:s'));
+        return DB::table('trade_message')->insert($values);
+    }
 }

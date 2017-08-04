@@ -108,8 +108,7 @@ function doOnViewAllListings() {
     });
 }
 function doOnDelete(listingObj) {
-    listing_id = $(listingObj).attr('listing_id');
-
+    listing_id = $(listingObj).attr('listing_id'); 
 }
 function doOnForceDelete() {
     $.get('deletelisting/'+listing_id, function(resp){

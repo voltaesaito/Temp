@@ -22,6 +22,7 @@ Route::get('/usercontrol', 'UserControlController@index')->name('usercontrol');
 Route::post('/getuserbysearch', 'UserControlController@getuserbysearch')->name('getuserbysearch');
 Route::get('/userdetail/{userid}', 'UserControlController@userdetail')->name('userdetail/{$userid}');
 Route::post('/blockuser', 'UserControlController@blockuser')->name('blockuser');
+Route::post('/sendnotification', 'UserControlController@sendNotification')->name('sendnotification');
 
 Route::get('/listingscontrol', 'ListingsControlController@index')->name('listingscontrol');
 Route::get('/viewalllistings', 'ListingsControlController@viewalllistings')->name('viewalllistings');
