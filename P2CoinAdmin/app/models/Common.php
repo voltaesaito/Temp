@@ -170,8 +170,21 @@ class Common extends Model
     }
     /****/
 
+<<<<<<< HEAD
     public function sendNotification($user_id, $msg_content){
         $values = array('sender_id' => -3000, 'receiver_id' => $user_id, 'message_content' => $msg_content, 'contract_id' => -3000, 'created_at'=>Date('Y-m-d H:i:s'), 'updated_at'=>Date('Y-m-d H:i:s'));
         return DB::table('trade_message')->insert($values);
+=======
+    public function getDesiputeList() {
+        $data  = DB::select("SELECT th.coin_sender_id, th.coin_receiver_id, l.id listing_id, dh.dispute_reason, l.is_closed, c.id contract_id FROM dispute_history dh
+                            join `transaction_history` th 
+                            on dh.transaction_id = th.transaction_id
+                            join contract c
+                            on c.id=th.contract_id
+                            join listings l
+                            on l.id = c.listing_id
+                            where l.is_closed<3;");
+        return $data;
+>>>>>>> 40d378063b6e8220e31756062434fda3e8c3406c
     }
 }
