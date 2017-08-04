@@ -64,23 +64,20 @@
     </div>
   </div>
 </div>
-<div id="confirm_dialog" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title"P2coin.net</h4>
-            </div>
-            <div class="modal-body">
-                <p> Are you sure you want to delete this listing? </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
-                <button type="button" data-dismiss="modal" class="btn green" onclick="doOnForceDelete()">Delete</button>
-            </div>
-        </div>
+<div id="confirm_dialog" class="modal fade" tabindex="-1" data-focus-on="input:first">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">P2coin.net</h4>
+    </div>
+    <div class="modal-body">
+        <p> Are you sure you want to delete this listing? </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+        <button type="button" data-dismiss="modal" class="btn green" onclick="doOnForceDelete()">Delete</button>
     </div>
 </div>
+
 <script src="{{ asset('./assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
 <script>
     var listing_id;
@@ -112,7 +109,7 @@ function doOnDelete(listingObj) {
 }
 function doOnForceDelete() {
     $.get('deletelisting/'+listing_id, function(resp){
-
+window.location.reload();
     });
 }
 </script>
