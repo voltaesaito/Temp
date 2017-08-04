@@ -169,4 +169,16 @@ class Common extends Model
         return 320;
     }
     /****/
+
+    public function getDesiputeList() {
+        $data  = DB::select("SELECT th.coin_sender_id, th.coin_receiver_id, l.id listing_id, dh.dispute_reason, l.is_closed, c.id contract_id FROM dispute_history dh
+                            join `transaction_history` th 
+                            on dh.transaction_id = th.transaction_id
+                            join contract c
+                            on c.id=th.contract_id
+                            join listings l
+                            on l.id = c.listing_id
+                            where l.is_closed<3;");
+        return $data;
+    }
 }

@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .td-wrap{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        flex-wrap: nowrap;
+        display:block;
+        /*width:35%;*/
+    }
+</style>
 <div class="panel panel-default">
 {{ csrf_field() }}
   <div class="panel-body">
@@ -39,14 +48,24 @@
                                                     <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 47px;">Listing</th>
                                                     <th class="sorting_desc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="descending" aria-label=" Username : activate to sort column ascending" style="width: 80px;">Buyer</th>
                                                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Email : activate to sort column ascending" style="width: 80px;">Seller</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Joined : activate to sort column ascending" style="width: 107px;">Dispute Reason</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Actions : activate to sort column ascending" style="width: 70px;">Message</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Actions : activate to sort column ascending" style="width: 70px;">End Contract</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Actions : activate to sort column ascending" style="width: 70px;">Release Escrow</th>
+                                                    <th class="sorting" tabindex="0" class="td-wrap" width="40%">Dispute Reason</th>
+                                                    <th class="sorting" tabindex="0" style="width: 70px;">Message</th>
+                                                    <th class="sorting" tabindex="0" style="width: 70px;">End Contract</th>
+                                                    <th class="sorting" tabindex="0" style="width: 70px;">Release Escrow</th>
                                                 </tr>
                                             </thead>
                                             <tbody id='data_area'>
-                                                
+                                                @foreach($dispute_list as $dispute)
+                                                    <tr>
+                                                        <td>{{ $dispute['listing_id'] }}</td>
+                                                        <td>{{ $dispute['receiver'] }}</td>
+                                                        <td>{{ $dispute['sender'] }}</td>
+                                                        <td class="td-wrap">{{ $dispute['dispute_reason'] }}</td>
+                                                        <td><a href="" class="btn blue btn-outline" contract_id="{{ $dispute['contract_id'] }}" onclick="doOnSHowMessage()">View</a></td>
+                                                        <td><a href="" class="btn blue btn-outline" >End</a></td>
+                                                        <td><a href="" class="btn blue btn-outline" >Release</a></td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
