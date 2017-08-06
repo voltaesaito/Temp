@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<meta name="csrf-token" content="{{ Session::token() }}"> 
 <div class="row">
     <div class="container">
         <h3><strong>Profile:</strong><span id="span_title">BTC</span>Trade</h3>
@@ -59,7 +60,7 @@
                     <a href="#div_feedback" class="menu-caption" data-toggle="collapse">View Feedback</a>
                     <div id="div_feedback" class="collapse">
                         <div class="panel panel-default">
-                            <div class="panel-body">A Basic Panel</div>
+                            <div class="panel-body"></div>
                         </div>
                     </div>
                 </div>
@@ -69,6 +70,8 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <label>Why are you reporting this user?</label>
+                                <textarea id="report_user_content" class="form-control" rows="5" ></textarea>
+                                <br/>
                                 <button type="button" class="btn btn-success" id="btn_send_email"> Submit</a>
                             </div>
                         </div>

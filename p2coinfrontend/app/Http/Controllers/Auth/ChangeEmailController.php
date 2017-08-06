@@ -135,11 +135,17 @@ class ChangeEmailController extends Controller
 
     public function reportuser() {
         $user = \Auth::user();
+        $content = request()->get('content');
 
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $verificationid = $user->email_token;
-        $msg = "<h1>Why are you reporting this user?</h1><a href='".$_SERVER['HTTP_HOST']."/report/".$verificationid."' >".$_SERVER['HTTP_HOST']."/report/".$verificationid."</a>";
+        $msg = "<h1>Why are you reporting this user?</h1>
+        <a href='".$_SERVER['HTTP_HOST']."/report/".$verificationid."' >".$_SERVER['HTTP_HOST']."/report/".$verificationid."</a>
+        <br/>
+        <label>$content</label>
+        <br>
+        ". $content;
         mail('admin@p2coin.net', "User report", $msg, $headers);
     }
     public function update2fa() {
