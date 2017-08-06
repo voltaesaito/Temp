@@ -30,28 +30,30 @@ class ManageListingsController extends Controller
         $user = \Auth::user();
         $btcaddress =$wmodel->getUserWallet($user->id, 'btc');
         $btc_balance = 0;
-        $model = new WalletManage();
-        $wallet_info = $model->getWalletBalanceByAddress($btcaddress);
-        $btc_balance= floatval($wallet_info->data->available_balance);
+        // $model = new WalletManage();
+        // $wallet_info = $model->getWalletBalanceByAddress($btcaddress);
+        // $btc_balance= floatval($wallet_info->data->available_balance);
 
 
-        $ethAddress = $wmodel->getUserWallet($user->id, 'eth');
-        $blockchain = new BlockchainWalletMng();
-        $blockchain->setWalletType('eth');
-        $balanceInfo = $blockchain->getAddressBalance($ethAddress);
-        $eth_balance = $balanceInfo['balance'];
+        // $ethAddress = $wmodel->getUserWallet($user->id, 'eth');
+        // $blockchain = new BlockchainWalletMng();
+        // $blockchain->setWalletType('eth');
+        // $balanceInfo = $blockchain->getAddressBalance($ethAddress);
+        // $eth_balance = $balanceInfo['balance'];
+
+        $btc_balance = $eth_balance = 0;
 
         $btc_disabled = "";
         if ( $btc_balance == 0 ) $btc_disabled = " disabled";
         $eth_disabled = "";
         if ( $eth_balance == 0 ) $eth_disabled = " disabled";
 
-        $price_data = $wmodel->getCurrentPrice();
-
+// dd($wmodel->getLocalCurrencyRate('CNY'));   
         session()->put('btc_amount', $btc_balance);
         session()->put('eth_amount', $eth_balance);
+        
 
-        return view('manage.index')->with("btc_disabled", $btc_disabled)->with("eth_disabled", $eth_disabled)->with('price_data', $price_data);
+        return view('manage.index')->with("btc_disabled", $btc_disabled)->with("eth_disabled", $eth_disabled)/*->with('price_data', $price_data)*/;
     }
 
     //Managelistings Pages
@@ -106,39 +108,40 @@ class ManageListingsController extends Controller
         $user = \Auth::user();
         $wmodel = new UserWallet();
         // $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first(); 
-        if ( $listing_id == -1 ) {
-            $btcaddress =$wmodel->getUserWallet($user->id, 'btc');      
-            $model = new WalletManage();
-            $wallet_info = $model->getWalletBalanceByAddress($btcaddress);
-            $coin_balance= floatval($wallet_info->data->available_balance);
-        }
-        if ( $listing_id == -2 ) {
-            $ethAddress = $wmodel->getUserWallet($user->id, 'eth');
-            $blockchain = new BlockchainWalletMng();
-            $blockchain->setWalletType('eth');
-            $balanceInfo = $blockchain->getAddressBalance($ethAddress);
-            $coin_balance = $balanceInfo['balance'];
-        }
-// $coin_balance = 0;
+        // if ( $listing_id == -1 ) {
+        //     $btcaddress =$wmodel->getUserWallet($user->id, 'btc');      
+        //     $model = new WalletManage();
+        //     $wallet_info = $model->getWalletBalanceByAddress($btcaddress);
+        //     $coin_balance= floatval($wallet_info->data->available_balance);
+        // }
+        // if ( $listing_id == -2 ) {
+        //     $ethAddress = $wmodel->getUserWallet($user->id, 'eth');
+        //     $blockchain = new BlockchainWalletMng();
+        //     $blockchain->setWalletType('eth');
+        //     $balanceInfo = $blockchain->getAddressBalance($ethAddress);
+        //     $coin_balance = $balanceInfo['balance'];
+        // }
+$coin_balance = 0;
         $price_data = $wmodel->getCurrentPrice();
         if ($listing_id < 0 ) {
             return view('manage.listings')->with('coin_balance', $coin_balance)->with('listing', 'NULL')->with('price_data', $price_data);
         }
         if ( $listing_id > 0 ) {
             $listing = Listings::all()->where('id', '=', $listing_id )->first()->toArray();
-            if ( $listing['coin_type'] == 'btc' ) {
-                $btcaddress =$wmodel->getUserWallet($user->id, 'btc');      
-                $model = new WalletManage();
-                $wallet_info = $model->getWalletBalanceByAddress($btcaddress);
-                $coin_balance= floatval($wallet_info->data->available_balance);
-            }
-            if ( $listing['coin_type'] == 'eth' ) {
-                $ethAddress = $wmodel->getUserWallet($user->id, 'eth');
-                $blockchain = new BlockchainWalletMng();
-                $blockchain->setWalletType('eth');
-                $balanceInfo = $blockchain->getAddressBalance($ethAddress);
-                $coin_balance = $balanceInfo['balance'];
-            }
+            // if ( $listing['coin_type'] == 'btc' ) {
+            //     $btcaddress =$wmodel->getUserWallet($user->id, 'btc');      
+            //     $model = new WalletManage();
+            //     $wallet_info = $model->getWalletBalanceByAddress($btcaddress);
+            //     $coin_balance= floatval($wallet_info->data->available_balance);
+            // }
+            // if ( $listing['coin_type'] == 'eth' ) {
+            //     $ethAddress = $wmodel->getUserWallet($user->id, 'eth');
+            //     $blockchain = new BlockchainWalletMng();
+            //     $blockchain->setWalletType('eth');
+            //     $balanceInfo = $blockchain->getAddressBalance($ethAddress);
+            //     $coin_balance = $balanceInfo['balance'];
+            // }
+$coin_balance = 0;
             return view('manage.listings')->with('coin_balance', $coin_balance)->with('listing', $listing)->with('price_data', $price_data);
         }
     }
@@ -285,9 +288,11 @@ class ManageListingsController extends Controller
     public function userbalance() {
         $user = \Auth::user();
         $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first();
-        $model = new WalletManage();
-        $wallet_info = $model->getWalletBalanceByAddress($userWalletInfo->wallet_address);
-        $coin_balance= floatval($wallet_info->data->available_balance);
+        // $model = new WalletManage();
+        // $wallet_info = $model->getWalletBalanceByAddress($userWalletInfo->wallet_address);
+        // $coin_balance= floatval($wallet_info->data->available_balance);
+
+        $coin_balance = 0;
         echo $coin_balance;
         exit;
     }

@@ -85,39 +85,35 @@ class TradeMessageController extends Controller
 
         $flag = true;
         $request_amount = $coin_amount;
-//dd($coin_sender_id,$coin_receiver_id, $sender_id, $coin_type);
-        if ( $coin_type == 'btc' ) {
-            $model = new UserWallet();
-            $sender_info = $model->getWalletInfo($coin_sender_id, 'btc');
-            $sender_wallet = $sender_info->wallet_address;
-            $receiver_info = $model->getWalletInfo($coin_receiver_id, 'btc');
-            $receiver_wallet = $receiver_info->wallet_address;
+        // if ( $coin_type == 'btc' ) {
+        //     $model = new UserWallet();
+        //     $sender_info = $model->getWalletInfo($coin_sender_id, 'btc');
+        //     $sender_wallet = $sender_info->wallet_address;
+        //     $receiver_info = $model->getWalletInfo($coin_receiver_id, 'btc');
+        //     $receiver_wallet = $receiver_info->wallet_address;
+        //     $model = new WalletManage();  
+        //     $tmp = $model->getWalletBalanceByAddress($sender_wallet);           
+        //     $balance = $tmp->data->available_balance;
+        //     if ( $balance > $coin_amount ) {
+        //         $tmpdata = $model->getTransFee($coin_amount, $receiver_wallet);
+        //         $request_amount = $tmpdata['total'];
 
-// dd($coin_amount); 
-            $model = new WalletManage();  
-// dd($sender_wallet);
-            $tmp = $model->getWalletBalanceByAddress($sender_wallet);           
-            $balance = $tmp->data->available_balance;
-            if ( $balance > $coin_amount ) {
-                $tmpdata = $model->getTransFee($coin_amount, $receiver_wallet);
-                $request_amount = $tmpdata['total'];
-
-            }
-            
-        }
-        if ( $coin_type == 'eth' ) {
-            $model = new UserWallet();
-            $sender_info = $model->getWalletInfo($coin_sender_id, 'eth');
-            $from_address = array('address'=>$sender_info->wallet_address, 'private'=>$sender_info->private, 'public'=>$sender_info->public);
-            $receiver_info = $model->getWalletInfo($coin_receiver_id, 'eth');
-            $to_address = array('address'=>$receiver_info->wallet_address, 'private'=>$receiver_info->private, 'public'=>$receiver_info->public);
-            $wModel = new BlockchainWalletMng();
-            $wModel->setWalletType( $coin_type );
-            $Skelton = $wModel->createTransaction($from_address, $to_address, $coin_amount);
-            $request_amount = floatval(($Skelton->tx->total+$Skelton->tx->fees)/1000000000000000000);
-            $tmp = $wModel->getAddressBalance($sender_info->wallet_address);
-            $balance = floatval($tmp['final_balance']/1000000000000000000);
-        }
+        //     }
+        // }
+        // if ( $coin_type == 'eth' ) {
+        //     $model = new UserWallet();
+        //     $sender_info = $model->getWalletInfo($coin_sender_id, 'eth');
+        //     $from_address = array('address'=>$sender_info->wallet_address, 'private'=>$sender_info->private, 'public'=>$sender_info->public);
+        //     $receiver_info = $model->getWalletInfo($coin_receiver_id, 'eth');
+        //     $to_address = array('address'=>$receiver_info->wallet_address, 'private'=>$receiver_info->private, 'public'=>$receiver_info->public);
+        //     $wModel = new BlockchainWalletMng();
+        //     $wModel->setWalletType( $coin_type );
+        //     $Skelton = $wModel->createTransaction($from_address, $to_address, $coin_amount);
+        //     $request_amount = floatval(($Skelton->tx->total+$Skelton->tx->fees)/1000000000000000000);
+        //     $tmp = $wModel->getAddressBalance($sender_info->wallet_address);
+        //     $balance = floatval($tmp['final_balance']/1000000000000000000);
+        // }
+        $balance = $request_amount;
         
         $dispModel = new DisputeHistory();
         $disput_status = $dispModel->getDisputeStatus($transaction_id);

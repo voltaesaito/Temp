@@ -27,17 +27,13 @@ class ChangeEmailController extends Controller
         
         return view('change.email');
     }
-    public function twofaindex() {
+    public function change2fa() {
         $user = \Auth::user();
         $this->name = $user->name;
         $this->email = $user->email;
-
-        $valid = $this->validateInput($key = $this->getSecretKey());
-
+        // $valid = $this->validateInput($key = $this->getSecretKey());
+        $key = $this->createNewKey();
         $inlineUrl = $this->getInlineUrl($key);
-
-        // $auth2famodel = new Auth2fa();
-        // $auth2famodel->addAuthInfo( $user->id, $key );
         return view('change.twofaauth')->with(compact('key', 'inlineUrl', 'valid'));
     }
     public function changephone() {
@@ -63,15 +59,15 @@ class ChangeEmailController extends Controller
     }
     private function getSecretKey()
     {
-        //dd($this->getStoredKey(),(! $key = $this->getStoredKey()));
         if (! $key = $this->getStoredKey())
         {
-            $cls = new Google2FA();
-            $key = $cls->generateSecretKey($this->keySize, $this->keyPrefix);
-//dd($key);
-            $this->storeKey($key);
+            $key = $this->createNewKey();
         }
-
+        return $key;
+    }
+    private function createNewKey() {
+        $cls = new Google2FA();
+        $key = $cls->generateSecretKey($this->keySize, $this->keyPrefix);
         return $key;
     }
     private function storeKey($key)
@@ -81,10 +77,10 @@ class ChangeEmailController extends Controller
     private function getStoredKey()
     {
         // No need to read it from disk it again if we already have it
-        if ($this->secretKey)
-        {
-            return $this->secretKey;
-        }
+        // if ($this->secretKey)
+        // {
+        //     return $this->secretKey;
+        // }
 
         $user = \Auth::user();
         $authmodel = new Auth2fa();
@@ -112,7 +108,7 @@ class ChangeEmailController extends Controller
     public function check2fa()
     {
         $isValid = $this->validateInput($key = $this->getSecretKey());
-// dd();
+
         // Render index and show the result
         if ($isValid)
             echo "ok";
@@ -120,6 +116,21 @@ class ChangeEmailController extends Controller
             echo "fail";
         exit;
 //        return $this->index($isValid);
+    }
+    public function registeKey() {
+        $key = request()->get('key');
+        $code = request()->get('code');
+        $isValid = $this->validateInput($key);
+        // Render index and show the result
+        if ($isValid){
+            $user = \Auth::user();
+            $auth2famodel = new Auth2fa();
+            $auth2famodel->addAuthInfo( $user->id, $key );
+            echo "ok";
+        }
+        else
+            echo "fail";
+        exit;
     }
 
     public function reportuser() {

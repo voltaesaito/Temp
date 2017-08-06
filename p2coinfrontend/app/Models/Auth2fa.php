@@ -21,7 +21,7 @@ class Auth2fa extends Model
         $resp = self::is2faAuthed($user_id);
         $curDateTime = date("Y-m-d H:i:s");
         if ($resp)
-            DB::table($this->table)->update(['key_str'=>$key_str,'updated_at'=>$curDateTime])->where('user_id','=',$user_id);
+            DB::table($this->table)->where('user_id','=',$user_id)->update(['key_str'=>$key_str,'updated_at'=>$curDateTime]);
         else
             DB::table($this->table)->insert(['user_id'=>$user_id, 'key_str'=>$key_str, 'created_at'=>$curDateTime, 'updated_at'=>$curDateTime]);
     }
