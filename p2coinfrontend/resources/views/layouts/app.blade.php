@@ -267,6 +267,16 @@
                             <li class="dropdown user-panel-dd stick">
                                 <a href="#">|</a>
                             </li>                    
+                            <li class="s">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#user_dropdown">
+                                    <i class="fa fa-comment" aria-hidden="true" style = "line-height: 30px;"></i>
+                                </a>
+                                <ul class="dropdown-menu" style="width: 400px; margin-top: 10px;" id="msg_list">
+                                </ul>
+                            </li>
+                            <li class="dropdown user-panel-dd stick">
+                                <a href="#">|</a>
+                            </li>                    
                             <li class="dropdown user-panel-dd own-nav">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="" aria-expanded="false">
                                     <i class="fa fa-navicon fa-fw" style = "margin-top: 8px;"></i>
@@ -293,16 +303,6 @@
                                     </li>
                                 </ul>
                             </li> 
-                            <li class="dropdown user-panel-dd stick">
-                                <a href="#">|</a>
-                            </li>                    
-                            <li class="s">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#user_dropdown">
-                                    <i class="fa fa-comment" aria-hidden="true" style = "line-height: 30px;"></i>
-                                </a>
-                                <ul class="dropdown-menu" style="width: 400px; margin-top: 10px;" id="msg_list">
-                                </ul>
-                            </li>
                         @endif
                     </ul>
                 </div>
