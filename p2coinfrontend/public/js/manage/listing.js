@@ -1,5 +1,5 @@
 $(document).ready(function() { 
-    $('#currency').onchange(function(){
+    $('#currency').change(function(){
         $('.curr').html($('#currency').val());
     });    
 
@@ -12,6 +12,7 @@ $(document).ready(function() {
         $('#location').val(json_listing['location']);
         $('#payment_method').val(json_listing['payment_method']);
         $('#currency').val(json_listing['currency']);
+        $('.curr').html(json_listing['currency']);
 
         //input value
         var coin_amount = json_listing['coin_amount'];

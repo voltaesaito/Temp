@@ -67,6 +67,7 @@
                         <button type="button" id="message_send" class="btn btn-success">SEND</button>
                     </div>
                     <div class="form-group">
+                        
                         <?php
                         if($listing->is_closed == 1){
                             if(!$disput_status)

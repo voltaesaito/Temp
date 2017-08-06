@@ -360,7 +360,7 @@
                     <div class="col-sm-3"> 
                         <div class="input-group">
                             <input class="numberinput form-control" id="min_transaction_limit" name="min_transaction_limit" type="number"> 
-                            <span class="input-group-addon cur">USD</span>
+                            <span class="input-group-addon curr">USD</span>
                         </div>
                         <!--<input type="text" class="form-control" id="min_transaction_limit" name="min_transaction_limit" placeholder="Minimum Transaction Limit">-->
                     </div>
@@ -374,7 +374,7 @@
                     <div class="col-sm-3"> 
                         <div class="input-group">
                             <input class="numberinput form-control" id="max_transaction_limit" name="max_transaction_limit" type="number"> 
-                            <span class="input-group-addon cur">USD</span>
+                            <span class="input-group-addon curr">USD</span>
                         </div>
                         <!--<input type="text" class="form-control" id="max_transaction_limit" name="max_transaction_limit" placeholder="Maximum Transaction Limit">-->
                     </div>

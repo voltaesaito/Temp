@@ -30,7 +30,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center th-title">ID</th>
-                                    <th class="text-center th-title">Seller</th>
+                                    <th class="text-center th-title">Trade Partner</th>
                                     <th class="text-center th-title">Amount(coin)</th>
                                     <th class="text-center th-title">Amount(fiat)</th>
                                     <th class="text-center th-title">Method</th>
@@ -41,7 +41,7 @@
                                 <tbody>
                                 @foreach($sell_listings as $listing)
                                     <tr>
-                                        <td><a href="" >{{ $listing->id }}</a></td>
+                                        <td><a href="#" onclick="view_trademessage('{{ $listing->id }}-{{ $listing->listing_id }}-{{ $listing->sender_id }}-{{ $listing->receiver_id }}-{{ $listing->user_type }}-1')">{{ $listing->id }}</a></td>
                                         <td>{{ $listing->name }}</td>
                                         <td>{{ $listing->coin_amount }}</td>
                                         <td>{{ $listing->coin_amount }}</td>
@@ -71,7 +71,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center th-title">ID</th>
-                                    <th class="text-center th-title">Buyer</th>
+                                    <th class="text-center th-title">Trade Partner</th>
                                     <th class="text-center th-title">Amount(coin)</th>
                                     <th class="text-center th-title">Amount(fiat)</th>
                                     <th class="text-center th-title">Method</th>
@@ -82,7 +82,7 @@
                                 <tbody>
                                 @foreach($buy_listings as $listing)
                                     <tr>
-                                        <td>{{ $listing->id }}</td>
+                                        <td><a href="#" onclick="view_trademessage('{{ $listing->id }}-{{ $listing->listing_id }}-{{ $listing->sender_id }}-{{ $listing->receiver_id }}-{{ $listing->user_type }}-0')">{{ $listing->id }}</a></td>
                                         <td>{{ $listing->name }}</td>
                                         <td>{{ $listing->coin_amount }}</td>
                                         <td>{{ $listing->coin_amount }}</td>
@@ -110,4 +110,5 @@
     </div>
 
     <script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
+    <script src="{{ asset('./js/trade/opentrade.js') }}"></script>
 @endsection
