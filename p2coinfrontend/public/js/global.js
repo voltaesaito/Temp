@@ -18,7 +18,7 @@ function doOnLoadWindowData() {
         repjson = JSON.parse(price_data);
         $('#label_btc_amount').html(repjson.btc);
         $('#label_eth_amount').html(repjson.eth);
-        console.log(price_data, typeof(price_data));
+        // console.log(price_data, typeof(price_data));
     });
 }
 $(function(){

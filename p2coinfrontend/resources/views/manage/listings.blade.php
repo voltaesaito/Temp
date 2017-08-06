@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<script> var coin_balance={{ $coin_balance }} </script>
-<script> var json_listing=<?php echo json_encode($listing); ?> </script>
+<script> var coin_balance=<?php echo $coin_balance; ?>; </script>
+<script> var json_listing=<?php echo json_encode($listing); ?>; </script>
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -437,13 +437,12 @@
                 
                 <div class="form-group"> 
                     <div class="col-sm-offset-2 col-sm-3">
-                    <button type="submit" class="btn btn-success btn-green">Submit</button> 
+                        <button type="submit" class="btn btn-success btn-green">Submit</button> 
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-@endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{URL::asset('./js/manage/listing.js')}}" ></script>
+@endsection

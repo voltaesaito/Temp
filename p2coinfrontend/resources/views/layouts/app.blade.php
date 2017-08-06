@@ -24,8 +24,7 @@
     
 </script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/global.js') }}"></script>
-    <!-- <script src="{{ asset('js/home/index.js') }}"></script> -->
+    <script src="{{ asset('js/global.js') }}"></script>  
     <style>
         @font-face {
             font-family: Roboto Regular;
@@ -320,6 +319,7 @@
 </body>
 </html>
 
+<script src="{{ asset('js/home/index.js') }}"></script> 
 <script>
 $(document).ready(function(){
     $(".menu-currency").click(function(){
