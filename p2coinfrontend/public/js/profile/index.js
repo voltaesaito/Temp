@@ -13,10 +13,9 @@ $(document).ready(function(){
             $('#div_trade_volume').css('background','');
         });
     });
-    $('#btn_send_email').click(doOnSendEmailtoAdmin());
-});
-function doOnSendEmailtoAdmin() {
-    $.get('reportuser', function(resp){
-        // alert("");
+    $('#btn_send_email').click(function(){
+        $.post('reportuser', {content: $('#report_user_content').val(), _token: $('meta[name=csrf-token]').attr('content')}, function(resp){
+            // alert("");
+        });
     });
-}
+});

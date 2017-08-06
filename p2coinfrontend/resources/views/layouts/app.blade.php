@@ -283,8 +283,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu up-arrow">
-                                    <li class="user-panel-dd menu-border"><a href="{{ route('wallet') }}"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
-                                    <li class="divider"></li>  
+                                    <!-- <li class="user-panel-dd menu-border"><a href="{{ route('wallet') }}"><i class="fa fa-btc fa-fw"></i>&nbsp;Wallet</a></li>
+                                    <li class="divider"></li>   -->
                                     <li class="menu-border"><a href="{{ route('profile') }}"><i class="fa fa-edit fa-fw"></i>&nbsp;Profile</a></li>
                                     <li class="divider"></li>  
                                     <li class="user-panel-dd menu-border"><a href=" {{ route("opentrade") }}"><i class="fa fa-truck fa-fw"></i>&nbsp;Open Trades</a></li>
