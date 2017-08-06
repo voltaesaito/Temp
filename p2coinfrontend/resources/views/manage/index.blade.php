@@ -57,8 +57,9 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-.tbl-title { line-height: 200%; color: white; }
+.tbl-title {font-family: Roboto Boldd; padding-top: 0px; color: white; font-size: 24px; }
 .spacer { margin-top: 20px; }
+.table td {font-family: Roboto Regular; color: #818181 !important; text-align:center;}
 </style>
 <!-- <script> var json_listing=<?php //echo json_encode($listing); ?> </script> -->
 

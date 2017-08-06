@@ -255,6 +255,7 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
         $localinfo = session()->get('locationinfo');
         $user = \Auth::user();
         $lModel = new Listings();
+//        $wmodel = new UserWallet();
 
         $crypto_name = "Cryptocurrencies";
         if($request->coin_type == "btc")
@@ -279,6 +280,7 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
 
         $buy_list = "";
         foreach($buy_listings as $listing){
+//            $local_currency = $wmodel->getLocalCurrencyRate($listing->currency);
             $data = DB::table("contract")
                         ->join('transaction_history', 'transaction_history.contract_id', '=', 'contract.id')
                         ->select('id')
@@ -301,7 +303,7 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
 
         $sell_list = "";
         foreach($sell_listings as $listing){
-
+//            $local_currency = $wmodel->getLocalCurrencyRate($listing->currency);
             $data = DB::table("contract")
                         ->join('transaction_history', 'transaction_history.contract_id', '=', 'contract.id')
                         ->select('id')
@@ -314,10 +316,6 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
             $sell_list .= "<td>" . round($listing->coin_amount, 5) . " " . strtoupper($listing->coin_type) . "</td>";
             $sell_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $sell_list .= "<td>";
-            // if ( $flag_data->flag == 0 )
-            //     $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "&coin_type=" . $listing->coin_type . "' class='btn btn-success btn-green'>BUY</a>";
-            // else
-            //     $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . "&coin_type=" . $listing->coin_type . "' class='btn btn-success btn-green'>View/Message</a>";
             if ( !count($data) )
                 $sell_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-success btn-green buy'>BUY</button>";
             else
@@ -328,7 +326,6 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
 
         echo $location . "@@@" . $buy_list . "@@@" . $sell_list;
         exit;
-        // return view('trade.screen')->with('buy_listings', $buy_listings)->with('sell_listings', $sell_listings)->with('location', $localinfo['country_full_name']);
     } 
 
     public function getOpenTrades(){

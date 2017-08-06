@@ -12,6 +12,7 @@ JObject.prototype = {
         $('button.see-more').click(j_obj.doOnSetSeeMoreFlag);
         $('button.buy').click(j_obj.doCreateContractAndGoTransaction);
         $('button.view').click(j_obj.doViewMessages);
+        $('.menu-currency').click(j_obj.dochangecoin);
     },
     doOnClickSearchButtonClick : function (seemore_flag) {
         j_obj.loadListingData(0,seemore_flag);
@@ -67,14 +68,22 @@ JObject.prototype = {
 
         form.submit();
     },
+    dochangecoin : function() {
+        var coin = $(this).attr('id');
+        $('#coin_type').val(coin);
+        j_obj.loadListingData(0);
+    },
     loadListingData : function (flag) {
         var _token = $('meta[name=csrf-token]').attr('content');
         var coin_amount = $('#coin_amount').val();
         var coin_type = $('#coin_type').val();
-        if(coin_type == "btc")
+        if(coin_type == "btc"){
+            $('.tb-title').removeClass('eth-color');
             $('.tb-title').addClass('btc-color');
-        else
+        }else{
+            $('.tb-title').removeClass('btc-color');
             $('.tb-title').addClass('eth-color');
+        }
         var location = $('#location').val();
         var payment_method = $('#payment_method').val();
         $.post('getlistingdata', {coin_amount:coin_amount, coin_type:coin_type, location:location, payment_method:payment_method, _token:_token, flag: flag }, function(resp) {
@@ -93,7 +102,7 @@ JObject.prototype = {
             }
             else {
                 $('#title2').html(arr[0]);
-                $('#sell_list').html(arr[2]);
+                $('#sell_list').html(arr[2]); 
             }
         } );
     }

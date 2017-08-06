@@ -61,6 +61,7 @@ class ManageListingsController extends Controller
         $user = \Auth::user();
         $flag = $request->flag;
         $lModel = new Listings();
+        $wmodel = new UserWallet();
 
         $btc_listings = $lModel->getListingsDataByUser($user->id, 'btc', $flag);
 //        dd($user->id);
@@ -68,11 +69,13 @@ class ManageListingsController extends Controller
         $btc_list = "";
         foreach($btc_listings as $listing){
 //            dd($listing['id']);
+            $local_currency = $wmodel->getLocalCurrencyRate($listing->currency);
+
             $btc_list .= "<tr>";
             $btc_list .= "<td class='text-center'>" . $listing->id . "</td>";
             $btc_list .= "<td class='text-center'><a class='btn btn-success btn-green' href='addlistings/" . $listing->id . "'>Edit</a></td>";
             $btc_list .= "<td class='text-center'><a href='viewlisting/" . $listing->id . "'>" . $listing->payment_method . ":" . $listing->payment_name . "</a></td>";
-            $btc_list .= "<td class='text-center'>" . $listing->coin_amount . "</td>";
+            $btc_list .= "<td class='text-center'>" . round(($listing->coin_amount * $local_currency[$listing->coin_type]), 2) . " " . $listing->currency . "</td>";
             $btc_list .= "<td class='text-center'><label class='switch'>";
             if($listing->status)
                 $btc_list .= "<input type='checkbox' class='status' id='" . $listing->id . "' name='status' onclick=\"j_obj.updateStatus(".$listing->id.")\" checked>";
@@ -85,11 +88,13 @@ class ManageListingsController extends Controller
         $eth_listings = $lModel->getListingsDataByUser($user->id, 'eth', $flag);
         $eth_list = "";
         foreach($eth_listings as $listing){
+            $local_currency = $wmodel->getLocalCurrencyRate($listing->currency);
+
             $eth_list .= "<tr>";
             $eth_list .= "<td class='text-center'>" . $listing->id . "</td>";
             $eth_list .= "<td class='text-center'><a class='btn btn-success btn-green' href='addlistings/" . $listing->id . "'>Edit</a></td>";
             $eth_list .= "<td class='text-center'><a href='viewlisting/" . $listing->id . "'>" . $listing->payment_method . ":" . $listing->payment_name . "</a></td>";
-            $eth_list .= "<td class='text-center'>" . $listing->coin_amount . "</td>";
+            $eth_list .= "<td class='text-center'>" . round(($listing->coin_amount * $local_currency[$listing->coin_type]), 2) . " " . $listing->currency . "</td>";
             $eth_list .= "<td class='text-center'><label class='switch'>";
             if($listing->status)
                 $eth_list .= "<input type='checkbox' class='status' id='" . $listing->id . "' name='status' onclick=\"j_obj.updateStatus(".$listing->id.")\" checked>";

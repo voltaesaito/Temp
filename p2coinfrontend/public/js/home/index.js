@@ -15,7 +15,7 @@ JObject.prototype = {
         $('#search-btn').click(j_obj.doOnClickSearchButtonClick);
         $('button.see-more').click(j_obj.doOnSetSeeMoreFlag);
         $('a.view-message').click(j_obj.doViewMessage);
-        $('.menu-currency').click(j_obj.dochangecoin)
+        $('.menu-currency').click(j_obj.dochangecoin);
     },
     doViewMessages : function (param) {
         var _token = $('meta[name=csrf-token]').attr('content');
@@ -51,7 +51,7 @@ JObject.prototype = {
     dochangecoin : function() {
         var coin = $(this).attr('id');
         $('#coin_type').val(coin);
-        j_obj.loadListingData(1);
+        j_obj.loadListingData(0);
     },
     loadListingData : function (flag) { 
         if(real_location != undefined)
@@ -61,10 +61,13 @@ JObject.prototype = {
         var _token = $('meta[name=csrf-token]').attr('content');
         var coin_amount = $('#coin_amount').val();
         var coin_type = $('#coin_type').val();
-        if(coin_type == "btc")
+        if(coin_type == "btc"){
+            $('.tb-title').removeClass('eth-color');
             $('.tb-title').addClass('btc-color');
-        else
+        }else{
+            $('.tb-title').removeClass('btc-color');
             $('.tb-title').addClass('eth-color');
+        }
         var location = $('#location').val();
         var payment_method = $('#payment_method').val();
         $.post('getalllistingdata', {coin_amount:coin_amount, coin_type:coin_type, location:location, payment_method:payment_method, _token:_token, flag: flag }, function(resp) {
@@ -89,7 +92,7 @@ JObject.prototype = {
     getLastMessageList : function () {
         var _token = $('meta[name=csrf-token]').attr('content');
         $.post('getlastmessagelist', {_token: _token}, function(resp) {
-            $('#msg_list').html(resp);
+            $('#msg_list').html(resp); 
         } );
     }
 }
