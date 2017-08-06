@@ -19,7 +19,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
      <!-- Scripts -->
-<script> var rootURL = '<?php echo $_SERVER['HTTP_HOST']; ?>'</script>
+ <script> 
+    var rootURL = '<?php echo $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']; ?>';
+    
+</script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/global.js') }}"></script>
     <!-- <script src="{{ asset('js/home/index.js') }}"></script> -->
