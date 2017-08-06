@@ -21,7 +21,7 @@
      <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/global.js') }}"></script>
-    <script src="{{ asset('js/home/index.js') }}"></script>
+    <!-- <script src="{{ asset('js/home/index.js') }}"></script> -->
     <style>
         @font-face {
             font-family: Roboto Regular;

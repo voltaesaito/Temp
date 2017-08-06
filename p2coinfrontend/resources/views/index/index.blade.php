@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<script> var real_location = '{{ $country }}';</script>
 <style>
 .border-welcome{
     border-radius:5px;
-    /* border:lightgrey 1.5px solid; */
     margin-bottom:20px;
     min-height:240px;
     background-image:url('./public/assets/images/banner.png');
@@ -12,10 +12,14 @@
 }
 h1.banner-title { color: white; font-family: Roboto Bla; color: white !important; margin-top: 50px; font-size: 56px;}
 .banner .btn { width: 150px; height: 50px; line-height: 100%; }
-/* .btn-reg { padding-left: } */
+
+.trade .title th {font-family: Roboto Boldd; color: #000 !important;}
+.table td {font-family: Roboto Regular; color: #818181 !important; text-align: center;}
+.btc-color { background-color: #00b8e6; }
+.eth-color { background-color: #028840; }
 </style>
 <div class="container">
-    <div class="row banner">
+    <div class="row banner" style="margin: 0px !important;">
         <div class="col-md-12 border-welcome">
             <div class="col-md-3">
                 <img src="{{ asset('./assets/images/banner_boy.png') }}" style="width: 100%;">
@@ -41,7 +45,7 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
         <div class="first-input"><input type="text" id="coin_amount" name="coin_amount" placeholder="Amount"/></div>
         <div class="second-input">
             <select id="coin_type" name="coin_type">
-                <option value="none">Currency</option><option value="btc">BTH</option><option value="eth">ETH</option>
+                <option value="btc">BTH</option><option value="eth">ETH</option>
             </select>
         </div>
         <div class="second-input">
@@ -308,25 +312,25 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
     </div>
 
     <div class="row">
-        <div class="col-md-12">
-            <h3 class="h-title text-center">Buy <font id="title1"></font></h3>
-        </div>
         <div class="col-md-12 title-content-body">
-            <div class="table-responsive">          
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th class="menu-caption text-center">Vendor</th>
-                            <th class="menu-caption text-center">Payment Method</th>
-                            <th class="menu-caption text-center">Price</th>
-                            <th class="menu-caption text-center">Limits</th>
-                            <th class="menu-caption text-center">Contract</th>
-                        </tr>
-                    </thead>
-                    <tbody id="buy_list">
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-bordered trade">
+                <thead>
+                    <tr class="tb-title">
+                        <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
+                            Buy <font id="title1"></font>
+                        </th>
+                    </tr>
+                    <tr class="title">
+                        <th class="menu-caption text-center">Vendor</th>
+                        <th class="menu-caption text-center">Payment Method</th>
+                        <th class="menu-caption text-center">Price</th>
+                        <th class="menu-caption text-center">Limits</th>
+                        <th class="menu-caption text-center">Contract</th>
+                    </tr>
+                </thead>
+                <tbody id="buy_list">
+                </tbody>
+            </table>
         </div>
         <div class="col-md-12 text-center">
             <button class="btn btn-success btn-green see-more" prop="1">See More</button>
@@ -334,25 +338,25 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
     </div>
     <div class="margin-height"></div>
     <div class="row">
-        <div class="col-md-12">
-            <h3 class="h-title text-center">Sell <font id="title2"></font></h3>
-        </div>
         <div class="col-md-12 title-content-body">
-            <div class="table-responsive">          
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th class="menu-caption text-center">Vendor</th>
-                            <th class="menu-caption text-center">Payment Method</th>
-                            <th class="menu-caption text-center">Price</th>
-                            <th class="menu-caption text-center">Limits</th>
-                            <th class="menu-caption text-center">Contract</th>
-                        </tr>
-                    </thead>
-                    <tbody id="sell_list">
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-bordered trade">
+                <thead>
+                    <tr class="tb-title">
+                        <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
+                            Sell <font id="title2"></font>
+                        </th>
+                    </tr>
+                    <tr class="title">
+                        <th class="menu-caption text-center">Vendor</th>
+                        <th class="menu-caption text-center">Payment Method</th>
+                        <th class="menu-caption text-center">Price</th>
+                        <th class="menu-caption text-center">Limits</th>
+                        <th class="menu-caption text-center">Contract</th>
+                    </tr>
+                </thead>
+                <tbody id="sell_list">
+                </tbody>
+            </table>
         </div>
         <div class="col-md-12 text-center">
             <button class="btn btn-success btn-green see-more" prop="0">See More</button>

@@ -6,6 +6,7 @@ function JObject() {
 }
 JObject.prototype = {
     init : function() {
+
         this.initEventListen();
         this.loadListingData(1);
         this.getLastMessageList();
@@ -14,6 +15,7 @@ JObject.prototype = {
         $('#search-btn').click(j_obj.doOnClickSearchButtonClick);
         $('button.see-more').click(j_obj.doOnSetSeeMoreFlag);
         $('a.view-message').click(j_obj.doViewMessage);
+        $('.menu-currency').click(j_obj.dochangecoin)
     },
     doViewMessages : function (param) {
         var _token = $('meta[name=csrf-token]').attr('content');
@@ -46,10 +48,23 @@ JObject.prototype = {
         seemore_flag = $(this).attr('prop');
         j_obj.loadListingData(0);
     },
-    loadListingData : function (flag) {
+    dochangecoin : function() {
+        var coin = $(this).attr('id');
+        $('#coin_type').val(coin);
+        j_obj.loadListingData(1);
+    },
+    loadListingData : function (flag) { 
+        if(real_location != undefined)
+            $('#location').val(real_location);
+        else
+            $('#location').val('none');
         var _token = $('meta[name=csrf-token]').attr('content');
         var coin_amount = $('#coin_amount').val();
         var coin_type = $('#coin_type').val();
+        if(coin_type == "btc")
+            $('.tb-title').addClass('btc-color');
+        else
+            $('.tb-title').addClass('eth-color');
         var location = $('#location').val();
         var payment_method = $('#payment_method').val();
         $.post('getalllistingdata', {coin_amount:coin_amount, coin_type:coin_type, location:location, payment_method:payment_method, _token:_token, flag: flag }, function(resp) {

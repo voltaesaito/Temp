@@ -287,7 +287,7 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
 
             $buy_list .= "<tr>";
             $buy_list .= "<td>" . $listing->name . "</td>";
-            $buy_list .= "<td>" . $listing->coin_type . "-" . $listing->payment_method . "</td>";
+            $buy_list .= "<td>" . $listing->payment_method . ":" . $listing->payment_name . "</td>";
             $buy_list .= "<td>" . round($listing->coin_amount, 2) . " " . $listing->currency . "</td>";
             $buy_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $buy_list .= "<td>";
@@ -310,7 +310,7 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
 
             $sell_list .= "<tr>";
             $sell_list .= "<td>" . $listing->name . "</td>";
-            $sell_list .= "<td>" . $listing->coin_type . "-" . $listing->payment_method . "</td>";
+            $sell_list .= "<td>" . $listing->payment_method . ":" . $listing->payment_name . "</td>";
             $sell_list .= "<td>" . round($listing->coin_amount, 5) . " " . strtoupper($listing->coin_type) . "</td>";
             $sell_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $sell_list .= "<td>";
