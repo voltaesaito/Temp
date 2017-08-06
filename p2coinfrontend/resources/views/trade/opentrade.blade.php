@@ -25,6 +25,7 @@
                 <div class="col-md-12 text-center">
                     <div class="col-md-12 title-content-body">
                         <div class="table-responsive">
+                            <label>Your Listings</label>
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -40,12 +41,20 @@
                                 <tbody>
                                 @foreach($sell_listings as $listing)
                                     <tr>
-                                        <td>{{ $listing->id }}</td>
+                                        <td><a href="" >{{ $listing->id }}</a></td>
                                         <td>{{ $listing->name }}</td>
                                         <td>{{ $listing->coin_amount }}</td>
                                         <td>{{ $listing->coin_amount }}</td>
-                                        <td>{{ $listing->payment_method }}</td>
-                                        <td>-</td>
+                                        <td>{{ ucfirst($listing->payment_method) }}</td>
+                                        <td>
+                                            @if ( $listing->is_closed == 4 )
+                                                Disputed
+                                            @elseif ( $listing->is_closed == 3 )
+                                                Completed
+                                            @else
+                                                Awaiting comfirmation
+                                            @endif
+                                        </td>
                                         <td>{{ $listing->created_at }}</td>
                                     </tr>
                                 @endforeach
@@ -57,6 +66,7 @@
                 <div class="col-md-12 text-center">
                     <div class="col-md-12 title-content-body">
                         <div class="table-responsive">
+                            <label>Other Listings</label>
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -76,8 +86,16 @@
                                         <td>{{ $listing->name }}</td>
                                         <td>{{ $listing->coin_amount }}</td>
                                         <td>{{ $listing->coin_amount }}</td>
-                                        <td>{{ $listing->payment_method }}</td>
-                                        <td>-</td>
+                                        <td>{{ ucfirst($listing->payment_method) }}</td>
+                                        <td>
+                                            @if ( $listing->is_closed == 4 )
+                                                Disputed
+                                            @elseif ( $listing->is_closed == 3 )
+                                                Completed
+                                            @else
+                                                Awaiting comfirmation
+                                            @endif
+                                        </td>
                                         <td>{{ $listing->created_at }}</td>
                                     </tr>
                                 @endforeach

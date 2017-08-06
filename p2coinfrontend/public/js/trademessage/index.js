@@ -66,7 +66,7 @@ $(document).ready(function(){
         var transaction_id = $(this).attr('attr_trans_id');
         var content = $('#comment').val();
         $.post('setdispute', { _token:_token, transaction_id:transaction_id, content: content}, function(resp){
-
+            
         })
     });
 });

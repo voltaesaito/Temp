@@ -1,14 +1,6 @@
 @extends('layouts.app')
 @section('content')
 <div class="row">
-    <div class="col-sm-2 col-md-offset-5">
-        <select class="form-control" id="coin_type" name="coin_type">
-            <option value="btc">BTC</option>
-            <option value="eth">ETH</option>
-        </select>
-    </div>
-</div>
-<div class="row">
     <div class="container">
         <h3><strong>Profile:</strong><span id="span_title">BTC</span>Trade</h3>
         <div class="panel panel-default">
@@ -19,15 +11,15 @@
                 </div>
                 <div class="row">
                     <label class="col-md-4">Trades</label>
-                    <label class="col-md-4" id="div_trades"></label>
+                    <label class="col-md-4" id="div_trades">{{ $trade_count }}</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Trade Volume</label>
-                    <label class="col-md-4" id="div_trade_volume"></label>
+                    <label class="col-md-4" id="div_trade_volume">${{ $trades }}</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Feedback Score</label>
-                    <label class="col-md-4" id="div_feedback_score">100%</label>
+                    <label class="col-md-4" id="div_feedback_score">0%</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Trader Age</label>
@@ -75,13 +67,16 @@
                     <a href="#div_report_user" class="menu-caption" data-toggle="collapse">Report User</a>
                     <div id="div_report_user" class="collapse">
                         <div class="panel panel-default">
-                            <div class="panel-body">Report User</div>
+                            <div class="panel-body">
+                                <label>Why are you reporting this user?</label>
+                                <button type="button" class="btn btn-success" id="btn_send_email"> Submit</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <h4 class="text-center"><strong>{{ $buy_title }}</strong></h4>
+                <h4 class="text-center"><strong>Sell Bitcoins from <label id="lbl_sell">BTC</label> Trade</strong></h4>
                 <div class="col-md-12 title-content-body">
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -99,7 +94,7 @@
                         </table>
                     </div>
                 </div>
-                <h4 class="text-center"><strong>{{ $sell_title }}</strong></h4>
+                <h4 class="text-center"><strong>Buy Bitcoins from <label id="lbl_buy">BTC</label> Trade</strong></h4>
                 <div class="col-md-12 title-content-body">
                     <div class="table-responsive">
                         <table class="table table-bordered">

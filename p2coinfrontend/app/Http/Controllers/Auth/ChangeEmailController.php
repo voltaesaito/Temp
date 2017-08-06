@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Auth2fa;
 
 class ChangeEmailController extends Controller
 {
@@ -35,6 +36,8 @@ class ChangeEmailController extends Controller
 
         $inlineUrl = $this->getInlineUrl($key);
 
+        // $auth2famodel = new Auth2fa();
+        // $auth2famodel->addAuthInfo( $user->id, $key );
         return view('change.twofaauth')->with(compact('key', 'inlineUrl', 'valid'));
     }
     public function changephone() {
@@ -83,12 +86,17 @@ class ChangeEmailController extends Controller
             return $this->secretKey;
         }
 
-        if (! Storage::exists($this->fileName))
-        {
-            return null;
-        }
+        $user = \Auth::user();
+        $authmodel = new Auth2fa();
+        $keyStr = $authmodel->getKeyByUserId($user->id);
+        return $keyStr;
 
-        return Storage::get($this->fileName);
+        // if (! Storage::exists($this->fileName))
+        // {
+        //     return null;
+        // }
+
+        // return Storage::get($this->fileName);
     }
     private function validateInput($key)
     {
@@ -104,7 +112,7 @@ class ChangeEmailController extends Controller
     public function check2fa()
     {
         $isValid = $this->validateInput($key = $this->getSecretKey());
-
+// dd();
         // Render index and show the result
         if ($isValid)
             echo "ok";
@@ -112,5 +120,18 @@ class ChangeEmailController extends Controller
             echo "fail";
         exit;
 //        return $this->index($isValid);
+    }
+
+    public function reportuser() {
+        $user = \Auth::user();
+
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $verificationid = $user->email_token;
+        $msg = "<h1>Why are you reporting this user?</h1><a href='".$_SERVER['HTTP_HOST']."/report/".$verificationid."' >".$_SERVER['HTTP_HOST']."/report/".$verificationid."</a>";
+        mail('admin@p2coin.net', "User report", $msg, $headers);
+    }
+    public function update2fa() {
+        return view('settings.update2fa');
     }
 }

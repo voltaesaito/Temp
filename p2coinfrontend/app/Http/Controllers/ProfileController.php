@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use App\Models\UserWallet;
+use App\Models\Listings;
 
 class ProfileController extends Controller
 {
@@ -25,15 +26,33 @@ class ProfileController extends Controller
             $trader_age = $diff->format("%d days %h hours %i minutes %s seconds");
             $userWalletAddress = $userWalletInfo->getUserWallet($user->id);
 
-
-
+            $listingModel = new Listings();
+            $tradeCount = $listingModel->getTradeCount( $user->id, 'btc' );
+            $tradeAmount = $listingModel->getTradeAmount( $user->id, 'btc' );
+            $price_rate = $userWalletInfo->getCurrentPrice();
+            $trades = preg_replace("/\.?0*$/",'',number_format($tradeAmount['btc']*$price_rate['btc']+$tradeAmount['eth']*$price_rate['eth'], 2, '.', ','));
             return view('profile.index')->with('wallet_address', $userWalletAddress)->with('user', $user)
-                ->with(['buy_title'=>'Buy Bitcoins from BTC Trade','sell_title'=>'Sell Bitcoins from BTC Trade', 'trader_age'=>$trader_age]);
+                ->with(['buy_title'=>'Buy Bitcoins from BTC Trade','sell_title'=>'Sell Bitcoins from BTC Trade', 'trader_age'=>$trader_age, 'trade_count'=>$tradeCount, 'trades'=>$trades]);
         }
         catch( Exception $e ) {
             return redirect()->action('/');
         }
     } 
+
+    public function gettrade(Request $request) {
+        header('Content-type:application/json');
+        $user = \Auth::user();
+        $userWalletInfo = new UserWallet();
+        $coin = $request->coin;
+        $listingModel = new Listings();
+        $tradeCount = $listingModel->getTradeCount( $user->id, $coin );
+        $tradeAmount = $listingModel->getTradeAmount( $user->id, $coin );
+        $price_rate = $userWalletInfo->getCurrentPrice();
+        $trades = preg_replace("/\.?0*$/",'',number_format($tradeAmount[$coin]*$price_rate[$coin], 2, '.', ','));
+        $ret_arr = array('trades'=>$tradeCount, 'volumes'=>$trades);
+        echo json_encode($ret_arr);
+        exit;
+    }
 
     
 }

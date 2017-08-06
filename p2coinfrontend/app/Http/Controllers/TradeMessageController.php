@@ -139,6 +139,18 @@ class TradeMessageController extends Controller
         $newRow->transaction_id = $transaction_id;
         $newRow->dispute_reason = $content;
         $newRow->save();
+
+        $listing_data = DB::select("SELECT l.id 
+                            FROM transaction_history th
+                            join contract c
+                            on th.contract_id = c.id
+                            join listings l
+                            on l.id = c.listing_id
+                            where th.transaction_id=$transaction_id");
+        $tmp = $listing_data[0];
+        $listing_id = $tmp->id;
+        DB::table('listings')->where('id','=', $listing_id)->update(['is_closed'=>4]);
+// dd($listing_data);
         echo 'ok';
         exit;
     }

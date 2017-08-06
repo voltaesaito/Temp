@@ -62,6 +62,7 @@
                     <div class="form-group pull-center">
                         <label for="label_address" id="label_address"></label>
                         <img src="" id="img_qrcode" width="300px" height="300px" />
+                        <label for="label_address" >We will credit your deposit after 3 confirmations less of the transaction fee</label>
                     </div>
                 </form>
             </div>
@@ -104,7 +105,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-12">
-                            <label for="coin_amount">withdrawal:</label>
+                            <label for="coin_amount">withdraw:</label>
                             <input type="number" class="form-control" id="coin_amount" readonly>
                         </div>
                     </div>

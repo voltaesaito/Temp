@@ -8,4 +8,6 @@ class ContractModel extends Model
 {
     //
     protected $table="contract";
+
+    
 }

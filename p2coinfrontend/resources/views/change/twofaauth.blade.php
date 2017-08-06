@@ -16,9 +16,13 @@
                         If your 2FA mobile app does not support QR barcodes,
                         enter in the following number: <code>{{ $key }}</code>
                         <br /><br />
+                        <input class="numberinput form-control" id="pin_code" name="pin_code" required>
+                        <br/>
+                        <a id="btn_authorize" class="btn btn-success">Confirm</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<script src="{{URL::asset('./js/settings/update2fa.js')}}" ></script>
 @endsection

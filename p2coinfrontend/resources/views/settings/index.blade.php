@@ -29,11 +29,8 @@
             <div class="col-md-12">
                 <div class="alert alert-success">
                     <span>
-                        <i class="fa fa-exclamation"></i>&nbsp;
-                        
-                            You have not added a verified ID to your account yet.
-                            <a class="btn btn-default profile-verified-info" href="{{ route('verifyid') }}">Verify ID</a>
-                        
+                        You have not added a verified ID to your account yet.
+                        <a class="btn btn-default profile-verified-info" href="{{ route('verifyid') }}">Verify ID</a>
                     </span>
                 </div>
             </div>
@@ -42,17 +39,21 @@
                 <a name="password"></a>
                 <span id="toc1"></span><h3 id="div_change_password">Change password</h3>
                 <p>
-                    <a href="{{ route('changepassword') }}"><i class="fa fa-arrow-right"></i> Change password</a>
+                    <a href="{{ route('changepassword') }}">Change password</a>
                 </p>
                 <span id="toc2"></span>
                 <h3 id="div_change_phone">Change Phone Number</h3>
                 <p>
-                    <a href="{{ route('changephone') }}"><i class="fa fa-arrow-right"></i> Change Phone Number</a>
+                    <a href="{{ route('changephone') }}">Change Phone Number</a>
                 </p>
                 <span id="toc3"></span>
                 <h3 id="div_change_phone">Add/Change 2FAuthentication</h3>
                 <p>
-                    <a href="{{ route('change2fa') }}"><i class="fa fa-arrow-right"></i> Add/Change 2FAuthentication</a>
+                    @if ( !$auth2fa )
+                        <a href="{{ route('change2fa') }}">Add 2FAuthentication</a>
+                    @else
+                        <a href="{{ route('update2fa') }}">Change 2FAuthentication</a>
+                    @endif
                 </p>
                 <span id="toc4"></span>
                 <h3 id="div_verification">Verification</h3>
@@ -70,7 +71,7 @@
                 </p>
                 <p>
                     @if( Auth::user()->phone_verify == 0 )
-                    <a href="{{ route('verifyphone') }}"><i class="fa fa-arrow-right"></i> Verify phone number</a>
+                    <a href="{{ route('verifyphone') }}">Verify phone number</a>
                     @endif
                 </p>
                 <p>
@@ -83,7 +84,7 @@
                 </p>
                 <p>
                     @if( Auth::user()->id_verify == 0 )
-                    <a href="{{ route('verifyid') }}"><i class="fa fa-arrow-right"></i> Verify identity</a>
+                    <a href="{{ route('verifyid') }}">Verify identity</a>
                     @endif
                 </p>
             </div>

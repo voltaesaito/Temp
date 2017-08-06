@@ -23,6 +23,8 @@ Route::get('/changephone', 'Auth\ChangeEmailController@changephone')->name('chan
 Route::post('/changepersonphonenumber', 'Auth\ChangeEmailController@changepersonphonenumber')->name('changepersonphonenumber');
 Route::get('/change2fa', 'Auth\ChangeEmailController@twofaindex')->name('change2fa');
 Route::get('/check2fa', 'Auth\ChangeEmailController@check2fa')->name('check2fa');
+Route::get('/update2fa', 'Auth\ChangeEmailController@update2fa')->name('update2fa');
+Route::get('/reportuser', 'Auth\ChangeEmailController@reportuser')->name('reportuser');
 
 
 Route::get('/verifyphone', 'Auth\VerifyPhoneController@index')->name('verifyphone');
@@ -73,6 +75,8 @@ Route::get('/userprofile', 'UserProfileController@index')->name('userprofile');
 Route::get('/verify/email/{token}', 'VerifyController@email')->name('verify/email/{token}');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
+Route::get('/gettrade', 'ProfileController@gettrade')->name('gettrade');
+
 Route::post('/getlistingdata','TradeController@getListingData')->name('getlistingdata');
 Route::post('/getlistingdatabyuser','ManageListingsController@getListingDataByUser')->name('getlistingdatabyuser');
 Route::post('/getalllistingdata','IndexController@getListingData')->name('getalllistingdata');

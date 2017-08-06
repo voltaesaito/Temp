@@ -53,4 +53,24 @@ class Listings extends Model
             $data->offset(0)->limit(5);
         return $data->get();
     } 
+
+    public function getTradeCount( $user_id , $coin_type ) {
+        $data_cnt = DB::select("select * from (SELECT * FROM `contract` WHERE sender_id= $user_id or receiver_id=$user_id) as c
+                    join transaction_history th
+                    on th.contract_id = c.id
+                    join listings l
+                    on l.id=c.listing_id
+                    where l.is_closed in (2,3) and l.coin_type='$coin_type'");
+        return count($data_cnt);
+    }
+    public function getTradeAmount($user_id , $coin_type ) {
+        $data = DB::select("select sum(th.coin_amount) amount, l.coin_type from (SELECT * FROM `contract` WHERE sender_id= $user_id or receiver_id=$user_id) as c join transaction_history th on th.contract_id = c.id join listings l on l.id=c.listing_id where l.is_closed in (2,3) and l.coin_type='$coin_type' group by l.coin_type");
+        $ret_arr = array('btc'=>0, 'eth'=>0);
+        if ( count($data)>0 ) {
+            foreach( $data as $d ) {
+                $ret_arr[$d->coin_type] = $d->amount;
+            }
+        }
+        return $ret_arr;
+    }
 }
