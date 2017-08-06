@@ -10,8 +10,8 @@ JObject.prototype = {
     initEventListen : function () {
         $('#search-btn').click(j_obj.doOnClickSearchButtonClick);
         $('button.see-more').click(j_obj.doOnSetSeeMoreFlag);
-        $('button.buy').click(j_obj.doCreateContractAndGoTransaction)
-        $('button.view').click(j_obj.doViewMessages)
+        $('button.buy').click(j_obj.doCreateContractAndGoTransaction);
+        $('button.view').click(j_obj.doViewMessages);
     },
     doOnClickSearchButtonClick : function (seemore_flag) {
         j_obj.loadListingData(0,seemore_flag);
@@ -71,6 +71,10 @@ JObject.prototype = {
         var _token = $('meta[name=csrf-token]').attr('content');
         var coin_amount = $('#coin_amount').val();
         var coin_type = $('#coin_type').val();
+        if(coin_type == "btc")
+            $('.tb-title').addClass('btc-color');
+        else
+            $('.tb-title').addClass('eth-color');
         var location = $('#location').val();
         var payment_method = $('#payment_method').val();
         $.post('getlistingdata', {coin_amount:coin_amount, coin_type:coin_type, location:location, payment_method:payment_method, _token:_token, flag: flag }, function(resp) {

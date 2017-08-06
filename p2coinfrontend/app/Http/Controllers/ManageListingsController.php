@@ -69,7 +69,7 @@ class ManageListingsController extends Controller
             $btc_list .= "<tr>";
             $btc_list .= "<td class='text-center'>" . $listing->id . "</td>";
             $btc_list .= "<td class='text-center'><a class='btn btn-success btn-green' href='addlistings/" . $listing->id . "'>Edit</a></td>";
-            $btc_list .= "<td class='text-center'><a href='viewlisting/" . $listing->id . "'>" . $listing->payment_method . "-" . $listing->payment_name . "</a></td>";
+            $btc_list .= "<td class='text-center'><a href='viewlisting/" . $listing->id . "'>" . $listing->payment_method . ":" . $listing->payment_name . "</a></td>";
             $btc_list .= "<td class='text-center'>" . $listing->coin_amount . "</td>";
             $btc_list .= "<td class='text-center'><label class='switch'>";
             if($listing->status)
@@ -86,7 +86,7 @@ class ManageListingsController extends Controller
             $eth_list .= "<tr>";
             $eth_list .= "<td class='text-center'>" . $listing->id . "</td>";
             $eth_list .= "<td class='text-center'><a class='btn btn-success btn-green' href='addlistings/" . $listing->id . "'>Edit</a></td>";
-            $eth_list .= "<td class='text-center'><a href='viewlisting/" . $listing->id . "'>" . $listing->payment_method . "-" . $listing->payment_name . "</a></td>";
+            $eth_list .= "<td class='text-center'><a href='viewlisting/" . $listing->id . "'>" . $listing->payment_method . ":" . $listing->payment_name . "</a></td>";
             $eth_list .= "<td class='text-center'>" . $listing->coin_amount . "</td>";
             $eth_list .= "<td class='text-center'><label class='switch'>";
             if($listing->status)

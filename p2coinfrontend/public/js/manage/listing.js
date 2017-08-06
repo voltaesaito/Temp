@@ -1,4 +1,7 @@
-$(document).ready(function() {
+$(document).ready(function() { 
+    $('#currency').onchange(function(){
+        $('.curr').html($('#currency').val());
+    });    
 
     if ( json_listing != 'NULL' ) {
         $('#id').val(json_listing['id']);

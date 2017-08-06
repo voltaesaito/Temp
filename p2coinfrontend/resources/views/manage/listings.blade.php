@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12 text-center">
             <h3 class="h-title">Edit Listings</h3>
-        <div>
+        </div>
         <div class="col-md-12">
             <form class="form-horizontal" action="{{ route('storelistings') }}" method="post">
                 {{ csrf_field() }}
@@ -26,6 +26,7 @@
                         </label>
                     </div>
                 </div>
+
                 <div class="form-group" id="cointype">
                     <label class="control-label col-sm-3" for="location">Coin Type</label>
                     <div class="col-sm-3">
@@ -40,8 +41,9 @@
                         </label>
                     </div>
                 </div>
+
                 <div class="form-group" id="coinamount">
-                    <label class="control-label col-sm-3" for="coinamount">Coin Amount</label>
+                    <label class="control-label col-sm-3" for="coinamount">Price</label>
                     <div class="col-sm-3"> 
                         <input class="textinput form-control text-right" id="coin_amount" name="coin_amount" type="text" Required> 
                     </div>
@@ -52,6 +54,7 @@
                         <label class="label-caption-title">0.5% fee</label>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="location">Location</label>
                     <div class="col-sm-3">
@@ -301,6 +304,7 @@
                         <label class="label-caption-title">For online trade you need to specify the country. For local trade, please specify a city, postal code or street name.</label>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="payment_method">Payment Method</label>
                     <div class="col-sm-3"> 
@@ -323,6 +327,7 @@
                         </label>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="payment_name">Payment Name</label>
                     <div class="col-sm-3"> 
@@ -335,6 +340,7 @@
                         </label>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="currency">Currency</label>
                     <div class="col-sm-3"> 
@@ -348,12 +354,13 @@
                         <label class="label-caption-title"></label>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="min_transaction_limit">Minimum Transaction Limit</label>
                     <div class="col-sm-3"> 
                         <div class="input-group">
                             <input class="numberinput form-control" id="min_transaction_limit" name="min_transaction_limit" type="number"> 
-                            <span class="input-group-addon">USD</span>
+                            <span class="input-group-addon cur">USD</span>
                         </div>
                         <!--<input type="text" class="form-control" id="min_transaction_limit" name="min_transaction_limit" placeholder="Minimum Transaction Limit">-->
                     </div>
@@ -361,12 +368,13 @@
                         <label class="label-caption-title">Optional. Minimum transaction limit in one trade.</label>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="max_transaction_limit">Maximum Transaction Limit</label>
                     <div class="col-sm-3"> 
                         <div class="input-group">
                             <input class="numberinput form-control" id="max_transaction_limit" name="max_transaction_limit" type="number"> 
-                            <span class="input-group-addon">USD</span>
+                            <span class="input-group-addon cur">USD</span>
                         </div>
                         <!--<input type="text" class="form-control" id="max_transaction_limit" name="max_transaction_limit" placeholder="Maximum Transaction Limit">-->
                     </div>
@@ -374,11 +382,12 @@
                         <label class="label-caption-title">Optional. Maximum transaction limit in one trade. For online sells, your p2coin.net wallet balance may limit the maximum fundable trade also.</label>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label class="control-label col-sm-3" for="terms_of_trade">Price equation</label>
+                    <label class="control-label col-sm-3" for="terms_of_trade"></label>
                     <div class="col-sm-3">
-                        <div class="controls"> 
-                            <input class="textinput textInput form-control" id="price_equation" name="price_equation" type="text" value="btc_in_usd"> 
+                        <div class="controls" style="display: none;"> 
+                            <input class="textinput textInput form-control" id="price_equation" name="price_equation" type="" value="btc_in_usd"> 
                         </div>
                         <div class="dynamic-info">
                             <span class="price-info-text">Trade price with current market value
@@ -390,6 +399,7 @@
                         <label class="label-caption-title">How the trade price is determined from the hourly market price. For more information about equations how to determine your trading price see  pricing FAQ. Please note that the advertiser is always responsible for all payment processing fees.</label>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="terms_of_trade">Terms of Trade</label>
                     <div class="col-sm-5"> 
@@ -401,6 +411,7 @@
                         </label>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="payment_details">Payment Details</label>
                     <div class="col-sm-5"> 
@@ -426,7 +437,7 @@
                 
                 <div class="form-group"> 
                     <div class="col-sm-offset-2 col-sm-3">
-                    <button type="submit" class="btn btn-success btn-green">Submit</button>
+                    <button type="submit" class="btn btn-success btn-green">Submit</button> 
                     </div>
                 </div>
             </form>

@@ -3,19 +3,21 @@
 
 <script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
 <style>
-.toggle .btn-warning { width: 150px; font-family: Roboto Med; font-size: 25px !important; }
+.toggle .btn-warning { width: 85%; font-family: Roboto Med; font-size: 25px !important; }
 .searchbox .btn-warning { font-family: Roboto Black; width: 85%; font-size: 35px !important; }
 .margin-height { height: 35px;}
 .trade .title th {font-family: Roboto Boldd; color: #000 !important;}
 .table td {font-family: Roboto Regular; color: #818181 !important; text-align:center;}
+.btc-color { background-color: #00b8e6; }
+.eth-color { background-color: #028840; }
 
-@media (min-width: 768px){
-    .searchbox { margin: auto !important; width: 870px; height: 695px; border-radius: 30px; border: 1px solid #d7d7d7; padding-top: 60px; }
+/* @media (min-width: 768px){
+    .searchbox { margin: auto !important; width: 80%; height: 695px; border-radius: 30px; border: 1px solid #d7d7d7; padding-top: 60px; }
     .search-text { margin-left: 50px; }
     .searchbox input, select { height: 60px; border-radius: 10px; width: 80%; font-family: Roboto Regular; }
     .first-input { margin-top: 55px; }
     .second-input { margin-top: 15px; }
-}
+} */
 </style>
 
 @section('content')
@@ -29,12 +31,11 @@
     <div class="row searchbox text-center collapse" id="search_form">
         <div class="search-text text-left">
             <div style="font-family: Roboto Light; font-size: 40px; color: #028840;">Search Listings</div>
-            <div style="font-family: Roboto Regular; font-size: 24px; color: #cfcfcf;">Lorem Ipsum is simply dummy text of the printing and typesetting</div>
         </div>
         <div class="first-input"><input type="text" id="coin_amount" name="coin_amount" placeholder="Amount"/></div>
         <div class="second-input">
             <select id="coin_type" name="coin_type">
-                <option value="none">Currency</option><option value="btc">BTC</option><option value="eth">ETH</option>
+                <option value="btc">BTC</option><option value="eth">ETH</option>
             </select>
         </div>
         <div class="second-input">
@@ -301,14 +302,10 @@
     </div>
 
     <div class="row">
-        <!-- <div class="col-md-12">
-            <h3 class="h-title text-center">Buy <font id="title1"></font></h3>
-        </div> -->
         <div class="col-md-12 title-content-body">
-            <!-- <div class="table-responsive">           -->
             <table class="table table-bordered trade">
                 <thead>
-                    <tr style="background: #00b8e6;">
+                    <tr class="tb-title">
                         <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
                             Buy <font id="title1"></font>
                         </th>
@@ -318,7 +315,7 @@
                         <th class="menu-caption text-center">Payment Method</th>
                         <th class="menu-caption text-center">Price</th>
                         <th class="menu-caption text-center">Limits</th>
-                        <th class="menu-caption text-center">Contract</th>
+                        <th class="menu-caption text-center">View</th>
                     </tr>
                 </thead>
                 <tbody id="buy_list">
@@ -331,13 +328,10 @@
     </div>
     <div class="margin-height"></div>
     <div class="row">
-        <!-- <div class="col-md-12">
-            <h3 class="h-title text-center">Sell <font id="title2"></font></h3>
-        </div> -->
         <div class="col-md-12 title-content-body">
             <table class="table table-bordered trade">
                 <thead>
-                    <tr style="background: #028840;">
+                    <tr class="tb-title">
                         <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
                             Sell <font id="title2"></font>
                         </th>
@@ -347,7 +341,7 @@
                         <th class="menu-caption text-center">Payment Method</th>
                         <th class="menu-caption text-center">Price</th>
                         <th class="menu-caption text-center">Limits</th>
-                        <th class="menu-caption text-center">Contract</th>
+                        <th class="menu-caption text-center">View</th>
                     </tr>
                 </thead>
                 <tbody id="sell_list">

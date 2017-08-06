@@ -288,6 +288,7 @@ class IndexController extends Controller
                                 'loc'=>$request_location_info->loc,
                                 'org'=>$request_location_info->org,
                                 /*'postal'=>$request_location_info->postal*/);
+                                
             session()->put('locationinfo',$locationInfo);
 
             return view('index.index')->with('country', $locationInfo['country']);

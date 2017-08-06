@@ -114,7 +114,7 @@ input:checked + .slider:before {
                 <tr>
                     <th class="text-center" width="10%">#</th>
                     <th class="text-center" width="10%">Edit</th>
-                    <th class="text-center" width="50%;">Discription</th>
+                    <th class="text-center" width="50%;">Payment Method</th>
                     <th class="text-center" width="15%">Price</th>
                     <th class="text-center" width="15%">Status</th>
                 </tr>
