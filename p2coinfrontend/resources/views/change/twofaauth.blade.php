@@ -24,5 +24,6 @@
             </div>
         </div>
     </div>
+<script>var key = '{{ $key }}';</script>
 <script src="{{URL::asset('./js/settings/update2fa.js')}}" ></script>
 @endsection

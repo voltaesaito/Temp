@@ -21,8 +21,9 @@ Route::get('/changepassword', 'Auth\ChangePasswordController@index')->name('chan
 Route::post('/resetpassword', 'Auth\ChangePasswordController@resetpassword')->name('resetpassword');
 Route::get('/changephone', 'Auth\ChangeEmailController@changephone')->name('changephone');
 Route::post('/changepersonphonenumber', 'Auth\ChangeEmailController@changepersonphonenumber')->name('changepersonphonenumber');
-Route::get('/change2fa', 'Auth\ChangeEmailController@twofaindex')->name('change2fa');
+Route::get('/change2fa', 'Auth\ChangeEmailController@change2fa')->name('change2fa');
 Route::get('/check2fa', 'Auth\ChangeEmailController@check2fa')->name('check2fa');
+Route::get('/registkey', 'Auth\ChangeEmailController@registeKey')->name('registkey');
 Route::get('/update2fa', 'Auth\ChangeEmailController@update2fa')->name('update2fa');
 Route::get('/reportuser', 'Auth\ChangeEmailController@reportuser')->name('reportuser');
 

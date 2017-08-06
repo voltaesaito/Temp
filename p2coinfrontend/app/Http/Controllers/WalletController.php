@@ -102,24 +102,27 @@ class WalletController extends Controller
     }
     public function getwalletamountbycoin() {
         $user = Auth::user();
-        $model = new UserWallet();
-        $price_data = $model->getCurrentPrice();
-        $btcAddress = $model->getUserWallet($user->id, 'btc');
-        $btcWallet = new WalletManage();
-        $btcWData = $btcWallet->getWalletBalanceByAddress($btcAddress);
+        // $model = new UserWallet();
+        // $price_data = $model->getCurrentPrice();
+        // $btcAddress = $model->getUserWallet($user->id, 'btc');
+        // $btcWallet = new WalletManage();
+        // $btcWData = $btcWallet->getWalletBalanceByAddress($btcAddress);
 
-        $btc_amount = $btcWData->data->available_balance;
-        $btc_price_usd = floatval(number_format($btc_amount*$price_data['btc'],2,'.',','));
+        // $btc_amount = $btcWData->data->available_balance;
+        // $btc_price_usd = floatval(number_format($btc_amount*$price_data['btc'],2,'.',','));
 
 
-        $wallet_info['btc'] = floatval($btc_amount);
-        $ethAddress = $model->getUserWallet($user->id, 'eth');
-        $blockchain = new BlockchainWalletMng();
-        $blockchain->setWalletType('eth');
-        $balanceInfo = $blockchain->getAddressBalance($ethAddress);
+        // $wallet_info['btc'] = floatval($btc_amount);
+        // $ethAddress = $model->getUserWallet($user->id, 'eth');
+        // $blockchain = new BlockchainWalletMng();
+        // $blockchain->setWalletType('eth');
+        // $balanceInfo = $blockchain->getAddressBalance($ethAddress);
 
-        $eth_price_usd = floatval(number_format( $balanceInfo['balance']*$price_data['eth'],2,'.',','));
-        $wallet_info['eth'] = floatval($balanceInfo['balance']);
+        // $eth_price_usd = floatval(number_format( $balanceInfo['balance']*$price_data['eth'],2,'.',','));
+        // $wallet_info['eth'] = floatval($balanceInfo['balance']);
+        
+        $wallet_info['eth']=$wallet_info['btc']=0;
+        
         echo json_encode($wallet_info);
         exit;
     }
