@@ -30,7 +30,10 @@ Route::post('/reportuser', 'Auth\ChangeEmailController@reportuser')->name('repor
 
 Route::get('/verifyphone', 'Auth\VerifyPhoneController@index')->name('verifyphone');
 Route::get('/getpincode', 'Auth\VerifyPhoneController@getpincode')->name('getpincode');
+Route::get('/verifycode', 'Auth\VerifyPhoneController@verifycode')->name('verifycode');
+
 Route::get('/verifyid', 'Auth\VerifyIDController@index')->name('verifyid');
+Route::post('/uploadidimage', 'Auth\VerifyIDController@uploadidimage')->name('uploadidimage');
 Route::get('/verifyready', 'Auth\RegisterController@verifyready')->name('verifyready');
 
 
