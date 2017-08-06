@@ -71,13 +71,13 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'email_token' => base64_encode($data['email'])
         ]);
-        $walletRow = new UserWallet();
-        $model = new WalletManage();
-        $wallet_arr = $model->generateWallet();
-        $walletRow->user_id = $mUser->id;
-        $walletRow->wallet_address = $wallet_arr['address'];
-        $walletRow->wallet_type = 'btc';
-        $walletRow->save();
+        // $walletRow = new UserWallet();
+        // $model = new WalletManage();
+        // $wallet_arr = $model->generateWallet();
+        // $walletRow->user_id = $mUser->id;
+        // $walletRow->wallet_address = $wallet_arr['address'];
+        // $walletRow->wallet_type = 'btc';
+        // $walletRow->save();
 
 //        $walletRow = new UserWallet();
 //        $wmodel = new BlockchainWalletMng();
@@ -90,16 +90,16 @@ class RegisterController extends Controller
 //        $walletRow->private = $address['private'];
 //        $walletRow->save();
 
-        $walletRow = new UserWallet();
-        $wmodel = new BlockchainWalletMng();
-        $wmodel->setWalletType('eth');
-        $address = $wmodel->generateAddress();
-        $walletRow->user_id = $mUser->id;
-        $walletRow->wallet_type = 'eth';
-        $walletRow->wallet_address = $address['address'];
-        $walletRow->public = $address['public'];
-        $walletRow->private = $address['private'];
-        $walletRow->save();
+        // $walletRow = new UserWallet();
+        // $wmodel = new BlockchainWalletMng();
+        // $wmodel->setWalletType('eth');
+        // $address = $wmodel->generateAddress();
+        // $walletRow->user_id = $mUser->id;
+        // $walletRow->wallet_type = 'eth';
+        // $walletRow->wallet_address = $address['address'];
+        // $walletRow->public = $address['public'];
+        // $walletRow->private = $address['private'];
+        // $walletRow->save();
 
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";

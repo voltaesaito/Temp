@@ -48,13 +48,12 @@ class ManageListingsController extends Controller
         $eth_disabled = "";
         if ( $eth_balance == 0 ) $eth_disabled = " disabled";
 
-        $price_data = $wmodel->getCurrentPrice();
-
+// dd($wmodel->getLocalCurrencyRate('CNY'));   
         session()->put('btc_amount', $btc_balance);
         session()->put('eth_amount', $eth_balance);
         
 
-        return view('manage.index')->with("btc_disabled", $btc_disabled)->with("eth_disabled", $eth_disabled)->with('price_data', $price_data);
+        return view('manage.index')->with("btc_disabled", $btc_disabled)->with("eth_disabled", $eth_disabled)/*->with('price_data', $price_data)*/;
     }
 
     //Managelistings Pages
