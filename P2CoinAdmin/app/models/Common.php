@@ -72,7 +72,6 @@ class Common extends Model
         $btc_data_str = json_decode(curl_exec($ch));
         curl_close($ch);
 
-
         $ch = curl_init("https://api.coinmarketcap.com/v1/ticker/ethereum/?convert=USD");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $eth_data_str = json_decode(curl_exec($ch));
