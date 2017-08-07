@@ -78,6 +78,9 @@ class TradeMessageController extends Controller
         // dd($request->param);
 
         $data = $this->getMsgListByContractId($contract_id);
+        
+        //Isread = 1;
+        DB::table('trade_message')->where('contract_id', $contract_id)->update(['is_read' => 1]);
 
         $row = TransactionHistory::all()->where('contract_id','=',$contract_id)->where('coin_sender_id','=',$coin_sender_id)->where('coin_receiver_id','=',$coin_receiver_id)->first();
         $transaction_id = $row->transaction_id;
@@ -201,16 +204,16 @@ class TradeMessageController extends Controller
         $sender_id = $user->id;
         $receiver_id = $request->receiver_id;
         $coin_amount = $request->coin_amount;
+        $coin_type = $request->coin_type;
         $price = $request->price;
-        $message_content = "<strong>BTH : </strong>" . $coin_amount;
+        $message_content = strtoupper($coin_type) . " : " . $coin_amount;
 
-//        $newRow = new TradeMessageModel();
-//        $newRow->contract_id = $contract_id;
-//        $newRow->sender_id = $sender_id;
-//        $newRow->receiver_id = $receiver_id;
-//        $newRow->message_content = htmlentities($message_content);
-//        $newId = $newRow->save();
-
+        $newRow = new TradeMessageModel();
+        $newRow->contract_id = $contract_id;
+        $newRow->sender_id = $sender_id;
+        $newRow->receiver_id = $receiver_id;
+        $newRow->message_content = htmlentities($message_content);
+        $newId = $newRow->save();
 
         $listing_row = Listings::find($listing_id);
         $coin_sender_id = '';

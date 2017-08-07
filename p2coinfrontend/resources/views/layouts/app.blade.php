@@ -17,14 +17,13 @@
     <link rel="stylesheet" href="{{ asset('./css/cryptocoins.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCGyEhcN3EHQtgq5aewE_elp6mQyrbuWyA&amp;language=en"></script>
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
      <!-- Scripts -->
  <script> 
     var rootURL = '<?php echo $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']; ?>';
     
 </script>
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/global.js') }}"></script>  
     <style>
         @font-face {
             font-family: Roboto Regular;
@@ -311,27 +310,15 @@
                 </div>
             </div>
         </nav>
-
+       
         @yield('content')
+        <div style="height: 50px;"></div>
     </div>
 
-   
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/global.js') }}"></script>
 </body>
 </html>
 
-<script src="{{ asset('js/home/index.js') }}"></script> 
-<script>
-$(document).ready(function(){
-    $(".menu-currency").click(function(){
-        if ($(this).attr('id') == 'btc') {
-            $('#div_btc').css('display', '');
-            $('#div_eth').css('display', 'none');
-        }
-        if ($(this).attr('id') == 'eth') {
-            $('#div_eth').css('display', '');
-            $('#div_btc').css('display', 'none');
-        }
-    });
-    doOnLoadWindowData();
-});
-</script>
+<!-- <script src="{{ asset('js/home/index.js') }}"></script>  -->
+      

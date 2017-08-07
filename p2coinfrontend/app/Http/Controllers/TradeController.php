@@ -13,37 +13,7 @@ use App\Models\WalletManage;
 class TradeController extends Controller
 {
     //
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    public function index() {
-        $user = \Auth::user();
-        $userWalletRow = UserWallet::all()->where('user_id', '=', $user->id)->first();
-        // $model = new WalletManage();
-        // $wallet_info = $model->getWalletBalanceByAddress($userWalletRow->wallet_address);
-        // $coin_balance= floatval($wallet_info->data->available_balance);
-        
-        $localinfo = session()->get('locationinfo');
-        // // dd($localinfo);
-
-        // $model = new UserWallet();
-        // $ethAddress = $model->getUserWallet($user->id, 'eth');
-        // $blockchain = new BlockchainWalletMng();
-        // $blockchain->setWalletType('eth');
-        // $balanceInfo = $blockchain->getAddressBalance($ethAddress);
-        // session()->put('btc_amount', $coin_balance);
-        // session()->put('eth_amount', $balanceInfo['balance']);
-
-        session()->put('btc_amount', 0);
-        session()->put('eth_amount', 0);
-
-        return view('trade.screen')->with('real_location', $localinfo['country']);
-    }
-
-    public function getListingData(Request $request) {
-
-$country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>"American Samoa","AD"=>"Andorra","AO"=>"Angola","AI"=>"Anguilla",
+    public $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>"American Samoa","AD"=>"Andorra","AO"=>"Angola","AI"=>"Anguilla",
                     "AQ"=>"Antarctica","AG"=>"Antigua and Barbuda","AR"=>"Argentina","AM"=>"Armenia","AW"=>"Aruba","AU"=>"Australia","AT"=>"Austria","AZ"=>"Azerbaijan",
                     "BS"=>"Bahamas","BH"=>"Bahrain","BD"=>"Bangladesh","BB"=>"Barbados","BY"=>"Belarus","BE"=>"Belgium","BZ"=>"Belize","BJ"=>"Benin","BM"=>"Bermuda",
                     "BT"=>"Bhutan","BO"=>"Bolivia","BA"=>"Bosnia and Herzegowina","BW"=>"Botswana","BV"=>"Bouvet Island","BR"=>"Brazil","IO"=>"British Indian Ocean Territory",
@@ -249,7 +219,35 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
                     "YU"=>"Yugoslavia",
                     "ZM"=>"Zambia",
                     "ZW"=>"Zimbabwe");
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    public function index() {
+        $user = \Auth::user();
+        $userWalletRow = UserWallet::all()->where('user_id', '=', $user->id)->first();
+        // $model = new WalletManage();
+        // $wallet_info = $model->getWalletBalanceByAddress($userWalletRow->wallet_address);
+        // $coin_balance= floatval($wallet_info->data->available_balance);
+        
+        $localinfo = session()->get('locationinfo');
+        // // dd($localinfo);
 
+        // $model = new UserWallet();
+        // $ethAddress = $model->getUserWallet($user->id, 'eth');
+        // $blockchain = new BlockchainWalletMng();
+        // $blockchain->setWalletType('eth');
+        // $balanceInfo = $blockchain->getAddressBalance($ethAddress);
+        // session()->put('btc_amount', $coin_balance);
+        // session()->put('eth_amount', $balanceInfo['balance']);
+
+        session()->put('btc_amount', 0);
+        session()->put('eth_amount', 0);
+
+        return view('trade.screen')->with('real_location', $this->country_info[$localinfo['country']]);
+    }
+
+    public function getListingData(Request $request) {
 
         $flag = $request->flag;
         $localinfo = session()->get('locationinfo');
@@ -264,18 +262,18 @@ $country_info = array("AF"=>"Afghanistan","AL"=>"Albania","DZ"=>"Algeria","AS"=>
             $crypto_name = "Ethereum";
 
         if($request->flag == true){
-            $buy_listings = $lModel->getListingsData($user->id, 1, 1, array('coin_amount'=>0, 'coin_type'=>$request->coin_type, 'payment_method'=>$request->payment_method, 'location'=>$localinfo['country']));
+            $buy_listings = $lModel->getListingsData($user->id, 1, 1, array('coin_amount'=>0, 'coin_type'=>$request->coin_type, 'payment_method'=>$request->payment_method, 'location'=>$this->country_info[$localinfo['country']]));
           
-            $sell_listings = $lModel->getListingsData($user->id, 0, 1, array('coin_amount'=>0, 'coin_type'=>$request->coin_type, 'payment_method'=>$request->payment_method, 'location'=>$localinfo['country']));
+            $sell_listings = $lModel->getListingsData($user->id, 0, 1, array('coin_amount'=>0, 'coin_type'=>$request->coin_type, 'payment_method'=>$request->payment_method, 'location'=>$this->country_info[$localinfo['country']]));
 
-            $location = $crypto_name . " in " . $country_info[$localinfo['country']];
+            $location = $crypto_name . " in " . $this->country_info[$localinfo['country']];
         }else{
             $buy_listings = $lModel->getListingsData($user->id, 1, 0, $request);
             $sell_listings = $lModel->getListingsData($user->id, 0, 0, $request);
-            if($request->location != "none")
-                $location = $crypto_name . " in " . $country_info[$request->location];
+            if($request->location != "")
+                $location = $crypto_name . " in " . $request->location;
             else
-                $location = $crypto_name . " in " . $country_info[$localinfo['country']];
+                $location = $crypto_name . " in " . $this->country_info[$localinfo['country']];
         }
 
         $buy_list = "";

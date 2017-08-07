@@ -1,7 +1,4 @@
 @extends('layouts.app')
-
-@section('content')
-<script> var real_location = '{{ $country }}';</script>
 <style>
 .border-welcome{
     border-radius:5px;
@@ -18,6 +15,9 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
 .btc-color { background-color: #00b8e6; }
 .eth-color { background-color: #028840; }
 </style>
+@section('content')
+<script> var real_location = '{{ $country }}';</script>
+
 <div class="container">
     <div class="row banner" style="margin: 0px !important;">
         <div class="col-md-12 border-welcome">
@@ -49,7 +49,8 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
             </select>
         </div>
         <div class="second-input">
-            <select id="location" name="location">
+            <input id="id_ad-place" name="location" type="text" placeholder="Enter a location" autocomplete="off">
+            <!-- <select id="location" name="location">
                 <option value="none">Country</option>
                 <option value="AF">Afghanistan</option>
                 <option value="AL">Albania</option>
@@ -290,7 +291,7 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
                 <option value="YU">Yugoslavia</option>
                 <option value="ZM">Zambia</option>
                 <option value="ZW">Zimbabwe</option>
-            </select>
+            </select> -->
         </div>
         <div class="second-input">
             <select id="payment_method" name="payment_method">
@@ -363,12 +364,11 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
         </div>
     </div>
 </div>
-@endsection
 <script>
     function doOnHref(route_name) {
         window.location.href=route_name;
         window.reload();
     }
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{ asset('js/home/index.js') }}"></script>
+@endsection

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 
-<script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
+<!-- <script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script> -->
 <style>
 .toggle .btn-warning { width: 85%; font-family: Roboto Med; font-size: 25px !important; }
 .searchbox .btn-warning { font-family: Roboto Black; width: 85%; font-size: 35px !important; }
@@ -11,13 +11,6 @@
 .btc-color { background-color: #00b8e6; }
 .eth-color { background-color: #028840; }
 
-/* @media (min-width: 768px){
-    .searchbox { margin: auto !important; width: 80%; height: 695px; border-radius: 30px; border: 1px solid #d7d7d7; padding-top: 60px; }
-    .search-text { margin-left: 50px; }
-    .searchbox input, select { height: 60px; border-radius: 10px; width: 80%; font-family: Roboto Regular; }
-    .first-input { margin-top: 55px; }
-    .second-input { margin-top: 15px; }
-} */
 </style>
 
 @section('content')
@@ -39,7 +32,8 @@
             </select>
         </div>
         <div class="second-input">
-            <select id="location" name="location">
+            <input id="id_ad-place" name="location" type="text" placeholder="Enter a location" autocomplete="off">
+            <!-- <select id="location" name="location">
                 <option value="none">Country</option>
                 <option value="AF">Afghanistan</option>
                 <option value="AL">Albania</option>
@@ -280,7 +274,7 @@
                 <option value="YU">Yugoslavia</option>
                 <option value="ZM">Zambia</option>
                 <option value="ZW">Zimbabwe</option>
-            </select>
+            </select> -->
         </div>
         <div class="second-input">
             <select id="payment_method" name="payment_method">

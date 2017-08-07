@@ -32,8 +32,8 @@ class Listings extends Model
             $data->where('coin_amount', '>=', $filter_param['coin_amount']);
         if ( $filter_param['coin_type'] != 'none' ) 
             $data->where('coin_type', '=', $filter_param['coin_type']);
-        if ( $filter_param['location'] != 'none' )
-            $data->where('location', '=', $filter_param['location']);
+        if ( $filter_param['location'] != '' )
+            $data->where('location', 'like', '%' . $filter_param['location'] . '%');
         if ( $filter_param['payment_method'] != 'none' )
             $data->where("payment_method", "=", $filter_param['payment_method']);
 

@@ -105,7 +105,7 @@ class ManageListingsController extends Controller
         }
 
         echo $btc_list . "@@@" . $eth_list;
-        exit;
+        //exit;
    }
 
     //07-26 updated

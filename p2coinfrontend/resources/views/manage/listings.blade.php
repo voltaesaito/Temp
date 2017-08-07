@@ -9,7 +9,8 @@
             <h3 class="h-title">Edit Listings</h3>
         </div>
         <div class="col-md-12">
-            <form class="form-horizontal" action="{{ route('storelistings') }}" method="post">
+            <form class="form-horizontal" id="ad_form" action="{{ route('storelistings') }}" method="post">
+                <div style="display:none;"><input id="id_ad-lat" name="ad-lat" type="hidden" /> <input id="id_ad-lon" name="ad-lon" type="hidden" /> <input id="id_ad-location_string" name="ad-location_string" type="hidden" /> <input id="id_ad-countrycode" name="ad-countrycode" type="hidden" /> <input id="id_ad-city" name="ad-city" type="hidden" /></div>
                 {{ csrf_field() }}
                 <input type="hidden" id="id" name="listing_id" value="-1" />
                 <div class="form-group">
@@ -57,8 +58,9 @@
 
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="location">Location</label>
-                    <div class="col-sm-3">
-                        <select id="location" name="location" class="form-control">
+                    <div class="col-sm-6">
+                        <input class="textinput textInput form-control" id="id_ad-place" name="location" type="text" placeholder="Enter a location" autocomplete="off">
+                        <!-- <select id="location" name="location" class="form-control">
                             <option value="AF">Afghanistan</option>
                             <option value="AL">Albania</option>
                             <option value="DZ">Algeria</option>
@@ -298,9 +300,9 @@
                             <option value="YU">Yugoslavia</option>
                             <option value="ZM">Zambia</option>
                             <option value="ZW">Zimbabwe</option>
-                        </select>
+                        </select> -->
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <label class="label-caption-title">For online trade you need to specify the country. For local trade, please specify a city, postal code or street name.</label>
                     </div>
                 </div>
@@ -444,5 +446,7 @@
         </div>
     </div>
 </div>
+<script src="{{URL::asset('./assets/js/jquery.autocomplete.min.js')}}" ></script>
 <script src="{{URL::asset('./js/manage/listing.js')}}" ></script>
+<!-- <script src="{{URL::asset('./js/manage/main.js')}}" ></script> -->
 @endsection

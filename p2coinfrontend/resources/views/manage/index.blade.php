@@ -1,6 +1,4 @@
 @extends('layouts.app')
-
-@section('content')
 <style>
 .switch {
   position: relative;
@@ -61,6 +59,8 @@ input:checked + .slider:before {
 .spacer { margin-top: 20px; }
 .table td {font-family: Roboto Regular; color: #818181 !important; text-align:center;}
 </style>
+@section('content')
+
 <!-- <script> var json_listing=<?php //echo json_encode($listing); ?> </script> -->
 
 <?php $btc_disabled=$eth_disabled=''; ?>
@@ -68,14 +68,9 @@ input:checked + .slider:before {
 <meta name="csrf-token" content="{{ Session::token() }}"> 
 <div class="container">
     <div class="row">
-<!--        --><?php //if (session()->get('btc_amount') == 0 && session()->get('eth_balance')==0)
-////            echo "<div class=\"alert alert-danger\">
-////                      <strong>Warning!</strong> Your wallets are blanked yet. If you deposit coins to your wallets, Please click <a href=\"{{ route('wallet') }}\" class=\"alert-link\">here</a>.
-////                  </div>";
-//        ?>
         <div class="col-md-12 text-center">
             <h3 class="h-title">Manage Listings</h3>
-        <div>
+        </div>
         <div class="col-md-12 title-content-body">
             <div class="table-responsive">   
             <table class="table table-bordered">
@@ -89,7 +84,7 @@ input:checked + .slider:before {
                 <tr>
                     <th class="text-center" width="10%">#</th>
                     <th class="text-center" width="10%">Edit</th>
-                    <th class="text-center" width="50%;">Discription</th>
+                    <th class="text-center" width="50%;">Payment Method</th>
                     <th class="text-center" width="15%">Price</th>
                     <th class="text-center" width="15%">Status</th>
                 </tr>

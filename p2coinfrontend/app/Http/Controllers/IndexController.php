@@ -7,6 +7,7 @@ use App\Models\IndexModel;
 use App\Models\WalletManage;
 use App\Models\UserWallet;
 use App\Models\BlockchainWalletMng;
+use DB;
 
 
 class IndexController extends Controller
@@ -291,7 +292,7 @@ class IndexController extends Controller
                                 
             session()->put('locationinfo',$locationInfo);
 
-            return view('index.index')->with('country', $locationInfo['country']);
+            return view('index.index')->with('country', $this->country_info[$locationInfo['country']]);
         }
         catch( Exception $e ){
             return redirect()->route("/");
@@ -303,7 +304,9 @@ class IndexController extends Controller
 
         $flag = $request->flag;
         $localinfo = session()->get('locationinfo');
+        $user = \Auth::user();
         $lModel = new IndexModel();
+//        $wmodel = new UserWallet();
 
         $crypto_name = "Cryptocurrencies";
         if($request->coin_type == "btc")
@@ -312,49 +315,68 @@ class IndexController extends Controller
             $crypto_name = "Ethereum";
 
         if($request->flag == true){
-            $buy_listings = $lModel->getListingsData(1, 1, array('coin_amount'=>0, 'coin_type'=>$request->coin_type, 'payment_method'=>$request->payment_method, 'location'=>$localinfo['country']));
+            $buy_listings = $lModel->getListingsData($user->id, 1, 1, array('coin_amount'=>0, 'coin_type'=>$request->coin_type, 'payment_method'=>$request->payment_method, 'location'=>$this->country_info[$localinfo['country']]));
           
-            $sell_listings = $lModel->getListingsData(0, 1, array('coin_amount'=>0, 'coin_type'=>$request->coin_type, 'payment_method'=>$request->payment_method, 'location'=>$localinfo['country']));
+            $sell_listings = $lModel->getListingsData($user->id, 0, 1, array('coin_amount'=>0, 'coin_type'=>$request->coin_type, 'payment_method'=>$request->payment_method, 'location'=>$this->country_info[$localinfo['country']]));
 
             $location = $crypto_name . " in " . $this->country_info[$localinfo['country']];
         }else{
-            $buy_listings = $lModel->getListingsData(1, 0, $request);
-            $sell_listings = $lModel->getListingsData(0, 0, $request);
-            if($request->location != "none")
-                $location = $crypto_name . " in " . $this->country_info[$request->location];
+            $buy_listings = $lModel->getListingsData($user->id, 1, 0, $request);
+            $sell_listings = $lModel->getListingsData($user->id, 0, 0, $request);
+            if($request->location != "")
+                $location = $crypto_name . " in " . $request->location;
             else
                 $location = $crypto_name . " in " . $this->country_info[$localinfo['country']];
         }
 
         $buy_list = "";
         foreach($buy_listings as $listing){
+//            $local_currency = $wmodel->getLocalCurrencyRate($listing->currency);
+            $data = DB::table("contract")
+                        ->join('transaction_history', 'transaction_history.contract_id', '=', 'contract.id')
+                        ->select('id')
+                        ->where('sender_id', '=', $user->id)->where('receiver_id', '=', $listing->user_id)->where('listing_id', '=', $listing->id)
+                        ->get();
+
             $buy_list .= "<tr>";
             $buy_list .= "<td>" . $listing->name . "</td>";
-            $buy_list .= "<td>" . $listing->coin_type . "-" . $listing->payment_method . "</td>";
+            $buy_list .= "<td>" . $listing->payment_method . ":" . $listing->payment_name . "</td>";
             $buy_list .= "<td>" . round($listing->coin_amount, 2) . " " . $listing->currency . "</td>";
             $buy_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $buy_list .= "<td>";
-            $buy_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . " class='btn btn-success btn-green'>BUY</a>";
+            if ( !count($data) )
+                $buy_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-success btn-green buy'>BUY</button>";
+            else
+                $buy_list .= "<button type='button' onclick=\"j_obj.doViewMessages('" . $data[0]->id . "-" . $listing->id . "-" . $user->id . "-" . $listing->user_id . "-1-0')\" class='btn btn-success btn-green view'>View/Message</button>";
             $buy_list .= "</td>";                       
             $buy_list .= "</tr>";
-        }
+        }  
 
         $sell_list = "";
         foreach($sell_listings as $listing){
+//            $local_currency = $wmodel->getLocalCurrencyRate($listing->currency);
+            $data = DB::table("contract")
+                        ->join('transaction_history', 'transaction_history.contract_id', '=', 'contract.id')
+                        ->select('id')
+                        ->where('sender_id', '=', $user->id)->where('receiver_id', '=', $listing->user_id)->where('listing_id', '=', $listing->id)
+                        ->get();
+
             $sell_list .= "<tr>";
             $sell_list .= "<td>" . $listing->name . "</td>";
-            $sell_list .= "<td>" . $listing->coin_type . "-" . $listing->payment_method . "</td>";
-            $sell_list .= "<td>" . round($listing->coin_amount, 2) . " " . $listing->currency . "</td>";
+            $sell_list .= "<td>" . $listing->payment_method . ":" . $listing->payment_name . "</td>";
+            $sell_list .= "<td>" . round($listing->coin_amount, 5) . " " . strtoupper($listing->coin_type) . "</td>";
             $sell_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $sell_list .= "<td>";
-            $sell_list .= "<a href='buy?listing_id=" . $listing->id . "&user_id=" . $listing->user_id . " class='btn btn-success btn-green'>BUY</a>";
-            $sell_list .= "</td>";                       
+            if ( !count($data) )
+                $sell_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-success btn-green buy'>BUY</button>";
+            else
+                $sell_list .= "<button type='button' onclick=\"j_obj.doViewMessages('" . $data[0]->id . "-" . $listing->id . "-" . $user->id . "-" . $listing->user_id . "-0-0')\" class='btn btn-success btn-green view'>View/Message</button>";
+            $sell_list .= "</td>";
             $sell_list .= "</tr>";
         }
 
         echo $location . "@@@" . $buy_list . "@@@" . $sell_list;
         exit;
-        // return view('trade.screen')->with('buy_listings', $buy_listings)->with('sell_listings', $sell_listings)->with('location', $localinfo['country_full_name']);
     } 
 
     public function getLastMessageList(){
@@ -378,11 +400,10 @@ class IndexController extends Controller
                 else
                     $flag = 0;
             }
-            $msg_list .= "<li style='height: 20px;border:1px dotted lightgrey;'><a href='#' class='view-message' style='height: 100%;padding: 0px!important;' onclick=\"j_obj.doViewMessages('" . $listing->contract_id . "-" . $listing->listing_id . "-" . $listing->sender_id . "-" . $user->id . "-".$flag."-1')\">";
+            $msg_list .= "<li style='height: 20px;border:1px dotted lightgrey;'><a href='#' class='view-message' style='height: 100%;padding: 0px!important;' onclick=\"doViewMessages('" . $listing->contract_id . "-" . $listing->listing_id . "-" . $listing->sender_id . "-" . $user->id . "-".$flag."-1')\">";
             $msg_list .= "<div class='col-sm-4'><strong>" . $listing->name . "</strong></div>";
             $msg_list .= "<div class='col-sm-8 msg-content'>" . $listing->message_content . "</div>";
             $msg_list .= "</a></li>";
-//            $msg_list .= "<li class='divider'></li>";
         }
 
         echo $msg_list;

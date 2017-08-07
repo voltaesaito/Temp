@@ -23,6 +23,7 @@
                         <input type="text" value="{{ $listing_id }}" id="listing_id" name="listing_id" style="display:none;"/>
                         <input type="text" value="{{ $contract_id }}" id="contract_id" name="contract_id" style="display:none;"/>
                         <input type="text" value="{{ $receiver_id }}" id="receiver_id" name="receiver_id" style="display:none;"/>
+                        <input type="text" value="{{ $coin_type }}" id="coin_type" name="coin_type" style="display:none;"/>
                         <div class="panel-body text-center">
                             <div class="col-sm-5"> 
                                 <div class="input-group">
