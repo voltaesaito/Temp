@@ -55,6 +55,10 @@ Route::get('/getuserbalance', 'ManageListingsController@userbalance')->name('get
 Route::post('/storelistings', 'ManageListingsController@storelistings')->name('storelistings');
 Route::post('/changestatus', 'ManageListingsController@changestatus')->name('changestatus');
 Route::post('/withdraw', 'ManageListingsController@withdraw')->name('withdraw');
+
+Route::get('/releaseyes', 'ManageListingsController@releaseyes')->name('releaseyes');
+Route::get('/releaseno', 'ManageListingsController@releaseno')->name('releaseno');
+
 Route::post('/gettransactionid', 'ManageListingsController@gettransactionid')->name('gettransactionid');
 
 

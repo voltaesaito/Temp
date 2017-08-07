@@ -48,3 +48,6 @@ Route::get('/deposits', 'DepositsController@index')->name('deposits');
 Route::get('/withdrawals', 'WithdrawalsController@index')->name('withdrawals');
 
 Route::get('/websitewallet', 'WebsiteWalletController@index')->name('websitewallet');
+
+Route::get('/transactionhistory', 'TransactionHistoryController@index')->name('transactionhistory');
+Route::get('/displaytrades', 'TransactionHistoryController@displaytrades')->name('displaytrades');

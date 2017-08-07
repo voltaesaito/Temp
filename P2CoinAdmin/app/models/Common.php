@@ -24,6 +24,26 @@ class Common extends Model
         foreach( $stdObj as $key=>$val ) $ret_arr[$key] = $val;
         return $ret_arr;
     }
+    /*
+    */
+    public function getLocalCurrencyRate($local_currency) {
+        $ch = curl_init("https://api.coinmarketcap.com/v1/ticker/bitcoin/?convert=$local_currency");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $btc_data_str = json_decode(curl_exec($ch));
+        curl_close($ch);
+
+
+        $ch = curl_init("https://api.coinmarketcap.com/v1/ticker/ethereum/?convert=$local_currency");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $eth_data_str = json_decode(curl_exec($ch));
+        curl_close($ch);
+
+        $btc = self::getArrayfromStdObj($btc_data_str[0]);
+        $eth = self::getArrayfromStdObj($eth_data_str[0]);
+        $return_data = array('btc'=>round($btc['price_'.strtolower($local_currency)],2), 'eth'=>round($eth['price_'.strtolower($local_currency)],2));
+
+        return $return_data;
+    }
     public function getAllListingsData() {
         $listings = DB::table('listings')
                     ->join('users', 'listings.user_id', '=', 'users.id')

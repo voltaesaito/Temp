@@ -301,4 +301,34 @@ $coin_balance = 0;
         echo $coin_balance;
         exit;
     }
+    public function releaseyes() {
+        $transaction_id = request()->get('transaction_id');
+        $data_row = TransactionHistory::all()->where('transaction_id', '=',$transaction_id)->first();
+        $seller_id = $data_row->coin_sender_id;
+        $buyer_id = $data_row->coin_receiver_id;
+        $user_id = \Auth::user()->id;
+
+        if ( $user_id == $seller_id ) 
+            DB::table('transaction_history')->where('transaction_id','=',$transaction_id)
+                     ->update(['seller_release'=>1, 'updated_at'=>date('Y-m-d H:i:s')]);
+        if ( $user_id == $buyer_id )
+            DB::table('transaction_history')->where('transaction_id','=',$transaction_id)
+                     ->update(['buyer_release'=>1, 'updated_at'=>date('Y-m-d H:i:s')]);
+        exit;
+    }
+    public function releaseno() {
+        $transaction_id = request()->get('transaction_id');
+        $data_row = TransactionHistory::all()->where('transaction_id', '=',$transaction_id)->first();
+        $seller_id = $data_row->coin_sender_id;
+        $buyer_id = $data_row->coin_receiver_id;
+        $user_id = \Auth::user()->id;
+
+        if ( $user_id == $seller_id ) 
+            DB::table('transaction_history')->where('transaction_id','=',$transaction_id)
+                     ->update(['seller_release'=>0, 'updated_at'=>date('Y-m-d H:i:s')]);
+        if ( $user_id == $buyer_id )
+            DB::table('transaction_history')->where('transaction_id','=',$transaction_id)
+                     ->update(['buyer_release'=>0, 'updated_at'=>date('Y-m-d H:i:s')]);
+        exit;
+    }
 }

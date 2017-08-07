@@ -8,6 +8,12 @@
 .pad { padding: 15px; }
 .left-content { margin-right: 50px; }
 .right-content { margin-left: 50px; }
+.btn-red {
+    background: rgba(255,255,255,0.1)!important;
+    border: 2px solid #d43f3a!important;
+    color: #d43f3a!important;
+    font-weight: bolder!important;
+}
 </style>
 @section('content')
 <meta name="csrf-token" content="{{ Session::token() }}"> 
@@ -67,27 +73,30 @@
                         <button type="button" id="message_send" class="btn btn-success">SEND</button>
                     </div>
                     <div class="form-group">
-                        
+                        <label class="text-center" style="font-size:24px;">Was this trade successful?</label>
+                        <button type="button" id="release_yes" class="btn btn-success btn-green">Yes</button>
+                        <button type="button" id="release_no" class="btn btn-danger btn-red">No</button>
+                        <!-- <button type="button" id="dispute" class="btn btn-danger" style="float:right;"  data-toggle="modal" data-target="#dispute_modal">Dispute</button> -->
                         <?php
-                        if($listing->is_closed == 1){
-                            if(!$disput_status)
-                                echo "<div id=\"disput_html\"><button type=\"button\" id=\"dispute\" class=\"btn btn-danger\"  data-toggle=\"modal\" data-target=\"#dispute_modal\">Dispute</button></div>";
-                            else
-                                echo "<div class='alert alert-danger'><strong>Disputing!</strong></div>";
-                        }else{
-                        if (isset($request_amount)) {
-                            if ( $request_amount > $balance ) {
-                                echo "<div class=\"alert alert-danger\">
-                                          <strong>Warning!</strong> You can't withdraw $request_amount because your wallet has  $balance.
-                                        </div>";
-                            }
-                            else {
-                                echo "<div class=\"alert alert-success\">
-                                          <strong>Alarm!</strong> You will pay  $request_amount  for  $balance  .
-                    </div><button type=\"button\" id=\"release_transaction\" class=\"btn btn-success btn-green\">Confirm Transaction</button>";
-                            }
-                        }
-                        }
+                    //     if($listing->is_closed == 1){
+                    //         if(!$disput_status)
+                    //             echo "<div id=\"disput_html\"><button type=\"button\" id=\"dispute\" class=\"btn btn-danger\"  data-toggle=\"modal\" data-target=\"#dispute_modal\">Dispute</button></div>";
+                    //         else
+                    //             echo "<div class='alert alert-danger'><strong>Disputing!</strong></div>";
+                    //     }else{
+                    //     if (isset($request_amount)) {
+                    //         if ( $request_amount > $balance ) {
+                    //             echo "<div class=\"alert alert-danger\">
+                    //                       <strong>Warning!</strong> You can't withdraw $request_amount because your wallet has  $balance.
+                    //                     </div>";
+                    //         }
+                    //         else {
+                    //             echo "<div class=\"alert alert-success\">
+                    //                       <strong>Alarm!</strong> You will pay  $request_amount  for  $balance  .
+                    // </div><button type=\"button\" id=\"release_transaction\" class=\"btn btn-success btn-green\">Confirm Transaction</button>";
+                    //         }
+                    //     }
+                    //     }
                         ?>
 
 

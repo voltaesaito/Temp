@@ -69,6 +69,27 @@ $(document).ready(function(){
             
         })
     });
+
+    $('#release_yes').click(function(){
+        var _token = $('meta[name=csrf-token]').attr('content');
+        $.post('gettransactionid', {contract_id:contract_id, _token:_token}, function(resp) {
+            if ( resp != 'fail' ) {
+                $.get('releaseyes', {transaction_id: resp, _token:_token}, function(resp){
+                    // $.get()
+                });
+             }
+        } );
+    });
+    $('#release_no').click(function(){
+        var _token = $('meta[name=csrf-token]').attr('content');
+        $.post('gettransactionid', {contract_id:contract_id, _token:_token}, function(resp) {
+            if ( resp != 'fail' ) {
+                $.get('releaseno', {transaction_id: resp, _token:_token}, function(resp){
+                    // $.get()
+                });
+             }
+        } );
+    });
 });
 
 function getMessageContentAndDraw( param ) {
