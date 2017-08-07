@@ -137,23 +137,29 @@
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="{{ route('deposits') }}" class="nav-link ">
-                                        <i class="icon-wrench"></i>
-                                        <span class="title">Deposits</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item start ">
-                                    <a href="{{ route('withdrawals') }}" class="nav-link ">
+                                    <a href="{{ route('transactionhistory') }}" class="nav-link ">
                                         <i class="icon-diamond"></i>
-                                        <span class="title">Withdrawals</span>
+                                        <span class="title">Transaction History</span>
                                     </a>
                                 </li>
-                                <li class="nav-item start ">
-                                    <a href="{{ route('websitewallet') }}" class="nav-link ">
-                                        <i class="icon-wallet"></i>
-                                        <span class="title">Website Wallet</span>
-                                    </a>
-                                </li>
+                                {{--<li class="nav-item start ">--}}
+                                    {{--<a href="{{ route('deposits') }}" class="nav-link ">--}}
+                                        {{--<i class="icon-wrench"></i>--}}
+                                        {{--<span class="title">Deposits</span>--}}
+                                    {{--</a>--}}
+                                {{--</li>--}}
+                                {{--<li class="nav-item start ">--}}
+                                    {{--<a href="{{ route('withdrawals') }}" class="nav-link ">--}}
+                                        {{--<i class="icon-diamond"></i>--}}
+                                        {{--<span class="title">Withdrawals</span>--}}
+                                    {{--</a>--}}
+                                {{--</li>--}}
+                                {{--<li class="nav-item start ">--}}
+                                    {{--<a href="{{ route('websitewallet') }}" class="nav-link ">--}}
+                                        {{--<i class="icon-wallet"></i>--}}
+                                        {{--<span class="title">Website Wallet</span>--}}
+                                    {{--</a>--}}
+                                {{--</li>--}}
                             </ul>
                         </li>
                     </ul>
