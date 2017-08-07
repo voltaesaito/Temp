@@ -34,6 +34,8 @@ Route::get('/verifycode', 'Auth\VerifyPhoneController@verifycode')->name('verify
 
 Route::get('/verifyid', 'Auth\VerifyIDController@index')->name('verifyid');
 Route::post('/uploadidimage', 'Auth\VerifyIDController@uploadidimage')->name('uploadidimage');
+Route::get('/loadidimagebyuser', 'Auth\VerifyIDController@loadidimagebyuser')->name('loadidimagebyuser');
+
 Route::get('/verifyready', 'Auth\RegisterController@verifyready')->name('verifyready');
 
 
