@@ -6,7 +6,7 @@ use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use App\Models\UserWallet;
 use App\Models\Listings;
-
+use App\Models\ContractFeedback;
 class ProfileController extends Controller
 {
     //
@@ -31,8 +31,12 @@ class ProfileController extends Controller
             $tradeAmount = $listingModel->getTradeAmount( $user->id, 'btc' );
             $price_rate = $userWalletInfo->getCurrentPrice();
             $trades = preg_replace("/\.?0*$/",'',number_format($tradeAmount['btc']*$price_rate['btc']+$tradeAmount['eth']*$price_rate['eth'], 2, '.', ','));
+
+            $feedbackModel = new ContractFeedback();
+            // dd($feedbackModel->getFeedbackByUser($user->id));
             return view('profile.index')->with('wallet_address', $userWalletAddress)->with('user', $user)
-                ->with(['buy_title'=>'Buy Bitcoins from BTC Trade','sell_title'=>'Sell Bitcoins from BTC Trade', 'trader_age'=>$trader_age, 'trade_count'=>$tradeCount, 'trades'=>$trades]);
+                ->with(['buy_title'=>'Buy Bitcoins from BTC Trade','sell_title'=>'Sell Bitcoins from BTC Trade', 'trader_age'=>$trader_age, 'trade_count'=>$tradeCount, 'trades'=>$trades])
+                ->with('feedbackinfo',$feedbackModel->getFeedbackByUser($user->id));
         }
         catch( Exception $e ) {
             return redirect()->action('/');

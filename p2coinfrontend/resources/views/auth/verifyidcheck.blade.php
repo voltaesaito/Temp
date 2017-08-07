@@ -6,10 +6,11 @@
         border: solid 1px grey;
         min-height:480px;
     }
-    #myCarousel {
-        max-height: 480px;
-        min-height: 360px;
-        height: 480px;
+    #myCarousel, .item {
+        max-height: 480px!important;
+        min-height: 360px!important;
+        height: 480px!important;
+        width: 100%!important;
     }
 </style>
 <div class="container">
@@ -39,7 +40,7 @@
                                 <div class="item">
                             @endif
                             <!-- <div class="item {{$activeStr}}"> -->
-                                <img src="{{ $img['path'] }}" alt="{{ $img['name'] }}" style="width:100%;height:100%">
+                                <img src="{{ $img['path'] }}" alt="{{ $img['name'] }}" width="100%" height="100%" />
                             </div>
                             <?php $s++; ?>
                         @endforeach

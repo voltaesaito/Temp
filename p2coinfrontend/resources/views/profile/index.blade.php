@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+<style>
+    .div_cell {
+        border: lightgrey solid 1px!important;
+        color: #028840;
+    }
+</style>
 <meta name="csrf-token" content="{{ Session::token() }}"> 
 <div class="row">
     <div class="container">
@@ -60,7 +66,31 @@
                     <a href="#div_feedback" class="menu-caption" data-toggle="collapse">View Feedback</a>
                     <div id="div_feedback" class="collapse">
                         <div class="panel panel-default">
-                            <div class="panel-body"></div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12"><label><strong>Feedback:</strong>{{ $user->name }}</label></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-center"><label><strong>Positive</strong><br>{{ $feedbackinfo['total'][1] }}</label></div>
+                                    <div class="col-md-4 text-center"><label><strong>Neutral</strong><br>{{ $feedbackinfo['total'][0] }}</label></div>
+                                    <div class="col-md-4 text-center"><label><strong>Negative</strong><br>{{ $feedbackinfo['total'][-1] }}</label></div>
+                                </div>
+                                <label>Feedback<br></label>
+                                <div class="row">                                   
+                                    <div class="col-md-2 text-center div_cell"><label>Date</label></div>
+                                    <div class="col-md-2 text-center div_cell"><label>User</label></div>
+                                    <div class="col-md-2 text-center div_cell"><label>OutCome</label></div>
+                                    <div class="col-md-6 text-center div_cell"><label>Feedback</label></div>
+                                </div>
+                                @foreach( $feedbackinfo['data'] as $data )
+                                    <div class="row">                                   
+                                        <div class="col-md-2 text-center div_cell"><label>{{ $data['date'] }}</label></div>
+                                        <div class="col-md-2 text-center div_cell"><label>{{ $data['user'] }}</label></div>
+                                        <div class="col-md-2 text-center div_cell"><label>{{ $data['outcome'] }}</label></div>
+                                        <div class="col-md-6 text-center div_cell"><label>{{ $data['feedback'] }}</label></div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
