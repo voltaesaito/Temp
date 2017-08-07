@@ -61,7 +61,7 @@ class Common extends Model
                     ->join('contract', 'listings.id', '=', 'contract.listing_id')
                     ->join('transaction_history', 'transaction_history.contract_id', '=', 'contract.id')
                     ->select('transaction_history.*','listings.*', 'users.name','users.email')
-                    ->where('listings.is_closed', '<>', '0')
+                    // ->where('listings.is_closed', '<>', '0')
                     ->orderBy('contract.created_at', 'desc')
                     ->get();
         return $trades;
