@@ -72,10 +72,14 @@
                     <div class="form-group text-right">
                         <button type="button" id="message_send" class="btn btn-success">SEND</button>
                     </div>
-                    <div class="form-group">
+                    <div class = "panel panel-default" id='success' style='padding: 20px 0px;'>
+                        <div class='row text-center'>
                         <label class="text-center" style="font-size:24px;">Was this trade successful?</label>
-                        <button type="button" id="release_yes" class="btn btn-success btn-green">Yes</button>
-                        <button type="button" id="release_no" class="btn btn-danger btn-red">No</button>
+                        </div>
+                        <div class='row text-center'>
+                            <button type="button" id="release_yes" class="btn btn-success btn-green">Yes</button>
+                            <button type="button" id="release_no" class="btn btn-danger btn-red">No</button>
+                        </div>
                         <!-- <button type="button" id="dispute" class="btn btn-danger" style="float:right;"  data-toggle="modal" data-target="#dispute_modal">Dispute</button> -->
                         <?php
                     //     if($listing->is_closed == 1){
@@ -98,8 +102,6 @@
                     //     }
                     //     }
                         ?>
-
-
                     </div>
                 </div>
             </div>
@@ -129,6 +131,5 @@
 
   </div>
 </div>
-<script src="{{ asset('./assets/jquery-1.10.2.min.js') }}"></script>
 <script src="{{ asset('./js/trademessage/index.js') }}"></script>  
 @endsection

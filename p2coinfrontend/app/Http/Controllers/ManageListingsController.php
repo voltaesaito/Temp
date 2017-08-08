@@ -279,17 +279,6 @@ $coin_balance = 0;
 
 //         exit;
     }
-    public function gettransactionid( Request $request ) {
-        $contract_id = $request->contract_id;
-        try {
-            $row = TransactionHistory::all()->where('contract_id','=',$contract_id)->first();
-            echo $row->transaction_id;
-        }
-        catch( Exception $e ) {
-            echo 'fail';
-        }
-        exit;
-    }
     public function userbalance() {
         $user = \Auth::user();
         $userWalletInfo = UserWallet::where('user_id', '=', $user->id)->first();

@@ -58,11 +58,7 @@ Route::post('/storelistings', 'ManageListingsController@storelistings')->name('s
 Route::post('/changestatus', 'ManageListingsController@changestatus')->name('changestatus');
 Route::post('/withdraw', 'ManageListingsController@withdraw')->name('withdraw');
 
-Route::get('/releaseyes', 'ManageListingsController@releaseyes')->name('releaseyes');
-Route::get('/releaseno', 'ManageListingsController@releaseno')->name('releaseno');
-
-Route::post('/gettransactionid', 'ManageListingsController@gettransactionid')->name('gettransactionid');
-
+Route::post('/gettransactionid', 'TradeMessageController@setSuccess')->name('gettransactionid');
 
 Route::get('/sell', 'SellerController@index')->name('seller');
 Route::get('/chatroom', 'ChatRoomController@index')->name('chatroom');

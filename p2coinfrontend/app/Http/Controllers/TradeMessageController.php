@@ -294,4 +294,28 @@ class TradeMessageController extends Controller
         }
         return $arr;
     }
+
+    public function setSuccess( Request $request ) {
+        $contract_id = $request->contract_id;
+        $status = $request->status;
+        $user = \Auth::user();
+        $user_id = $user->id;
+        $flag = 0;
+        $row = TransactionHistory::all()->where('contract_id','=',$contract_id)->first();
+        $sender_release = $row->sender_release;
+        $buyer_release = $row->buyer_release;
+
+        try {
+            if($row->coin_sender_id == $user_id)
+                DB::table('transaction_history')->where('contract_id', '=', $contract_id)->update(['seller_release'=>$status]);
+            if($row->coin_receiver_id == $user_id)
+                DB::table('transaction_history')->where('contract_id', '=', $contract_id)->update(['buyer_release'=>$status]);
+
+            echo $row->transaction_id;
+        }
+        catch( Exception $e ) {
+            echo 'fail';
+        }
+        exit;
+    }
 }
