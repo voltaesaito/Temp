@@ -51,6 +51,8 @@ Route::post('/buy', 'BuyerController@index')->name('buyer');
 Route::get('/managelistings', 'ManageListingsController@index')->name('managelistings');
 Route::get('/messagebox', 'TradeMessageController@messagebox')->name('messagebox');
 Route::get('/addlistings/{listing_id}', 'ManageListingsController@addlistings')->name('addlistings/{listing_id}');
+Route::post('/reportlisting', 'TradeController@reportListing')->name('reportlisting');
+Route::post('/deletereport', 'TradeController@deleteReport')->name('deletereport');
 
 Route::get('/viewlisting/{listing_id}', 'ManageListingsController@viewlisting')->name('viewlisting/{listing_id}');
 Route::get('/getuserbalance', 'ManageListingsController@userbalance')->name('getuserbalance');

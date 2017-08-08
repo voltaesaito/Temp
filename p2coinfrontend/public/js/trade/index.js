@@ -139,7 +139,34 @@ $(document).ready(function(){
 
         });    
     });
+
+    $('.report-btn').click(function(){
+        var _token = $('meta[name=csrf-token]').attr('content');
+        var listing_id = $('#report_listing_id').val();
+        var report_reason = $('#report_reason').val();
+        $.post('reportlisting', {listing_id: listing_id, report_reason: report_reason, _token: _token}, function(resp){
+            $('#report_reason').val('');
+            $('#report_modal').modal('hide');
+        });
+    });
 });
+
+function report_user(obj1){
+    var _token = $('meta[name=csrf-token]').attr('content');
+    var id = $(obj1).attr('id');
+    var arr = id.split('-');
+    var user_id = arr[0];
+    var listing_id = arr[1];
+    if ($(obj1).prop('checked')==true){ 
+        $('#report_user_id').val(user_id);
+        $('#report_listing_id').val(listing_id);
+        $('#report_modal').modal('show');
+   }else{
+        $.post('deletereport', {listing_id: listing_id, _token: _token}, function(resp){
+            
+        });
+    }
+}
 
 function createPlaceAutocompleteSelectFirst(input, types) {
 

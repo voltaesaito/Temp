@@ -72,16 +72,22 @@ $(document).ready(function(){
 
     $('#release_yes').click(function(){
         var _token = $('meta[name=csrf-token]').attr('content');
+        msg = $('#ajax_message').html();
+        str='<div class="alert alert-info left-content"><strong>P2Coin</strong><br><p>Please leave feedback</p></div>';
         $.post('settradestatus', {contract_id:contract_id, status: 1, _token:_token}, function(resp) {
             $('#trade_status').hide();
             $('#feedback').show();
+            $('#ajax_message').html(msg+str);
         } );
     });
     $('#release_no').click(function(){
         var _token = $('meta[name=csrf-token]').attr('content');
+        msg = $('#ajax_message').html();
+        str='<div class="alert alert-success left-content"><strong>P2Coin</strong><br><p>Please leave feedback</p></div>';
         $.post('settradestatus', {contract_id:contract_id, status: 0, _token:_token}, function(resp) {
             $('#trade_status').hide();
             $('#feedback').show();
+            $('#ajax_message').html(msg+str);
         } );
     });
 
