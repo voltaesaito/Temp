@@ -36,7 +36,6 @@ class ChartController extends Controller
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $coin_data = (curl_exec($ch));
-//var_dump(print_r($coin_data, true));exit;
         curl_close($ch);
         echo $coin_data;
         exit;

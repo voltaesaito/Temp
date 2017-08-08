@@ -32,7 +32,7 @@ class UserControlController extends Controller
         $userInfo['block_account'] = $userStatus['block_account'];
         $userInfo['block_ip'] = $userStatus['block_ip'];
         $userInfo['user_status'] = 'Active';
-        $userInfo['ip_address'] = '23.54.76.39';
+        $userInfo['ip_address'] = $userStatus['logged_ip'];
         $userInfo['user_id'] = $userid;
         return view('usercontrol.userdetail')->with(['user_info'=> $userInfo, 'totalusers'=>$this->totalusers, 'volume'=>$this->volume]);
     }

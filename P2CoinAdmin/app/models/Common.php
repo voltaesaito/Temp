@@ -182,10 +182,10 @@ class Common extends Model
             if (count($data))            
                 return self::getArrayfromStdObj($data[0]);
             else
-                return array('block_account'=>0, 'block_ip'=>0);
+                return array('block_account'=>0, 'block_ip'=>0, 'logged_ip'=>'*');
         }
         catch( Exception $exp ) {
-            return array('block_account'=>0, 'block_ip'=>0);
+            return array('block_account'=>0, 'block_ip'=>0, 'logged_ip'=>'*');
         }
     }
 

@@ -66,7 +66,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-// dd($data);        
+//  dd(request()->get('user_ip'));        
         $mUser = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -76,6 +76,7 @@ class RegisterController extends Controller
         $userSelfInfo = new UserLoginStatus();
         $userSelfInfo->user_id = $mUser->id;
         $userSelfInfo->online_status = 0;
+        $userSelfInfo->logged_ip = request()->get('user_ip');
         $userSelfInfo->logged_at = date('Y-m-d h:i:s');
         $userSelfInfo->block_account = 0;
         $userSelfInfo->block_ip = 0;

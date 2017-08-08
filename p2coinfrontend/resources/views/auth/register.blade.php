@@ -16,6 +16,7 @@
             <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
                 {{ csrf_field() }}
 
+                
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                     <label for="name" class="col-md-4 control-label">Username</label>
 
@@ -65,7 +66,14 @@
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Password" required>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="user_ip" class="col-md-4 control-label">Your current IP address</label>
 
+                    <div class="col-md-6">
+                        <input type="text" name="user_ip" id="user_ip" class="form-control" value="" />
+                    </div>
+                </div>
+                
                 <div calss="form-group">
                     <label>Please verify you are a human.</label>
                     <script src="https://www.google.com/recaptcha/api.js" async="" defer=""></script>
@@ -93,4 +101,10 @@
         </div>
     </div>
 </div>
+<script>
+$.getJSON('//freegeoip.net/json/?callback=?', function(data){
+    console.log(data);
+    $('#user_ip').val(data.ip);
+});
+</script>
 @endsection
