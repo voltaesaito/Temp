@@ -177,8 +177,16 @@ class Common extends Model
         return $ret;
     }
     public function getUserStatus($user_id) {
-        $data = DB::table('user_login_status')->where('user_id', '=', $user_id)->get();
-        return $data[0];
+        try{
+            $data = DB::table('user_login_status')->where('user_id', '=', $user_id)->get()->toArray();
+            if (count($data))            
+                return self::getArrayfromStdObj($data[0]);
+            else
+                return array('block_account'=>0, 'block_ip'=>0);
+        }
+        catch( Exception $exp ) {
+            return array('block_account'=>0, 'block_ip'=>0);
+        }
     }
 
     /** Main Chart(Statics part) */
@@ -189,20 +197,20 @@ class Common extends Model
 
     public function getVolumeValue() {
         $start_time = Date('2017-07-30 00:00:00');
-        $end_time = Date('2017-07-30 23:59:59');
-
+        $end_time = date('Y-m-d h:i:s');
         $data = DB::select(DB::raw("select l.coin_type ctype, SUM(t.coin_amount) as amount 
                                 from transaction_history t
                                 join contract c on (c.id = t.contract_id)
                                 join listings l on (c.listing_id = l.id)
                                 where t.created_at > '". $start_time . "' and t.created_at <= '" . $end_time . "' 
                                 group by l.coin_type"));
-
         $data_list = array();
         foreach($data as $row){
             $data_list[$row->ctype] = number_format($row->amount, 8, '.',',');
-        }
 
+        }
+        if ( !array_key_exists('eth', $data_list) ) $data_list['eth'] = 0;
+        if ( !array_key_exists('btc', $data_list) ) $data_list['btc'] = 0;
         return $data_list;
     }
 

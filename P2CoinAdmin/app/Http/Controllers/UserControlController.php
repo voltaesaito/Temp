@@ -27,10 +27,10 @@ class UserControlController extends Controller
         $userInfo = $model->getUserInfoById($userid);
         $userStatus = $model->getUserStatus($userid);
 //        dd($userStatus);
-        ( $userStatus->block_account == 0 ) ? $userInfo['block_account_status'] = "checked" : $userInfo['block_account_status'] = '';
-        ( $userStatus->block_ip == 0 ) ? $userInfo['block_ip_status'] = "checked" : $userInfo['block_ip_status'] = '';
-        $userInfo['block_account'] = $userStatus->block_account;
-        $userInfo['block_ip'] = $userStatus->block_ip;
+        ( $userStatus['block_account'] == 0 ) ? $userInfo['block_account_status'] = "checked" : $userInfo['block_account_status'] = '';
+        ( $userStatus['block_ip'] == 0 ) ? $userInfo['block_ip_status'] = "checked" : $userInfo['block_ip_status'] = '';
+        $userInfo['block_account'] = $userStatus['block_account'];
+        $userInfo['block_ip'] = $userStatus['block_ip'];
         $userInfo['user_status'] = 'Active';
         $userInfo['ip_address'] = '23.54.76.39';
         $userInfo['user_id'] = $userid;

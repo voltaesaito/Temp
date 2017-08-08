@@ -28,7 +28,7 @@ class ManageListingsController extends Controller
         $listings = Listings::all()->where('user_id', '=', $user->id)->sortByDesc('created_at');
         $wmodel = new UserWallet();
         $user = \Auth::user();
-        $btcaddress =$wmodel->getUserWallet($user->id, 'btc');
+        //$btcaddress =$wmodel->getUserWallet($user->id, 'btc');
         $btc_balance = 0;
         // $model = new WalletManage();
         // $wallet_info = $model->getWalletBalanceByAddress($btcaddress);

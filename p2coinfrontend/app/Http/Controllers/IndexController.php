@@ -264,7 +264,7 @@ class IndexController extends Controller
                     // $coin_balance= floatval($wallet_info->data->available_balance);
 
                     $model = new UserWallet();
-                    $ethAddress = $model->getUserWallet($user->id, 'eth');
+                    // $ethAddress = $model->getUserWallet($user->id, 'eth');
                     // $blockchain = new BlockchainWalletMng();
                     // $blockchain->setWalletType('eth');
                     // $balanceInfo = $blockchain->getAddressBalance($ethAddress);

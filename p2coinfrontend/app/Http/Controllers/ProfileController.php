@@ -24,7 +24,7 @@ class ProfileController extends Controller
             $diff = date_diff($from_date, $to_date);
 //            dd($diff);
             $trader_age = $diff->format("%d days %h hours %i minutes %s seconds");
-            $userWalletAddress = $userWalletInfo->getUserWallet($user->id);
+            // $userWalletAddress = $userWalletInfo->getUserWallet($user->id);
 
             $listingModel = new Listings();
             $tradeCount = $listingModel->getTradeCount( $user->id, 'btc' );
@@ -34,7 +34,7 @@ class ProfileController extends Controller
 
             $feedbackModel = new ContractFeedback();
             // dd($feedbackModel->getFeedbackByUser($user->id));
-            return view('profile.index')->with('wallet_address', $userWalletAddress)->with('user', $user)
+            return view('profile.index')->with('user', $user)
                 ->with(['buy_title'=>'Buy Bitcoins from BTC Trade','sell_title'=>'Sell Bitcoins from BTC Trade', 'trader_age'=>$trader_age, 'trade_count'=>$tradeCount, 'trades'=>$trades])
                 ->with('feedbackinfo',$feedbackModel->getFeedbackByUser($user->id));
         }

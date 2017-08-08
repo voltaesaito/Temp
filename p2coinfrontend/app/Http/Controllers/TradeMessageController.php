@@ -46,43 +46,34 @@ class TradeMessageController extends Controller
         $coin_type = $listing->coin_type;
 
         $user = \Auth::user();
-        if ( $back == 1 ) { //  dis irection
-            if( $user->id == $listing->user_id ){
-                if ( !$user_type ){
-                    $coin_sender_id = $user->id;
+
+        if($user->id == $listing->user_id){
+            if(!$listing->user_type){
+                $coin_sender_id = $user->id;
+                if($user->id == $sender_id)
+                    $coin_receiver_id = $receiver_id;
+                else
                     $coin_receiver_id = $sender_id;
-                }else {
+            }else{
+                $coin_receiver_id = $user->id;
+                if($user->id == $sender_id)
+                    $coin_sender_id = $receiver_id;
+                else
                     $coin_sender_id = $sender_id;
-                    $coin_receiver_id = $user->id;
-                }
-            } else {
-                if ( !$user_type ){
-                    $coin_sender_id = $sender_id;
-                    $coin_receiver_id = $user->id;
-                } else {
-                    $coin_sender_id = $user->id;
-                    $coin_receiver_id = $sender_id;
-                }
             }
-        } else {
-            if ($user_type) {
-                $coin_sender_id = $sender_id;
-                $coin_receiver_id = $receiver_id;
-            } else {
-                $coin_sender_id = $receiver_id;
-                $coin_receiver_id = $sender_id;
+        }else{
+            if(!$listing->user_type){
+                $coin_sender_id = $listing->user_id;
+                $coin_receiver_id = $user->id;
+            }else{
+                $coin_sender_id = $user->id;
+                $coin_receiver_id = $listing->user_id;
             }
         }
 
-
-        // dd($request->param);
-
         $data = $this->getMsgListByContractId($contract_id);
         
-        //Isread = 1;
-        DB::table('trade_message')->where('contract_id', $contract_id)->update(['is_read' => 1]);
-
-        $row = TransactionHistory::all()->where('contract_id','=',$contract_id)->where('coin_sender_id','=',$coin_sender_id)->where('coin_receiver_id','=',$coin_receiver_id)->first();
+        $row = DB::table('transaction_history')->where('contract_id','=',$contract_id)->where('coin_sender_id','=',$coin_sender_id)->where('coin_receiver_id','=', $coin_receiver_id)->first();
         $transaction_id = $row->transaction_id;
         $coin_amount = $row->coin_amount;
 
@@ -123,6 +114,9 @@ class TradeMessageController extends Controller
         $is_success = $this->isSuccess($contract_id, $user->id);
         $is_feedback = $this->isFeedback($contract_id, $user->id);
 
+        //Isread = 1;
+        DB::table('trade_message')->where('contract_id', $contract_id)->update(['is_read' => 1]);
+
         if(!$back)
             return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('status_col', $row->status_col)
             ->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id)
@@ -151,7 +145,6 @@ class TradeMessageController extends Controller
         $tmp = $listing_data[0];
         $listing_id = $tmp->id;
         DB::table('listings')->where('id','=', $listing_id)->update(['is_closed'=>4]);
-// dd($listing_data);
         echo 'ok';
         exit;
     }
@@ -217,33 +210,50 @@ class TradeMessageController extends Controller
         $newRow->message_content = htmlentities($message_content);
         $newId = $newRow->save();
 
-        $listing_row = Listings::find($listing_id);
-        $coin_sender_id = '';
-        if ( $listing_row->user_type == 0 ) {  //sell
-            $coin_sender_id = $listing_row->user_id;
-            $coin_receiver_id = $user->id;
+        $listing = Listings::find($listing_id);
+        if($user->id == $listing->user_id){
+            if(!$listing->user_type){
+                $coin_sender_id = $user->id;
+                if($user->id == $sender_id)
+                    $coin_receiver_id = $receiver_id;
+                else
+                    $coin_receiver_id = $sender_id;
+            }else{
+                $coin_receiver_id = $user->id;
+                if($user->id == $sender_id)
+                    $coin_sender_id = $receiver_id;
+                else
+                    $coin_sender_id = $sender_id;
+            }
+        }else{
+            if(!$listing->user_type){
+                $coin_sender_id = $listing->user_id;
+                $coin_receiver_id = $user->id;
+            }else{
+                $coin_sender_id = $user->id;
+                $coin_receiver_id = $listing->user_id;
+            }
         }
-        else {  //buy
-            $coin_sender_id = $user->id;
-            $coin_receiver_id = $listing_row->user_id;
-        }
-        $newRow = new TransactionHistory();
-        $newRow->contract_id = $contract_id;
-        $newRow->coin_amount = $coin_amount;
-        $newRow->coin_sender_id = $coin_sender_id;
-        $newRow->coin_receiver_id = $coin_receiver_id;
-        $newRow->save();
 
-        $transaction_id = $newRow->id;
-
-        $listings = listings::all()->where('id', '=', $listing_id);
-        foreach($listings as $list){
-            $listing = $list;
-            break;
+        $trans_listing = DB::table('transaction_history')->where(['contract_id'=>$contract_id, 'coin_sender_id'=>$coin_sender_id, 'coin_receiver_id'=>$coin_receiver_id])->first();
+        if(!isset($trans_listing->transaction_id)){
+            $newRow = new TransactionHistory();
+            $newRow->contract_id = $contract_id;
+            $newRow->coin_amount = $coin_amount;
+            $newRow->coin_sender_id = $coin_sender_id;
+            $newRow->coin_receiver_id = $coin_receiver_id;
+            $newRow->save();
+            $transaction_id = $newRow->id;
+        }else{
+            $transaction_id = $trans_listing->transaction_id;
         }
+
+        $listing = listings::all()->where('id', '=', $listing_id)->first();
         $data = $this->getMsgListByContractId($contract_id);
+        $is_success = $this->isSuccess($contract_id, $user->id);
+        $is_feedback = $this->isFeedback($contract_id, $user->id);
 
-        return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id);
+        return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id)->with('is_success', $is_success)->with('is_feedback', $is_feedback);
     }
 
     public function dispute(Request $request){
@@ -343,11 +353,11 @@ class TradeMessageController extends Controller
         $row = DB::table('transaction_history')->select('transaction_history.*')->where('contract_id', '=', $contract_id)->first();
         $coin_sender_id = $row->coin_sender_id;
         $coin_receiver_id = $row->coin_receiver_id;
-        $sender_feedback = $row->sender_feedback;
+        $seller_feedback = $row->seller_feedback;
         $buyer_feedback = $row->buyer_feedback;
         $success = 0;
         if($user_id == $coin_sender_id){
-            if($sender_feedback != -1)
+            if($seller_feedback != -1)
                 $success = 1;
         }
         if($user_id == $coin_receiver_id){
