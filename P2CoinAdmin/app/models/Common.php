@@ -52,7 +52,7 @@ class Common extends Model
     }
     public function getAllReportedListingsData() {
         $listings = DB::select(DB::raw("select `listing_report`.id as report_id, `listing_report`.listing_id, `listing_report`.report_user_id,
-        `listing_report`.report_reason, `listing_report`.status, `listing_report`.created_at, `listing_report`.updated_at,
+        `listing_report`.report_reason, `listing_report`.report_status, `listing_report`.created_at, `listing_report`.updated_at,
         listings.*, `users`.`name` from `listing_report` inner join `users` on 
         `listing_report`.`report_user_id` = `users`.`id` inner join `listings` on `listing_report`.`listing_id` = `listings`.`id`"));
         return $listings;

@@ -49,8 +49,12 @@ class ListingsControlController extends Controller
         $retHTML = '<thead>
                         <tr role="row">
                             <th class="sorting">Report User</th>
-                            <th class="sorting" style="width: 93px;">Listing ID</th>
-                            <th class="sorting" style="width: 148px;">Report Reason</th>
+                            <th class="sorting" >Listing ID</th>
+                            <th class="sorting">Username</th>
+                            <th class="sorting">Listing Amount</th>
+                            <th class="sorting">Payment Method</th>
+                            <th class="sorting">payment Details</th>
+                            <th class="sorting">Report Reason</th>
                             <th class="sorting" >Action</th>
                         </tr>
                     </thead>
@@ -59,15 +63,20 @@ class ListingsControlController extends Controller
         $listing_data = $model->getAllReportedListingsData();
         if ($listing_data)  {
             foreach( $listing_data as $listing ) {
+                $listUser = $model->getUserinfoById($listing->user_id);
                 $retHTML .= "<tr class='gradeX odd' role='row'>
                         <td>".$listing->name."</td>
                         <td class='sorting_1'>".$listing->listing_id."</td>
+                        <td class='sorting_1'>".$listUser['name']."</td>
+                        <td class='sorting_1'>".$listing->coin_amount.strtoupper($listing->coin_type)."</td>
+                        <td class='sorting_1'>".$listing->payment_method."</td>
+                        <td class='sorting_1'>".$listing->payment_details."</td>
                         <td>".$listing->report_reason."</td>
                         <td align=center>
                             <a class='delete_listing btn red btn-outline' data-toggle='modal' href='#confirm_dialog' listing_id='".$listing->id."' onclick='doOnDelete(this)'>Delete
                             </a>
-                            <a class='delete_listing btn red btn-outline' data-toggle='modal' href='#confirm_dialog' listing_id='".$listing->id."' onclick='doOnDelete(this)'>Release
-                            </a>
+                            <!--<a class='delete_listing btn red btn-outline' data-toggle='modal' href='#confirm_dialog' listing_id='".$listing->id."' onclick='doOnDelete(this)'>Release
+                            </a>-->
                         </td>
                     </tr>";
             }
