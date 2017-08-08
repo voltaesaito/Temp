@@ -45,14 +45,16 @@ class Common extends Model
         return $return_data;
     }
     public function getAllListingsData() {
-        $listings = DB::table('listings')
-                    ->join('users', 'listings.user_id', '=', 'users.id')
-                    // ->join('contract', 'listings.id', '=', 'contract.listing_id')
-                    // ->join('transaction_history', 'transaction_history.contract_id', '=', 'contract.id')
-                    ->select('listings.*', 'users.name')
-                    ->where('listings.is_closed', '=', '0')
-                    // ->orderBy('contract.created_at', 'desc')
-                    ->get();
+        $listings = DB::select(DB::raw("select listings.*, users.name from listings join users on users.id=listings.user_id
+                                where listings.is_closed='0' and listings.id not in (select listing_id from listing_report)"));
+       
+        return $listings;
+    }
+    public function getAllReportedListingsData() {
+        $listings = DB::select(DB::raw("select `listing_report`.id as report_id, `listing_report`.listing_id, `listing_report`.report_user_id,
+        `listing_report`.report_reason, `listing_report`.status, `listing_report`.created_at, `listing_report`.updated_at,
+        listings.*, `users`.`name` from `listing_report` inner join `users` on 
+        `listing_report`.`report_user_id` = `users`.`id` inner join `listings` on `listing_report`.`listing_id` = `listings`.`id`"));
         return $listings;
     }
     public function getOpenTradeList() {

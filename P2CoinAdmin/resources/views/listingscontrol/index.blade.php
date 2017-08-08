@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                     <div class="form-body">
-                                        <table class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+                                        <table id="form_body-container" class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
                                             <thead>
                                                 <tr role="row">
                                                     <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 47px;">Seller</th>
@@ -48,7 +48,7 @@
                                                     <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label=" Actions : activate to sort column ascending" style="width: 70px;">Delete</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="form_body-container">
+                                            <tbody>
                                                 
                                             </tbody>
                                         </table>
@@ -83,21 +83,27 @@
     var listing_id;
 $(document).ready(function(){
     $('#view_all_listings').click(doOnViewAllListings);
-$('#view_all_listings').click(function(){
-        var user_name = $('#user_name').val();
-        var user_email = $('#user_email').val();
-        var _token = $('meta[name=csrf-token]').attr('content');
-        $.post('getuserbysearch', { user_name: user_name, user_email:user_email, _token:_token }, function(resp){
-            $('#data_area').empty();
-            data = JSON.parse(resp);
-            tbodyStr = '';
-            for(i=0;i<data.length;i++) {
-                tmp = data[i];
-                tbodyStr += '<tr class="gradeX odd" role="row"><td>'+tmp.id+'</td><td class="sorting_1">'+tmp.name+'</td><td><a href="mailto:userwow@gmail.com">'+tmp.email+'</a></td><td class="center">'+ tmp.created_at + '</td><td align=center><button class="view_user btn red out-line" type="button" user_id="'+tmp.id+'" onclick="doOnViewDetail(this)">View Detail</button></td></tr>';
-            }
-            $('#data_area').html(tbodyStr);
+    // $('#view_all_listings').click(function(){
+    //     var user_name = $('#user_name').val();
+    //     var user_email = $('#user_email').val();
+    //     var _token = $('meta[name=csrf-token]').attr('content');
+    //     $.post('getuserbysearch', { user_name: user_name, user_email:user_email, _token:_token }, function(resp){
+    //         $('#data_area').empty();
+    //         data = JSON.parse(resp);
+    //         tbodyStr = '';
+    //         for(i=0;i<data.length;i++) {
+    //             tmp = data[i];
+    //             tbodyStr += '<tr class="gradeX odd" role="row"><td>'+tmp.id+'</td><td class="sorting_1">'+tmp.name+'</td><td><a href="mailto:userwow@gmail.com">'+tmp.email+'</a></td><td class="center">'+ tmp.created_at + '</td><td align=center><button class="view_user btn red out-line" type="button" user_id="'+tmp.id+'" onclick="doOnViewDetail(this)">View Detail</button></td></tr>';
+    //         }
+    //         $('#data_area').html(tbodyStr);
+    //     });
+    // });
+    $('#view_reported_listings').click(function(){
+        $.get('viewreportedlistings', function(resp_html){
+            $('#form_body-container').html(resp_html);
         });
     });
+    
 });
 function doOnViewAllListings() {
     $.get('viewalllistings', function(resp_html){

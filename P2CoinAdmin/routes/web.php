@@ -26,6 +26,7 @@ Route::post('/sendnotification', 'UserControlController@sendNotification')->name
 
 Route::get('/listingscontrol', 'ListingsControlController@index')->name('listingscontrol');
 Route::get('/viewalllistings', 'ListingsControlController@viewalllistings')->name('viewalllistings');
+Route::get('/viewreportedlistings', 'ListingsControlController@viewreportedlistings')->name('viewreportedlistings');
 Route::get('/deletelisting/{listing_id}', 'ListingsControlController@deletelisting');
 
 Route::post('/getvolume', 'StatisticsController@getVolume')->name('getvolume');
