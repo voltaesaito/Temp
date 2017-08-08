@@ -275,6 +275,7 @@ class TradeController extends Controller
             else
                 $location = $crypto_name . " in " . $this->country_info[$localinfo['country']];
         }
+        $report_listing = $this->reportListingByUser();
 
         $buy_list = "";
         foreach($buy_listings as $listing){
@@ -288,14 +289,16 @@ class TradeController extends Controller
             $buy_list .= "<tr>";
             $buy_list .= "<td>" . $listing->name . "</td>";
             $buy_list .= "<td>" . $listing->payment_method . ":" . $listing->payment_name . "</td>";
-            $buy_list .= "<td>" . round($listing->coin_amount, 2) . " " . $listing->currency . "</td>";
+            $buy_list .= "<td>" . round($listing->coin_amount, 2) . " " . strtoupper($listing->coin_type) . "</td>";
             $buy_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $buy_list .= "<td>";
             if ( !count($data) )
                 $buy_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-success btn-green buy'>BUY</button>";
             else
                 $buy_list .= "<button type='button' onclick=\"j_obj.doViewMessages('" . $data[0]->id . "-" . $listing->id . "-" . $user->id . "-" . $listing->user_id . "-1-0')\" class='btn btn-success btn-green view'>View/Message</button>";
-            $buy_list .= "</td>";                       
+            $buy_list .= "</td>";
+            $checked = in_array($listing->id, $report_listing) ? "checked" : "";
+            $buy_list .= "<td><input type='checkbox' id=\"" . $user->id . "-" . $listing->id . "\" onchange=\"report_user(this);\" " . $checked . "/></td>";                       
             $buy_list .= "</tr>";
         }  
 
@@ -319,6 +322,8 @@ class TradeController extends Controller
             else
                 $sell_list .= "<button type='button' onclick=\"j_obj.doViewMessages('" . $data[0]->id . "-" . $listing->id . "-" . $user->id . "-" . $listing->user_id . "-0-0')\" class='btn btn-success btn-green view'>View/Message</button>";
             $sell_list .= "</td>";
+            $checked = in_array($listing->id, $report_listing) ? "checked" : "";
+            $sell_list .= "<td><input type='checkbox' id=\"" . $user->id . "-" . $listing->id . "\" onchange=\"report_user(this);\" " . $checked . "/></td>";                       
             $sell_list .= "</tr>";
         }
 
@@ -378,5 +383,32 @@ class TradeController extends Controller
 
         echo $sell_list . "@@@" . $buy_list;
         exit;
+    }
+
+    public function reportListing(Request $request){
+        $user = \Auth::user();
+        $listing_id = $request->listing_id;
+        $report_reason = $request->report_reason;
+        DB::table('listing_report')->insert(['listing_id'=>$listing_id, 'report_user_id'=>$user->id, 'report_reason'=>$report_reason, 'created_at'=>Date('Y-m-d H:i:s'), 'updated_at'=>Date('Y-m-d H:i:s')]);
+        echo "ok";
+        exit;
+    }
+
+    public function deleteReport(){
+        $user = \Auth::user();
+        $listing_id = request()->get('listing_id');
+        DB::table('listing_report')->where(['listing_id'=>$listing_id, 'report_user_id'=>$user->id])->delete();
+        echo "ok";
+        exit;
+    }
+
+    public function reportListingByUser(){
+        $user = \Auth::user();
+        $data = DB::table('listing_report')->select('listing_id')->where('report_user_id', '=', $user->id)->get();
+        $report_list = array();
+        foreach($data as $row){
+            $report_list[] = $row->listing_id;
+        }
+        return $report_list;
     }
 }

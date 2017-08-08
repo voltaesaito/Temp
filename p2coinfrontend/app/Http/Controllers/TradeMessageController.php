@@ -282,9 +282,8 @@ class TradeMessageController extends Controller
     }
 
     private function getMsgListByContractId( $contract_id ) {
-//        $datas = TradeMessageModel::all()->where('contract_id', '=', $contract_id);
         $datas = DB::table('trade_message')
-                    ->join('users', 'users.id', '=', 'trade_message.sender_id')
+                    ->leftjoin('users', 'users.id', '=', 'trade_message.sender_id')
                     ->select('trade_message.*', 'users.name')
                     ->where('contract_id', '=', $contract_id)
                     ->orderBy('created_at', 'asc')
@@ -296,12 +295,15 @@ class TradeMessageController extends Controller
             $user_state = 'success left-content';
             if($current_id == $data->sender_id)
                 $user_state = 'info right-content';
+            if(($current_id != $data->sender_id) && ($current_id != $data->receiver_id))    
+                continue;
+            $user_name = (is_null($data->name)) ? 'P2Coin' : $data->name;
             $arr[] = array( 'contract_id'       => $data->contract_id,
                             'sender_id'         => $data->sender_id,
                             'receiver_id'       => $data->receiver_id,
                             'message_content'   => $data->message_content,
                             'user_state'        => $user_state,
-                            'name'              => $data->name,
+                            'name'              => $user_name,
                             'created_at'        => date('H:m:s M j,Y',strtotime($data->created_at)));
         }
         return $arr;
@@ -312,6 +314,7 @@ class TradeMessageController extends Controller
         $status = $request->status;
         $user = \Auth::user();
         $user_id = $user->id;
+        DB::table('trade_message')->insert(['contract_id'=>$contract_id, 'sender_id'=>-3000, 'receiver_id'=>$user_id, 'message_content'=>'Please leave feedback', 'created_at'=>Date('Y-m-d H:i:s'), 'updated_at'=>Date('Y-m-d H:i:s')]);
         $flag = 'fail';
         $row = TransactionHistory::all()->where('contract_id','=',$contract_id)->first();
 

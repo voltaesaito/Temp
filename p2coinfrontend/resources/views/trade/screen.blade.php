@@ -300,7 +300,7 @@
             <table class="table table-bordered trade">
                 <thead>
                     <tr class="tb-title">
-                        <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
+                        <th class="text-center" colspan = '6' style="color: white; font-size: 24px;">
                             Buy <font id="title1"></font>
                         </th>
                     </tr>
@@ -310,6 +310,7 @@
                         <th class="menu-caption text-center">Price</th>
                         <th class="menu-caption text-center">Limits</th>
                         <th class="menu-caption text-center">View</th>
+                        <th class="menu-caption text-center">Report</th>
                     </tr>
                 </thead>
                 <tbody id="buy_list">
@@ -326,7 +327,7 @@
             <table class="table table-bordered trade">
                 <thead>
                     <tr class="tb-title">
-                        <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
+                        <th class="text-center" colspan = '6' style="color: white; font-size: 24px;">
                             Sell <font id="title2"></font>
                         </th>
                     </tr>
@@ -336,6 +337,7 @@
                         <th class="menu-caption text-center">Price</th>
                         <th class="menu-caption text-center">Limits</th>
                         <th class="menu-caption text-center">View</th>
+                        <th class="menu-caption text-center">Report</th>
                     </tr>
                 </thead>
                 <tbody id="sell_list">
@@ -347,6 +349,31 @@
         </div>
     </div>
 </div>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<div id="report_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Report Reason</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <textarea class="form-control" rows="5" id="report_reason"></textarea>
+        </div>
+      </div>
+      <div style="display: none;">
+        <input type="text" id="report_user_id"/>
+        <input type="text" id="report_listing_id"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success report-btn">Submit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="{{ asset('js/trade/index.js') }}"></script>  
 @endsection

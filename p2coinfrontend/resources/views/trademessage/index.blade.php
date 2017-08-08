@@ -105,29 +105,6 @@
         </div>
     </div>
 </div>
-<div id="dispute_modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">P2Coin.net</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-            <label for="comment">Comment:</label>
-            <textarea class="form-control" rows="5" id="comment"></textarea>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" id="btn_commit" attr_trans_id = "{{ $transaction_id }}">Submit</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
 <script src="{{ asset('./js/trademessage/index.js') }}"></script>  
 @endsection
                         <!-- <button type="button" id="dispute" class="btn btn-danger" style="float:right;"  data-toggle="modal" data-target="#dispute_modal">Dispute</button> -->
