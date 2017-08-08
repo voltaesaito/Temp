@@ -130,12 +130,12 @@
                                         <span class="title">Open Trades</span>
                                     </a>
                                 </li>
-                                <li class="nav-item start ">
+                                <!-- <li class="nav-item start ">
                                     <a href="{{ route('disputes') }}" class="nav-link ">
                                         <i class="icon-bulb"></i>
                                         <span class="title">Disputes</span>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item start ">
                                     <a href="{{ route('transactionhistory') }}" class="nav-link ">
                                         <i class="icon-diamond"></i>
@@ -201,7 +201,7 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-red-haze">
-                                            <span data-counter="counterup" data-value="300">0</span>
+                                            <span data-counter="counterup" data-value="{{ session()->get('currentusers') }}">0</span>
                                         </h3>
                                         <small>Active Users</small>
                                     </div>
@@ -211,13 +211,13 @@
                                 </div>
                                 <div class="progress-info">
                                     <div class="progress">
-                                        <span style="width:60%;" class="progress-bar progress-bar-success red-haze">
-                                            <span class="sr-only">60% change</span>
+                                        <span style="width:100%;" class="progress-bar progress-bar-success red-haze">
+                                            <span class="sr-only"></span>
                                         </span>
                                     </div>
                                     <div class="status">
-                                        <div class="status-title"> Rate </div>
-                                        <div class="status-number"> 60% </div>
+                                        <div class="status-title"></div>
+                                        <div class="status-number"></div>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +228,7 @@
                                     <div class="number">
                                         <h3 class="font-blue-sharp">
                                             <span data-counter="counterup" data-value="<?php echo preg_replace("/\.?0*$/",'',$volume['btc']); ?>"></span>/
-                                            <span data-counter="counterup" data-value="<?php echo preg_replace("/\.?0*$/",'',$volume['eth']); ?>"></span>
+                                            <span data-counter="counterup" data-value="<?php if ($volume['eth'] != 0) echo preg_replace("/\.?0*$/",'',$volume['eth']*1); else echo $volume['eth']; ?>"></span>
                                         </h3>
                                         <small>24H Volume</small>
                                     </div>
@@ -238,13 +238,13 @@
                                 </div>
                                 <div class="progress-info">
                                     <div class="progress">
-                                        <span style="width: 45%;" class="progress-bar progress-bar-success blue-sharp">
-                                            <span class="sr-only">45% grow</span>
+                                        <span style="width: 100%;" class="progress-bar progress-bar-success blue-sharp">
+                                            <span class="sr-only"></span>
                                         </span>
                                     </div>
                                     <div class="status">
-                                        <div class="status-title"> grow </div>
-                                        <div class="status-number"> 45% </div>
+                                        <div class="status-title"></div>
+                                        <div class="status-number"></div>
                                     </div>
                                 </div>
                             </div>
@@ -265,13 +265,13 @@
                                 </div>
                                 <div class="progress-info">
                                     <div class="progress">
-                                        <span style="width: 57%;" class="progress-bar progress-bar-success purple-soft">
-                                            <span class="sr-only">56% change</span>
+                                        <span style="width:100%;" class="progress-bar progress-bar-success purple-soft">
+                                            <span class="sr-only"></span>
                                         </span>
                                     </div>
                                     <div class="status">
-                                        <div class="status-title"> change </div>
-                                        <div class="status-number"> 57% </div>
+                                        <div class="status-title"></div>
+                                        <div class="status-number"></div>
                                     </div>
                                 </div>
                             </div>

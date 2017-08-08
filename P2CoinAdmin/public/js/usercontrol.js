@@ -27,6 +27,7 @@ function doOnBlockIP(user_id) {
     });
 }
 function doOnSendMessage() {
+    $('#msg_content').val('');
     var user_id = $('#btn_send_message').attr('userid');
 }
 

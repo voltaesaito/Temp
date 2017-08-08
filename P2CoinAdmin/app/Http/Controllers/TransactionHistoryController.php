@@ -17,24 +17,23 @@ class TransactionHistoryController extends Controller
         $status = request()->get('status');
         $ret_arr = array();
         if ($status == 'all') {
-            $data = DB::select("SELECT l.*, th.updated_at as tupd, th.coin_amount, th.coin_sender_id, th.coin_receiver_id, th.seller_release, th.buyer_release FROM `listings` l
+            $data = DB::select("SELECT l.*, th.updated_at as tupd, th.coin_amount, th.coin_sender_id, th.coin_receiver_id, th.seller_feedback, th.buyer_feedback FROM `listings` l
                                 join contract c
                                 on l.id = c.listing_id
                                 join transaction_history th
                                 on th.contract_id = c.id
-                                where l.is_closed<4 and (th.seller_release+th.buyer_release) < 1");
+                                where (th.seller_feedback+th.buyer_feedback) < 1");
 
         }
         else {
-            $data = DB::select("SELECT l.*, th.updated_at as tupd, th.coin_amount, th.coin_sender_id, th.coin_receiver_id, th.seller_release, th.buyer_release FROM `listings` l
+            $data = DB::select("SELECT l.*, th.updated_at as tupd, th.coin_amount, th.coin_sender_id, th.coin_receiver_id, th.seller_feedback, th.buyer_feedback FROM `listings` l
                                 join contract c
                                 on l.id = c.listing_id
                                 join transaction_history th
                                 on th.contract_id = c.id
-                                where l.is_closed=4 and (th.seller_release+th.buyer_release) >= 1");
+                                where (th.seller_feedback = 1 or th.buyer_feedback = 1)");
         }
         $model = new Common();
-        
         header('Content-type:application/html');
         $retHTML = '';
         foreach( $data as $d ) {
@@ -48,7 +47,7 @@ class TransactionHistoryController extends Controller
             $row_data['fiat_rate'] = $rate;
             $row_data['rate_info'] = $localPriceInfo;
             $ret_arr[] = $row_data;
-            $opt = $this->getOptValue($row_data['seller_release'],$row_data['buyer_release']);
+            $opt = $this->getOptValue($row_data['seller_feedback'],$row_data['buyer_feedback']);
             $retHTML .= "<tr>";
             $retHTML .= "<td>".date('M j, Y', strtotime($row_data['updated_at']))."</td>";
             $retHTML .= "<td>".$row_data['buyer_name']."</td>";
@@ -57,7 +56,7 @@ class TransactionHistoryController extends Controller
             $retHTML .= "<td>".strtoupper($row_data['coin_type'])."</td>";
             $retHTML .= "<td>".($row_data['fiat_rate']*$row_data['coin_amount'])."</td>";
             $retHTML .= "<td>".strtoupper($row_data['currency'])."</td>";
-            $retHTML .= $this->getOptValue($row_data['seller_release'],$row_data['buyer_release']);
+            $retHTML .= $this->getOptValue($row_data['seller_feedback'],$row_data['buyer_feedback']);
             $retHTML .= "</tr>";
         }
         echo $retHTML;

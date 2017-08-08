@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\UserWallet;
 use App\Models\WalletManage;
 use App\Models\BlockchainWalletMng;
+use App\Models\UserLoginStatus;
 
 class RegisterController extends Controller
 {
@@ -65,12 +66,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+// dd($data);        
         $mUser = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'email_token' => base64_encode($data['email'])
         ]);
+        $userSelfInfo = new UserLoginStatus();
+        $userSelfInfo->user_id = $mUser->id;
+        $userSelfInfo->online_status = 0;
+        $userSelfInfo->logged_at = date('Y-m-d h:i:s');
+        $userSelfInfo->block_account = 0;
+        $userSelfInfo->block_ip = 0;
+        $userSelfInfo->save();
+
         // $walletRow = new UserWallet();
         // $model = new WalletManage();
         // $wallet_arr = $model->generateWallet();

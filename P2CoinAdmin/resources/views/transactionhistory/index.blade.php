@@ -88,6 +88,7 @@
 <script>
 var status = 'all';
 $(document).ready(function(){
+    $('#form_body-container').html('Loading...');
     $.get('displaytrades?status='+status, function(respHTML){
         $('#form_body-container').html(respHTML);
     });
@@ -101,7 +102,7 @@ $(document).ready(function(){
     $('#view_successful_trades').click(function(){
         status = 'successful';
         $('#form_body-container').html('Loading...');
-        $.get('displaytrades?status='+status, function(resp){
+        $.get('displaytrades?status='+status, function(respHTML){
             $('#form_body-container').html(respHTML);
         });
     });

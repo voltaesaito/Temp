@@ -214,6 +214,9 @@ class Common extends Model
         return $data_list;
     }
 
+    public function getCurrentUsers() {
+        return (self::getTotalUsers()-1);
+    }
     public function getRevenuValue(){
         return 320;
     }
