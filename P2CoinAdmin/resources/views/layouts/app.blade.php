@@ -227,7 +227,7 @@
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-blue-sharp">
-                                            <span data-counter="counterup" data-value="<?php echo preg_replace("/\.?0*$/",'',$volume['btc']); ?>"></span>/
+                                            <span data-counter="counterup" data-value="<?php if ($volume['btc'] != 0) echo preg_replace("/\.?0*$/",'',$volume['btc']*1); else echo $volume['btc'];  ?>"></span>/
                                             <span data-counter="counterup" data-value="<?php if ($volume['eth'] != 0) echo preg_replace("/\.?0*$/",'',$volume['eth']*1); else echo $volume['eth']; ?>"></span>
                                         </h3>
                                         <small>24H Volume</small>

@@ -57,7 +57,7 @@
                         <a class="btn blue btn-action" data-toggle='modal' href='#sendmsg_dialog' userid="{{ $user_info['user_id'] }}" id='btn_send_message'> Send Message </a>
                     </div>
                     <div class="form-group form-md-line-input">
-                        <button type='button' class="btn blue btn-action" id='btn_change_password'> Change User Password </button>
+                        <button type='button' class="btn blue btn-action" id='btn_change_password' disabled> Change User Password </button>
                     </div>
                     <div class="form-group form-md-line-input">
                         <button type='button' class="btn green btn-action" id='btn_back'>Back</button>

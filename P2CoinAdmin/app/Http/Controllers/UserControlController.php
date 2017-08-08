@@ -49,8 +49,14 @@ class UserControlController extends Controller
     public function sendNotification(Request $request){
         $user_id = $request->user_id;
         $msg_content = $request->msg_content;
+
         $model = new Common();
-        echo $model->sendNotification($user_id, $msg_content);
+        $userInfo = $model->getUserInfoById($user_id);
+
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        mail($userInfo['email'], "P2Coin.net Support", $msg_content, $headers);
+        // echo $model->sendNotification($user_id, $msg_content);
         exit;
     }
 }
