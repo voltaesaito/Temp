@@ -295,27 +295,42 @@ class TradeMessageController extends Controller
         return $arr;
     }
 
-    public function setSuccess( Request $request ) {
+    public function setTradeStatus( Request $request ) {
         $contract_id = $request->contract_id;
         $status = $request->status;
         $user = \Auth::user();
         $user_id = $user->id;
-        $flag = 0;
+        $flag = 'fail';
         $row = TransactionHistory::all()->where('contract_id','=',$contract_id)->first();
-        $sender_release = $row->sender_release;
-        $buyer_release = $row->buyer_release;
 
         try {
             if($row->coin_sender_id == $user_id)
-                DB::table('transaction_history')->where('contract_id', '=', $contract_id)->update(['seller_release'=>$status]);
+                DB::table('transaction_history')->where('contract_id', '=', $contract_id)->update(['seller_feedback'=>$status]);
             if($row->coin_receiver_id == $user_id)
-                DB::table('transaction_history')->where('contract_id', '=', $contract_id)->update(['buyer_release'=>$status]);
-
-            echo $row->transaction_id;
+                DB::table('transaction_history')->where('contract_id', '=', $contract_id)->update(['buyer_feedback'=>$status]);
+            $flag = 'success';
+            echo $flag;
         }
         catch( Exception $e ) {
-            echo 'fail';
+            echo $flag;
         }
+        exit;
+    }
+
+    public function leaveFeedback(Request $request){
+        $user = \Auth::user();
+        $user_id = $user->id;
+        $contract_id = $request->contract_id;
+        $feedback = $request->feedback;
+        $outcome = $request->outcome;
+
+        $row = DB::table('transaction_history')->where('contract_id','=',$contract_id)->first();
+        if($row->coin_sender_id == $user_id){
+            DB::table('trade_feedback')->insert(['contract_id' => $contract_id, 'seller_id' => $user_id, 'buyer_id' => $row->coin_receiver_id, 'feedback' => $feedback, 'outcome' => $outcome, 'created_at' => Date('Y-m-d H:i:s'), 'updated_at' => Date('Y-m-d H:i:s')]);
+        }
+        if($row->coin_receiver_id == $user_id)
+            DB::table('trade_feedback')->insert(['contract_id' => $contract_id, 'buyer_id' => $user_id, 'seller_id' => $row->coin_sender_id, 'feedback' => $feedback, 'outcome' => $outcome, 'created_at' => Date('Y-m-d H:i:s'), 'updated_at' => Date('Y-m-d H:i:s')]);
+        echo "ok";
         exit;
     }
 }

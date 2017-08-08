@@ -72,14 +72,23 @@ $(document).ready(function(){
 
     $('#release_yes').click(function(){
         var _token = $('meta[name=csrf-token]').attr('content');
-        $.post('gettransactionid', {contract_id:contract_id, status: 1, _token:_token}, function(resp) {
-
+        $.post('settradestatus', {contract_id:contract_id, status: 1, _token:_token}, function(resp) {
+            $('#trade_status').hide();
         } );
     });
     $('#release_no').click(function(){
         var _token = $('meta[name=csrf-token]').attr('content');
-        $.post('gettransactionid', {contract_id:contract_id, status: 0, _token:_token}, function(resp) {
+        $.post('settradestatus', {contract_id:contract_id, status: 0, _token:_token}, function(resp) {
+            $('#trade_status').hide();
+        } );
+    });
 
+    $('#feedback .submit-btn').click(function(){
+        var status = $("input[name='optradio']:checked").val();
+        var feedback = $('#feedback_msg').val();
+        var _token = $('meta[name=csrf-token]').attr('content');
+        $.post('leavefeedback', {contract_id:contract_id, outcome: status, feedback: feedback, _token:_token}, function(resp) {
+            $('#feedback').hide();
         } );
     });
 });

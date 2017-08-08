@@ -58,7 +58,8 @@ Route::post('/storelistings', 'ManageListingsController@storelistings')->name('s
 Route::post('/changestatus', 'ManageListingsController@changestatus')->name('changestatus');
 Route::post('/withdraw', 'ManageListingsController@withdraw')->name('withdraw');
 
-Route::post('/gettransactionid', 'TradeMessageController@setSuccess')->name('gettransactionid');
+Route::post('/settradestatus', 'TradeMessageController@setTradeStatus')->name('settradestatus');
+Route::post('/leavefeedback', 'TradeMessageController@leaveFeedback')->name('leavefeedback');
 
 Route::get('/sell', 'SellerController@index')->name('seller');
 Route::get('/chatroom', 'ChatRoomController@index')->name('chatroom');
@@ -74,7 +75,6 @@ Route::get('/wallet', 'WalletController@index')->name('wallet');
 Route::post('/deposit', 'WalletController@deposit')->name('deposit');
 Route::post('/coinwithdraw', 'WalletController@withdraw')->name('coinwithdraw');
 Route::post('/generateqrcode', 'WalletController@generateqrcode')->name('generateqrcode');
-
 
 Route::get('/settings', 'SettingsController@index')->name('settings');
 Route::get('/userprofile', 'UserProfileController@index')->name('userprofile');

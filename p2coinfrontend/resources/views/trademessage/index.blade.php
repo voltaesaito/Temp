@@ -72,7 +72,7 @@
                     <div class="form-group text-right">
                         <button type="button" id="message_send" class="btn btn-success">SEND</button>
                     </div>
-                    <div class = "panel panel-default" id='success' style='padding: 20px 0px;'>
+                    <div class = "panel panel-default" id="trade_status" style='padding: 20px 0px;'>
                         <div class='row text-center'>
                         <label class="text-center" style="font-size:24px;">Was this trade successful?</label>
                         </div>
@@ -80,6 +80,23 @@
                             <button type="button" id="release_yes" class="btn btn-success btn-green">Yes</button>
                             <button type="button" id="release_no" class="btn btn-danger btn-red">No</button>
                         </div>
+                    </div>
+                    <div class="panel panel-default" id="feedback">
+                        <div class = "row" id='feedback' style='padding-top:20px;'>
+                            <div class='row text-center'>
+                            <label class="text-center" style="font-size:24px;">Feedback</label>
+                            </div>
+                            <div class='row text-center' style="padding: 10px 15px;">
+                                <div class='col-sm-4 text-center'><label class="radio-inline"><input type="radio" name="optradio" value='-1'>Positive</label></div>
+                                <div class='col-sm-4 text-center'><label class="radio-inline"><input type="radio" name="optradio" value='0' checked>Neutral</label></div>
+                                <div class='col-sm-4 text-center'><label class="radio-inline"><input type="radio" name="optradio" value='1'>Negative</label></div>
+                            </div>
+                        </div>
+                        <div class='row' style="height: 70px;padding: 10px 15px;">
+                            <div class="col-sm-11 text-left"><textarea class="form-control" id="feedback_msg"></textarea></div>
+                            <div class="col-sm-1 text-center" style="margin-top: 10px;"><button type="button" class="btn btn-success submit-btn">SUBMIT</button></div>
+                        </div>
+                    </div>
                         <!-- <button type="button" id="dispute" class="btn btn-danger" style="float:right;"  data-toggle="modal" data-target="#dispute_modal">Dispute</button> -->
                         <?php
                     //     if($listing->is_closed == 1){
@@ -102,7 +119,6 @@
                     //     }
                     //     }
                         ?>
-                    </div>
                 </div>
             </div>
         </div>
