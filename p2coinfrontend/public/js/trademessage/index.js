@@ -74,12 +74,14 @@ $(document).ready(function(){
         var _token = $('meta[name=csrf-token]').attr('content');
         $.post('settradestatus', {contract_id:contract_id, status: 1, _token:_token}, function(resp) {
             $('#trade_status').hide();
+            $('#feedback').show();
         } );
     });
     $('#release_no').click(function(){
         var _token = $('meta[name=csrf-token]').attr('content');
         $.post('settradestatus', {contract_id:contract_id, status: 0, _token:_token}, function(resp) {
             $('#trade_status').hide();
+            $('#feedback').show();
         } );
     });
 
@@ -91,6 +93,14 @@ $(document).ready(function(){
             $('#feedback').hide();
         } );
     });
+
+    if(is_success == 0){
+        $('#trade_status').show();
+    }else{
+        if(is_feedback == 0){
+            $('#feedback').show();
+        }
+    }
 });
 
 function getMessageContentAndDraw( param ) {

@@ -120,15 +120,17 @@ class TradeMessageController extends Controller
         
         $dispModel = new DisputeHistory();
         $disput_status = $dispModel->getDisputeStatus($transaction_id);
+        $is_success = $this->isSuccess($contract_id, $user->id);
+        $is_feedback = $this->isFeedback($contract_id, $user->id);
 
         if(!$back)
             return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('status_col', $row->status_col)
             ->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $sender_id)->with('receiver_id', $receiver_id)
-            ->with('request_amount', $request_amount)->with('balance', $balance)->with('disput_status', $disput_status );
+            ->with('request_amount', $request_amount)->with('balance', $balance)->with('disput_status', $disput_status)->with('is_success', $is_success)->with('is_feedback', $is_feedback);
         else
             return view('trademessage.index')->with('data', $data)->with('transaction_id', $transaction_id)->with('listing', $listing)->with('status_col', $row->status_col)
             ->with('listing_id', $listing_id)->with('contract_id', $contract_id)->with('sender_id', $receiver_id)->with('receiver_id', $sender_id)
-            ->with('request_amount', $request_amount)->with('balance', $balance)->with('disput_status', $disput_status );
+            ->with('request_amount', $request_amount)->with('balance', $balance)->with('disput_status', $disput_status)->with('is_success', $is_success)->with('is_feedback', $is_feedback);
     }
 
     public function setdispute(Request $request) {
@@ -329,8 +331,29 @@ class TradeMessageController extends Controller
             DB::table('trade_feedback')->insert(['contract_id' => $contract_id, 'seller_id' => $user_id, 'buyer_id' => $row->coin_receiver_id, 'feedback' => $feedback, 'outcome' => $outcome, 'created_at' => Date('Y-m-d H:i:s'), 'updated_at' => Date('Y-m-d H:i:s')]);
         }
         if($row->coin_receiver_id == $user_id)
-            DB::table('trade_feedback')->insert(['contract_id' => $contract_id, 'buyer_id' => $user_id, 'seller_id' => $row->coin_sender_id, 'feedback' => $feedback, 'outcome' => $outcome, 'created_at' => Date('Y-m-d H:i:s'), 'updated_at' => Date('Y-m-d H:i:s')]);
+            DB::table('trade_feedback')->insert(['contract_id' => $contract_id, 'seller_id' => $user_id, 'buyer_id' => $row->coin_sender_id, 'feedback' => $feedback, 'outcome' => $outcome, 'created_at' => Date('Y-m-d H:i:s'), 'updated_at' => Date('Y-m-d H:i:s')]);
         echo "ok";
         exit;
+    }
+
+    public function isFeedback($contract_id, $user_id){
+        return DB::table('trade_feedback')->select('trade_feedback.*')->where('contract_id', '=', $contract_id)->where('seller_id', '=', $user_id)->get()->count();
+    }
+    public function isSuccess($contract_id, $user_id){
+        $row = DB::table('transaction_history')->select('transaction_history.*')->where('contract_id', '=', $contract_id)->first();
+        $coin_sender_id = $row->coin_sender_id;
+        $coin_receiver_id = $row->coin_receiver_id;
+        $sender_feedback = $row->sender_feedback;
+        $buyer_feedback = $row->buyer_feedback;
+        $success = 0;
+        if($user_id == $coin_sender_id){
+            if($sender_feedback != -1)
+                $success = 1;
+        }
+        if($user_id == $coin_receiver_id){
+            if($buyer_feedback != -1)
+                $success = 1;
+        }
+        return $success;
     }
 }

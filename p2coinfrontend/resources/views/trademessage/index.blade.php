@@ -22,6 +22,8 @@
 <script>var receiver_id={{ $receiver_id }}</script>
 <script>var listing_id={{ $listing_id }}</script>
 <script>var transaction_id={{ $transaction_id }}</script>
+<script>var is_success={{ $is_success }}</script>
+<script>var is_feedback={{ $is_feedback }}</script>
 
 <div class="container">
     <div class="row">
@@ -72,7 +74,8 @@
                     <div class="form-group text-right">
                         <button type="button" id="message_send" class="btn btn-success">SEND</button>
                     </div>
-                    <div class = "panel panel-default" id="trade_status" style='padding: 20px 0px;'>
+
+                    <div class = "panel panel-default" id="trade_status" style='padding: 20px 0px; display: none;'>
                         <div class='row text-center'>
                         <label class="text-center" style="font-size:24px;">Was this trade successful?</label>
                         </div>
@@ -81,15 +84,15 @@
                             <button type="button" id="release_no" class="btn btn-danger btn-red">No</button>
                         </div>
                     </div>
-                    <div class="panel panel-default" id="feedback">
-                        <div class = "row" id='feedback' style='padding-top:20px;'>
+                    <div class="panel panel-default" id="feedback" style="display: none;">
+                        <div class = "row" style="padding-top:20px;">
                             <div class='row text-center'>
                             <label class="text-center" style="font-size:24px;">Feedback</label>
                             </div>
                             <div class='row text-center' style="padding: 10px 15px;">
-                                <div class='col-sm-4 text-center'><label class="radio-inline"><input type="radio" name="optradio" value='-1'>Positive</label></div>
+                                <div class='col-sm-4 text-center'><label class="radio-inline"><input type="radio" name="optradio" value='1'>Positive</label></div>
                                 <div class='col-sm-4 text-center'><label class="radio-inline"><input type="radio" name="optradio" value='0' checked>Neutral</label></div>
-                                <div class='col-sm-4 text-center'><label class="radio-inline"><input type="radio" name="optradio" value='1'>Negative</label></div>
+                                <div class='col-sm-4 text-center'><label class="radio-inline"><input type="radio" name="optradio" value='-1'>Negative</label></div>
                             </div>
                         </div>
                         <div class='row' style="height: 70px;padding: 10px 15px;">
@@ -97,28 +100,6 @@
                             <div class="col-sm-1 text-center" style="margin-top: 10px;"><button type="button" class="btn btn-success submit-btn">SUBMIT</button></div>
                         </div>
                     </div>
-                        <!-- <button type="button" id="dispute" class="btn btn-danger" style="float:right;"  data-toggle="modal" data-target="#dispute_modal">Dispute</button> -->
-                        <?php
-                    //     if($listing->is_closed == 1){
-                    //         if(!$disput_status)
-                    //             echo "<div id=\"disput_html\"><button type=\"button\" id=\"dispute\" class=\"btn btn-danger\"  data-toggle=\"modal\" data-target=\"#dispute_modal\">Dispute</button></div>";
-                    //         else
-                    //             echo "<div class='alert alert-danger'><strong>Disputing!</strong></div>";
-                    //     }else{
-                    //     if (isset($request_amount)) {
-                    //         if ( $request_amount > $balance ) {
-                    //             echo "<div class=\"alert alert-danger\">
-                    //                       <strong>Warning!</strong> You can't withdraw $request_amount because your wallet has  $balance.
-                    //                     </div>";
-                    //         }
-                    //         else {
-                    //             echo "<div class=\"alert alert-success\">
-                    //                       <strong>Alarm!</strong> You will pay  $request_amount  for  $balance  .
-                    // </div><button type=\"button\" id=\"release_transaction\" class=\"btn btn-success btn-green\">Confirm Transaction</button>";
-                    //         }
-                    //     }
-                    //     }
-                        ?>
                 </div>
             </div>
         </div>
@@ -149,3 +130,25 @@
 </div>
 <script src="{{ asset('./js/trademessage/index.js') }}"></script>  
 @endsection
+                        <!-- <button type="button" id="dispute" class="btn btn-danger" style="float:right;"  data-toggle="modal" data-target="#dispute_modal">Dispute</button> -->
+                        <?php
+                    //     if($listing->is_closed == 1){
+                    //         if(!$disput_status)
+                    //             echo "<div id=\"disput_html\"><button type=\"button\" id=\"dispute\" class=\"btn btn-danger\"  data-toggle=\"modal\" data-target=\"#dispute_modal\">Dispute</button></div>";
+                    //         else
+                    //             echo "<div class='alert alert-danger'><strong>Disputing!</strong></div>";
+                    //     }else{
+                    //     if (isset($request_amount)) {
+                    //         if ( $request_amount > $balance ) {
+                    //             echo "<div class=\"alert alert-danger\">
+                    //                       <strong>Warning!</strong> You can't withdraw $request_amount because your wallet has  $balance.
+                    //                     </div>";
+                    //         }
+                    //         else {
+                    //             echo "<div class=\"alert alert-success\">
+                    //                       <strong>Alarm!</strong> You will pay  $request_amount  for  $balance  .
+                    // </div><button type=\"button\" id=\"release_transaction\" class=\"btn btn-success btn-green\">Confirm Transaction</button>";
+                    //         }
+                    //     }
+                    //     }
+                        ?>
