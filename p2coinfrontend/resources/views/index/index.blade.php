@@ -317,7 +317,7 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
             <table class="table table-bordered trade">
                 <thead>
                     <tr class="tb-title">
-                        <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
+                        <th class="text-center" colspan = '6' style="color: white; font-size: 24px;">
                             Buy <font id="title1"></font>
                         </th>
                     </tr>
@@ -327,6 +327,7 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
                         <th class="menu-caption text-center">Price</th>
                         <th class="menu-caption text-center">Limits</th>
                         <th class="menu-caption text-center">Contract</th>
+                        <th class="menu-caption text-center">Report</th>
                     </tr>
                 </thead>
                 <tbody id="buy_list">
@@ -343,7 +344,7 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
             <table class="table table-bordered trade">
                 <thead>
                     <tr class="tb-title">
-                        <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
+                        <th class="text-center" colspan = '6' style="color: white; font-size: 24px;">
                             Sell <font id="title2"></font>
                         </th>
                     </tr>
@@ -353,6 +354,7 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
                         <th class="menu-caption text-center">Price</th>
                         <th class="menu-caption text-center">Limits</th>
                         <th class="menu-caption text-center">Contract</th>
+                        <th class="menu-caption text-center">Report</th>
                     </tr>
                 </thead>
                 <tbody id="sell_list">
