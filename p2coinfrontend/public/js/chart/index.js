@@ -83,8 +83,8 @@ console.log(detailData);
 console.log(this.points[0].color);
                                     return Highcharts.dateFormat('%A %B %e %Y', this.x) + ':<br/>' +
                                         "<div style='width:10px;height:10px;background-color:"+this.points[3].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[3].series.name + ": " + this.points[3].y + 'USD</strong></span><br/>' +
-                                        "<div style='width:10px;height:10px;background-color:"+this.points[0].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[0].series.name + ": " + this.points[0].y + '</strong></span><br/>' +
-                                        "<div style='width:10px;height:10px;background-color:"+this.points[1].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[1].series.name + ": " + this.points[1].y + '</strong></span><br/>' +
+                                        "<div style='width:10px;height:10px;background-color:"+this.points[0].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[0].series.name + ": " + this.points[0].y/10000000 + '</strong></span><br/>' +
+                                        // "<div style='width:10px;height:10px;background-color:"+this.points[1].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[1].series.name + ": " + this.points[1].y + '</strong></span><br/>' +
                                         "<div style='width:10px;height:10px;background-color:"+this.points[2].color+";'></div><span style='font-weight:bold;'><strong>"+ this.points[2].series.name + ": " + this.points[2].y + 'USD</strong></span><br/>'
                                         ;
                                 },

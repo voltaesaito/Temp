@@ -5,40 +5,43 @@
         border: lightgrey solid 1px!important;
         color: #028840;
     }
+    .gray-title {
+        color:gray!important;
+    }
 </style>
 <meta name="csrf-token" content="{{ Session::token() }}"> 
 <div class="row">
     <div class="container">
-        <h3><strong>Profile:</strong><span id="span_title">BTC</span>Trade</h3>
+        <h3><strong>Profile:</strong><label id="span_title" class=" gray-title">{{ \Auth::user()->name }}</label></h3>
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
                     <label class="col-md-4">Trader Status</label>
-                    <label class="col-md-4" id="div_trader_status">Online</label>
+                    <label class="col-md-4 gray-title" id="div_trader_status">Online</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Trades</label>
-                    <label class="col-md-4" id="div_trades">{{ $trade_count }}</label>
+                    <label class="col-md-4 gray-title" id="div_trades">{{ $trade_count }}</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Trade Volume</label>
-                    <label class="col-md-4" id="div_trade_volume">${{ $trades }}</label>
+                    <label class="col-md-4 gray-title" id="div_trade_volume">${{ $trades }}</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Feedback Score</label>
-                    <label class="col-md-4" id="div_feedback_score">0%</label>
+                    <label class="col-md-4 gray-title" id="div_feedback_score">0%</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Trader Age</label>
-                    <label class="col-md-4" id="div_trader_age">{{ $trader_age }}</label>
+                    <label class="col-md-4 gray-title" id="div_trader_age">{{ $trader_age }}</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Language</label>
-                    <label class="col-md-4" id="div_language">{{ "English" }}</label>
+                    <label class="col-md-4 gray-title" id="div_language">{{ "English" }}</label>
                 </div>
                 <div class="row">
                     <label class="col-md-4">Phone Verified</label>
-                    <label class="col-md-4" id="div_phone_verify">
+                    <label class="col-md-4 gray-title" id="div_phone_verify">
                         @if ( Auth::user()->phone_verify == 0 )
                             <strong class="security-level-weak">no</strong>
                         @else
@@ -48,7 +51,7 @@
                 </div>
                 <div class="row">
                     <label class="col-md-4">ID Verified</label>
-                    <label class="col-md-4" id="div_id_verify">
+                    <label class="col-md-4 gray-title" id="div_id_verify">
                         @if ( Auth::user()->id_verify == 0 )
                             <strong class="security-level-weak">no</strong>
                         @else
@@ -58,7 +61,7 @@
                 </div>
                 <div class="row">
                     <label class="col-md-4">Blocked by</label>
-                    <label class="col-md-4" id="div_blocked_by">0</label>
+                    <label class="col-md-4 gray-title" id="div_blocked_by">0</label>
                 </div>
             </div>
             <div class="row">

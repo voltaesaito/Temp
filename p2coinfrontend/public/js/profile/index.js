@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $('.menu-currency').click(function() {
         var coin = $(this).attr('id');
-        $('#span_title').html(coin.toUpperCase());
+        // $('#span_title').html(coin.toUpperCase());
         $('#div_trades').html('loading...');
         $('#div_trade_volume').html('loading...');
         $('#lbl_sell').html(coin.toUpperCase());
