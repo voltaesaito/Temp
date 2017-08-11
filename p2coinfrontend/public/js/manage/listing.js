@@ -23,7 +23,7 @@ $(document).ready(function() {
         $('#terms_of_trade').html(json_listing['terms_of_trade']);
         $('#payment_details').html(json_listing['payment_details']);
         $('#min_transaction_limit').val(json_listing['min_transaction_limit']);
-        $('#max_transaction_limit').val(json_listing['max_transaction_limit']);
+        $('#max_transaction_limit').val(json_listing['max_transaction_limit']); 
         $('#price_equation').val(json_listing['price_equation']);
     }
 //console.log(json_listing,( json_listing == 'NULL' ));

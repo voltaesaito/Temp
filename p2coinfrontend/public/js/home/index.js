@@ -7,10 +7,9 @@ function JObject() {
 JObject.prototype = {
     init : function() {
         $('#id_ad-place').val(real_location);
-
         this.initEventListen();
         this.loadListingData(1);
-        this.getLastMessageList();
+//        this.getLastMessageList();
     },
     initEventListen : function () {
         $('#search-btn').click(j_obj.doOnClickSearchButtonClick);
@@ -92,7 +91,7 @@ JObject.prototype = {
         }
         var location = $('#id_ad-place').val();
         var payment_method = $('#payment_method').val();
-        $.post('getlistingdata', {coin_amount:coin_amount, coin_type:coin_type, location:location, payment_method:payment_method, _token:_token, flag: flag }, function(resp) {
+        $.post('getlistingdata', {coin_amount:coin_amount, coin_type:coin_type, real_location:real_location, location:location, payment_method:payment_method, _token:_token, flag: flag }, function(resp) {
             var arr = resp.split('@@@');
             $('#buy_list').empty();
             $('#sell_list').empty();
@@ -111,6 +110,12 @@ JObject.prototype = {
                 $('#sell_list').html(arr[2]); 
             }
         } );
+        if($('#title1').html() == ''){
+
+            $('#title1').html('Bitcoin in '+real_location);
+            $('#title2').html('Bitcoin in '+real_location);
+        }
+
     },
     getLastMessageList : function () {
         var _token = $('meta[name=csrf-token]').attr('content');
@@ -150,6 +155,40 @@ $(document).ready(function(){
             // form.find("#id_ad-city").val(location.city);
 
         });    
+    });
+
+    $("#coin_amount").keyup(function(){
+        if($('#coin_type').val() == 'btc')
+            cur = btc_currency;
+        else
+            cur = eth_currency;
+        if($.isNumeric($( "#coin_amount" ).val())){
+            var val = $( "#coin_amount" ).val();
+            var val_arr = val.toString().split('.');
+            if(val_arr[val_arr.length-1].length > 6){
+                slice_str = val.slice(0, val.length-1);
+                $( "#coin_amount" ).val(slice_str);
+                var rep_val = (parseFloat($( "#coin_amount" ).val() * cur)).toFixed(2);
+            }else{
+                var rep_val = (parseFloat($( "#coin_amount" ).val() * cur)).toFixed(2);
+            }
+            $( "#usd_val" ).html($('#coin_amount').val() + $('#coin_type').val().toUpperCase() + ' = $' + rep_val + 'USD');
+         }else{
+            alert("Must be Number!");
+            $( "#coin_amount" ).val('');
+         }
+    });
+
+    $("#coin_type").change(function(){
+        if($('#coin_type').val() == 'btc')
+            cur = btc_currency;
+        else
+            cur = eth_currency;
+        
+        if($('#coin_amount') != ''){
+            var rep_val = (parseFloat($( "#coin_amount" ).val() * cur)).toFixed(2);
+            $( "#usd_val" ).html($('#coin_amount').val() + $('#coin_type').val().toUpperCase() + ' = $' + rep_val + 'USD');
+        }
     });
 });
 

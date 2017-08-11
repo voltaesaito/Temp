@@ -254,11 +254,13 @@
                         <li style="margin-right: 20px;">
                             <div id="div_btc" style="padding-top:5px;">
                                 <i class="cc BTC" style="color: #717975; margin-top:7px;"></i>&nbsp;
-                                <label id="label_btc_amount" >{{ session()->get('btc_amount') }}</label>
+                                <!-- <label id="label_btc_amount" >{{ session()->get('btc_amount') }}</label> -->
+                                <label id="label_btc_amount" >BTC</label>
                             </div>
                             <div id="div_eth" style="display:none;padding-top:5px;">
                                 <i class="cc ETH" style="color: #717975; margin-top:7px;"></i>&nbsp;
-                                <label id="label_eth_amount" >{{ session()->get('eth_amount') }}</label>
+                                <!-- <label id="label_eth_amount" >{{ session()->get('eth_amount') }}</label> -->
+                                <label id="label_eth_amount" >ETH</label>
                             </div>
                         </li>
                         @endif

@@ -279,7 +279,6 @@ class IndexController extends Controller
 
             }
 
-
             $request_location_info = json_decode($request->location_info);
             $locationInfo = array('ip'=>$request_location_info->ip,
                                 'city'=>$request_location_info->city,
@@ -291,8 +290,10 @@ class IndexController extends Controller
                                 /*'postal'=>$request_location_info->postal*/);
                                 
             session()->put('locationinfo',$locationInfo);
+            $wmodel = new UserWallet();
+            $local_currency = $wmodel->getLocalCurrencyRate("USD");
 
-            return view('index.index')->with('country', $this->country_info[$locationInfo['country']]);
+            return view('index.index')->with('country', $this->country_info[$locationInfo['country']])->with('usd_currency', $local_currency);
         }
         catch( Exception $e ){
             return redirect()->route("/");
@@ -304,6 +305,7 @@ class IndexController extends Controller
 
         $flag = $request->flag;
         $localinfo = session()->get('locationinfo');
+        
         $user = \Auth::user();
         $lModel = new IndexModel();
 //        $wmodel = new UserWallet();

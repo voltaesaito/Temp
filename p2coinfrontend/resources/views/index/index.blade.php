@@ -14,9 +14,17 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
 .table td {font-family: Roboto Regular; color: #818181 !important; text-align: center;}
 .btc-color { background-color: #00b8e6; }
 .eth-color { background-color: #028840; }
+.btn-grey {
+    color: grey;
+    font-weight: bold;
+    background-color: rgba(37, 157, 109, 0.01);
+    border: 2px solid grey !important;
+}
 </style>
 @section('content')
-<script> var real_location = '{{ $country }}';</script>
+<script> var real_location = '{{ $country }}';</script> 
+<script> var btc_currency = '{{ $usd_currency["btc"] }}';</script> 
+<script> var eth_currency = '{{ $usd_currency["eth"] }}';</script> 
 
 <div class="container">
     <div class="row banner" style="margin: 0px !important;">
@@ -38,9 +46,11 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
     </div>
     <div class="margin-height"></div>
     <div class="row searchbox text-center collapse" id="search_form">
-        <div class="search-text text-left">
-            <div style="font-family: Roboto Light; font-size: 40px; color: #028840;">Search Listings</div>
-            <div style="font-family: Roboto Regular; font-size: 24px; color: #cfcfcf;">Lorem Ipsum is simply dummy text of the printing and typesetting</div>
+        <div class="row search-text text-left">
+            <div class='col-sm-1'></div>
+            <div class="col-sm-7" style="font-family: Roboto Light; font-size: 40px; color: #028840;">Search Listings</div>
+            <div class="col-sm-3" id='usd_val' style="font-size: 14px; padding-top:35px;"></div>
+            <div class='col-sm-1'></div>
         </div>
         <div class="first-input"><input type="text" id="coin_amount" name="coin_amount" placeholder="Amount"/></div>
         <div class="second-input">
@@ -335,7 +345,7 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
             </table>
         </div>
         <div class="col-md-12 text-center">
-            <button class="btn btn-success btn-green see-more" prop="1">See More</button>
+            <button class="btn btn-grey see-more" prop="1">See More</button>
         </div>
     </div>
     <div class="margin-height"></div>
@@ -362,7 +372,7 @@ h1.banner-title { color: white; font-family: Roboto Bla; color: white !important
             </table>
         </div>
         <div class="col-md-12 text-center">
-            <button class="btn btn-success btn-green see-more" prop="0">See More</button>
+            <button class="btn btn-grey see-more" prop="0">See More</button>
         </div>
     </div>
 </div>
