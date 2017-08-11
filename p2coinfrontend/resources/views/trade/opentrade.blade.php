@@ -41,21 +41,21 @@
                                 <tbody>
                                 @foreach($sell_listings as $listing)
                                     <tr>
-                                        <td><a href="#" onclick="view_trademessage('{{ $listing->id }}-{{ $listing->listing_id }}-{{ $listing->sender_id }}-{{ $listing->receiver_id }}-{{ $listing->user_type }}-1')">{{ $listing->id }}</a></td>
-                                        <td>{{ $listing->name }}</td>
-                                        <td>{{ $listing->coin_amount }}</td>
-                                        <td>{{ $listing->coin_amount }}</td>
-                                        <td>{{ ucfirst($listing->payment_method) }}</td>
+                                        <td><a href="#" onclick="view_trademessage('{{ $listing['id'] }}-{{ $listing['listing_id'] }}-{{ $listing['sender_id'] }}-{{ $listing['receiver_id'] }}-{{ $listing['user_type'] }}-1')">{{ $listing['id'] }}</a></td>
+                                        <td>{{ $listing['name'] }}</td>
+                                        <td>{{ $listing['coin_amount'] }}</td>
+                                        <td>{{ $listing['fiat_amount'] }}{{ $listing['currency'] }}</td>
+                                        <td>{{ ucfirst($listing['payment_method']) }}</td>
                                         <td>
-                                            @if ( $listing->is_closed == 4 )
+                                            @if ( $listing['is_closed'] == 4 )
                                                 Disputed
-                                            @elseif ( $listing->is_closed == 3 )
+                                            @elseif ( $listing['is_closed'] == 3 )
                                                 Completed
                                             @else
-                                                Awaiting comfirmation
+                                                In progress
                                             @endif
                                         </td>
-                                        <td>{{ $listing->created_at }}</td>
+                                        <td>{{ $listing['created_at'] }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -82,21 +82,21 @@
                                 <tbody>
                                 @foreach($buy_listings as $listing)
                                     <tr>
-                                        <td><a href="#" onclick="view_trademessage('{{ $listing->id }}-{{ $listing->listing_id }}-{{ $listing->sender_id }}-{{ $listing->receiver_id }}-{{ $listing->user_type }}-0')">{{ $listing->id }}</a></td>
-                                        <td>{{ $listing->name }}</td>
-                                        <td>{{ $listing->coin_amount }}</td>
-                                        <td>{{ $listing->coin_amount }}</td>
-                                        <td>{{ ucfirst($listing->payment_method) }}</td>
+                                        <td><a href="#" onclick="view_trademessage('{{ $listing['id'] }}-{{ $listing['listing_id'] }}-{{ $listing['sender_id'] }}-{{ $listing['receiver_id'] }}-{{ $listing['user_type'] }}-1')">{{ $listing['id'] }}</a></td>
+                                        <td>{{ $listing['name'] }}</td>
+                                        <td>{{ $listing['coin_amount'] }}</td>
+                                        <td>{{ $listing['fiat_amount'] }}{{ $listing['currency'] }}</td>
+                                        <td>{{ ucfirst($listing['payment_method']) }}</td>
                                         <td>
-                                            @if ( $listing->is_closed == 4 )
+                                            @if ( $listing['is_closed'] == 4 )
                                                 Disputed
-                                            @elseif ( $listing->is_closed == 3 )
+                                            @elseif ( $listing['is_closed'] == 3 )
                                                 Completed
                                             @else
-                                                Awaiting comfirmation
+                                                In progress
                                             @endif
                                         </td>
-                                        <td>{{ $listing->created_at }}</td>
+                                        <td>{{ $listing['created_at'] }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

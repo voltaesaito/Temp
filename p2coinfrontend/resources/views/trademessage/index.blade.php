@@ -34,7 +34,7 @@
 
                 <div class="panel-body">
                     <h3 class="text-center">
-                        <b>Cantract ID : {{ $contract_id }}</b>
+                        <b>Contract ID : {{ $contract_id }}</b>
                     </h3>
                     <div class="row">
                         <div class="col-lg-6">
