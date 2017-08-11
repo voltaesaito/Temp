@@ -244,7 +244,9 @@ class TradeController extends Controller
         session()->put('btc_amount', 0);
         session()->put('eth_amount', 0);
 
-        return view('trade.screen')->with('real_location', $this->country_info[$localinfo['country']]);
+        $wmodel = new UserWallet();
+        $local_currency = $wmodel->getLocalCurrencyRate("USD");
+        return view('trade.screen')->with('real_location', $this->country_info[$localinfo['country']])->with('usd_currency', $local_currency);
     }
 
     public function getListingData(Request $request) {

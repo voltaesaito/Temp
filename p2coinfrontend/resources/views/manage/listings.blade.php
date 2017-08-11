@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label class="label-caption-title">
-                            What kind of trade advertisement do you wish to create? If you wish to sell crypto currencies make sure you have crypto currencies in your p2coin wallet.
+                            Do you want to buy cryptocurrencies or sell them?
                         </label>
                     </div>
                 </div>
@@ -38,21 +38,21 @@
                     </div>
                     <div class="col-sm-6">
                         <label class="label-caption-title">
-                            What kind of trade advertisement do you wish to create? If you wish to sell crypto currencies make sure you have crypto currencies in your p2coin wallet.
+                            What kind of coin do you want this listing to be about?
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group" id="coinamount">
-                    <label class="control-label col-sm-3" for="coinamount">Price</label>
+                    <label class="control-label col-sm-3" for="coinamount">Price</label> 
                     <div class="col-sm-3"> 
                         <input class="textinput form-control text-right" id="coin_amount" name="coin_amount" type="text" Required> 
                     </div>
-                    <div class="col-sm-3"> 
+                    <div class="col-sm-3" style="display:none;"> 
                         <input class="textinput form-control text-right" id="fee_amount" name="fee_amount" type="text" Required> 
                     </div>
-                    <div class="col-sm-3">
-                        <label class="label-caption-title">0.5% fee</label>
+                    <div class="col-sm-6">
+                        <label class="label-caption-title">What is the price for your listing? (No fee!)</label>
                     </div>
                 </div>
 
@@ -303,7 +303,7 @@
                         </select> -->
                     </div>
                     <div class="col-sm-3">
-                        <label class="label-caption-title">For online trade you need to specify the country. For local trade, please specify a city, postal code or street name.</label>
+                        <label class="label-caption-title">Please search for your suburb/city</label>
                     </div>
                 </div>
 
@@ -322,10 +322,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label class="label-caption-title">
-                            <strong>Cash deposit</strong>
-                            Go to a bank / ATM and deposit cash directly to the bank account
-                            The risk level when selling crypto currencies online with this payment method is low.
-                            See the payment method risk assesment in online sale advertisement guide.
+                            What method do you want the fiat payment to be made?
                         </label>
                     </div>
                 </div>
@@ -337,8 +334,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label class="label-caption-title">
-                            <strong>Required</strong>
-                            The name of the bank you're using.
+                            Please name the banking institution here
                         </label>
                     </div>
                 </div>
@@ -353,7 +349,7 @@
 
                     </div>
                     <div class="col-sm-6">
-                        <label class="label-caption-title"></label>
+                        <label class="label-caption-title">Please select the currency of the fiat payment</label>
                     </div>
                 </div>
 
@@ -367,7 +363,7 @@
                         <!--<input type="text" class="form-control" id="min_transaction_limit" name="min_transaction_limit" placeholder="Minimum Transaction Limit">-->
                     </div>
                     <div class="col-sm-6">
-                        <label class="label-caption-title">Optional. Minimum transaction limit in one trade.</label>
+                        <label class="label-caption-title">Please select the minimum amount you will trade</label>
                     </div>
                 </div>
 
@@ -381,7 +377,7 @@
                         <!--<input type="text" class="form-control" id="max_transaction_limit" name="max_transaction_limit" placeholder="Maximum Transaction Limit">-->
                     </div>
                     <div class="col-sm-6">
-                        <label class="label-caption-title">Optional. Maximum transaction limit in one trade. For online sells, your p2coin.net wallet balance may limit the maximum fundable trade also.</label>
+                        <label class="label-caption-title">Please select the maximum amount you will trade</label>
                     </div>
                 </div>
 
@@ -409,7 +405,7 @@
                     </div>
                     <div class="col-sm-4">
                         <label class="label-caption-title">
-                        Other information you wish to tell about your trade. 0Example 1: <strong>This advertisement is only for cash trades. If you want to pay online, contact p2coin.net </strong>Example 2: <strong>Please make request only when you can complete the payment with cash within 12 hours.</strong>
+                        Please clearly set the terms of the trade. We have provided a template for you, but it is your responsibility to maintain
                         </label>
                     </div>
                 </div>
@@ -420,11 +416,11 @@
                         <textarea class="form-control" rows="5" id="payment_details" name="payment_details" placeholder="Enter payment details"></textarea>
                     </div>
                     <div class="col-sm-4">
-                        <label class="label-caption-title">Optional. If necessary, please provide details how to transfer money. This is either bank account number for wire transfers or user account for money transfer websites.</label>
+                        <label class="label-caption-title">Please give your payment details so that the user can make the payment. We have provided a template for you, but it is your responsibility to maintain</label>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="display: none;">
                     <div id="div_id_ad-track_max_amount" class="control-label col-sm-3"> 
                         <label for="id_ad-track_max_amount" class="control-label">Track liquidity</label> 
                     </div> 

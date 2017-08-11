@@ -10,20 +10,30 @@
 .table td {font-family: Roboto Regular; color: #818181 !important; text-align:center;}
 .btc-color { background-color: #00b8e6; }
 .eth-color { background-color: #028840; }
-
+.btn-grey {
+    color: grey;
+    font-weight: bold;
+    background-color: rgba(37, 157, 109, 0.01);
+    border: 2px solid grey !important;
+}
 </style>
 
 @section('content')
 {{ csrf_field() }}
 <script> var real_location = '{{ $real_location }}';</script>
+<script> var btc_currency = '{{ $usd_currency["btc"] }}';</script> 
+<script> var eth_currency = '{{ $usd_currency["eth"] }}';</script> 
 <div class="container">
     <div class="row text-center toggle">
         <button data-toggle="collapse" data-target="#search_form" class="btn btn-warning gradient-btn">Search</button>
     </div>
     <div class="margin-height"></div>
     <div class="row searchbox text-center collapse" id="search_form">
-        <div class="search-text text-left">
-            <div style="font-family: Roboto Light; font-size: 40px; color: #028840;">Search Listings</div>
+        <div class="row search-text text-left">
+            <div class='col-sm-1'></div>
+            <div class="col-sm-8" style="font-family: Roboto Light; font-size: 40px; color: #028840;">Search Listings</div>
+            <div class="col-sm-3" id='usd_val' style="font-size: 14px; padding-top:35px;"></div>
+            <div class='col-sm-1'></div>
         </div>
         <div class="first-input"><input type="text" id="coin_amount" name="coin_amount" placeholder="Amount"/></div>
         <div class="second-input">
@@ -318,7 +328,7 @@
             </table>
         </div>
         <div class="col-md-12 text-center">
-            <button class="btn btn-success btn-green see-more" prop="1">See More</button>
+            <button class="btn btn-grey see-more" prop="1">See More</button>
         </div>
     </div>
     <div class="margin-height"></div>
@@ -345,7 +355,7 @@
             </table>
         </div>
         <div class="col-md-12 text-center">
-            <button class="btn btn-success btn-green see-more" prop="0">See More</button>
+            <button class="btn btn-grey see-more" prop="0">See More</button>
         </div>
     </div>
 </div>
