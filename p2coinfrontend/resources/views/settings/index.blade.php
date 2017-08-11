@@ -87,9 +87,9 @@
                     <a href="{{ route('verifyid') }}">Verify identity</a>
                     @endif
                 </p>
-                <p>
+                <!-- <p>
                     <a href="{{ route('loadidimagebyuser') }}">Identity Info</a>
-                </p>
+                </p> -->
             </div>
         </div>
     </div>

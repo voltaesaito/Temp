@@ -115,8 +115,11 @@ class RegisterController extends Controller
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $verificationid = $mUser['email_token'];
-        $msg = "<h1>Your verification is successed.</h1><a href='".$_SERVER['HTTP_HOST']."/verify/email/".$verificationid."' >".$_SERVER['HTTP_HOST']."/verify/email/".$verificationid."</a>";
-        mail($data['email'], "Thanks for your signup", $msg, $headers);
+        $msg = "Please click the following link to verify your email:<br><a href='".$_SERVER['HTTP_HOST']."/verify/email/".$verificationid."' >".$_SERVER['HTTP_HOST']."/verify/email/".$verificationid."</a>
+        <br/><br/>
+        Thanks<br/>
+        P2Coin.net";
+        mail($data['email'], "Please verify your email", $msg, $headers);
         return $mUser;
         //return view('verify.email')->with('email_token', $verificationid);
     }

@@ -201,6 +201,7 @@
         }
 
     </style>
+     <script src="{{ asset('js/app.js') }}"></script> 
 </head>
 
 <body>
@@ -315,7 +316,6 @@
         <div style="height: 50px;"></div>
     </div>
 
-    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/global.js') }}"></script>
 </body>
 </html>
