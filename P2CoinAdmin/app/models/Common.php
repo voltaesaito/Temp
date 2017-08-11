@@ -266,4 +266,8 @@ class Common extends Model
         return $arr;
     }
     
+    public function getUserIdImageinfo($user_id) {
+        $data = DB::select("select image_path from user_id_image_info where user_id=$user_id");
+        return $data;
+    }
 }

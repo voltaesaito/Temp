@@ -108,6 +108,12 @@
                                         <span class="title">Change Verified ID</span>
                                     </a>
                                 </li>
+                                <li class="nav-item start ">
+                                    <a href="{{ route('useridinfo') }}" class="nav-link ">
+                                        <i class="icon-user"></i>
+                                        <span class="title">User ID Information</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item start active open">

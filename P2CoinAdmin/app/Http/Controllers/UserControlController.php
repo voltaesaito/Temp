@@ -59,4 +59,22 @@ class UserControlController extends Controller
         // echo $model->sendNotification($user_id, $msg_content);
         exit;
     }
+
+    public function userIdInfo() {
+        $model = new Common();
+        $userlist = $model->getUserList();
+        return view('usercontrol.useridinfo')->with(['userlist'=> $userlist, 'totalusers'=>$this->totalusers, 'volume'=>$this->volume]);
+    }
+    public function useriddetail($userid) {
+        $path = env('FRONTEND_UPLOADED_PATH').$userid."/";
+        $model = new Common();
+        $userInfo = $model->getUserInfoById($userid);
+        $userIdImageInfos = $model->getUserIdImageinfo($userid);
+        $image_list = array();
+        foreach( $userIdImageInfos as $image_name ) {
+            $image_list[] = $path.$image_name->image_path;
+        }
+        
+        return view('usercontrol.useriddetail')->with(['image_list'=> $image_list, 'totalusers'=>$this->totalusers, 'volume'=>$this->volume]);
+    }
 }

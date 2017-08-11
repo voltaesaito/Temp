@@ -19,8 +19,10 @@ Route::get('/', 'IndexController@index');
 Route::get('/statistics', 'StatisticsController@index')->name('statistics');
 
 Route::get('/usercontrol', 'UserControlController@index')->name('usercontrol');
+Route::get('/useridinfo', 'UserControlController@useridinfo')->name('useridinfo');
 Route::post('/getuserbysearch', 'UserControlController@getuserbysearch')->name('getuserbysearch');
 Route::get('/userdetail/{userid}', 'UserControlController@userdetail')->name('userdetail/{$userid}');
+Route::get('/useriddetail/{userid}', 'UserControlController@useriddetail')->name('useriddetail/{$userid}');
 Route::post('/blockuser', 'UserControlController@blockuser')->name('blockuser');
 Route::post('/sendnotification', 'UserControlController@sendNotification')->name('sendnotification');
 
