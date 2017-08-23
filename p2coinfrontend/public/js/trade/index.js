@@ -1,7 +1,7 @@
 var seemore_flag = -1;
-function JObject() {
+var CStandard = function () {
 }
-JObject.prototype = {
+CStandard.prototype = {
     init : function() {
         $('#id_ad-place').val(real_location);
         this.initEventListen();
@@ -109,7 +109,7 @@ JObject.prototype = {
 }  
 
 $(document).ready(function(){
-    j_obj = new JObject();
+    j_obj = new CStandard();
     j_obj.init();
 
     $('#id_ad-place').keypress(function(){
