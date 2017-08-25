@@ -145,7 +145,7 @@
         }
 
         @media (min-width: 768px){
-            .own-nav .dropdown-menu { right: 12px; left: auto; background-color: #2e353d; padding: 0; margin-top: 15px !important; width: 200px; }
+            .own-nav .dropdown-menu { right: 12px; left: auto; background-color: #2e353d; padding: 0 !important; margin-top: 15px !important; width: 200px; }
             .dropdown-menu .divider {
                 height: 1px;
                 margin: 0;

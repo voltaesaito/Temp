@@ -58,6 +58,12 @@ input:checked + .slider:before {
 .tbl-title {font-family: Roboto Boldd; padding-top: 0px; color: white; font-size: 24px; }
 .spacer { margin-top: 20px; }
 .table td {font-family: Roboto Regular; color: #818181 !important; text-align:center;}
+.btn-grey {
+    color: grey;
+    font-weight: bold;
+    background-color: rgba(37, 157, 109, 0.01);
+    border: 2px solid grey !important;
+}
 </style>
 @section('content')
 
@@ -95,7 +101,7 @@ input:checked + .slider:before {
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <button class="btn btn-success btn-green see-more" prop="btc">See More</button>
+            <button class="btn btn-grey see-more" prop="btc">See More</button>
         </div>
         <div class="col-md-12 title-content-body spacer">
             <div class="table-responsive">          
@@ -121,7 +127,7 @@ input:checked + .slider:before {
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <button class="btn btn-success btn-green see-more" prop="eth">See More</button> 
+            <button class="btn btn-grey see-more" prop="eth">See More</button> 
         </div>
     </div>
 </div>

@@ -290,14 +290,14 @@ class TradeController extends Controller
 
             $buy_list .= "<tr>";
             $buy_list .= "<td>" . $listing->name . "</td>";
-            $buy_list .= "<td>" . $listing->payment_method . ":" . $listing->payment_name . "</td>";
-            $buy_list .= "<td>" . round($listing->coin_amount, 2) . " " . strtoupper($listing->coin_type) . "</td>";
+            $buy_list .= "<td>" . $listing->payment_method . ": " . $listing->payment_name . "</td>";
+            $buy_list .= "<td>" . round($listing->coin_amount, 2) . " USD</td>";
             $buy_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $buy_list .= "<td>";
             if ( !count($data) )
-                $buy_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-success btn-green buy'>BUY</button>";
+                $buy_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-grey buy'>BUY</button>";
             else
-                $buy_list .= "<button type='button' onclick=\"j_obj.doViewMessages('" . $data[0]->id . "-" . $listing->id . "-" . $user->id . "-" . $listing->user_id . "-1-0')\" class='btn btn-success btn-green view'>View/Message</button>";
+                $buy_list .= "<button type='button' onclick=\"j_obj.doViewMessages('" . $data[0]->id . "-" . $listing->id . "-" . $user->id . "-" . $listing->user_id . "-1-0')\" class='btn btn-grey view'>View/Message</button>";
             $buy_list .= "</td>";
             $checked = in_array($listing->id, $report_listing) ? "checked" : "";
             $buy_list .= "<td><input type='checkbox' id=\"" . $user->id . "-" . $listing->id . "\" onchange=\"report_user(this);\" " . $checked . "/></td>";                       
@@ -315,14 +315,14 @@ class TradeController extends Controller
 
             $sell_list .= "<tr>";
             $sell_list .= "<td>" . $listing->name . "</td>";
-            $sell_list .= "<td>" . $listing->payment_method . ":" . $listing->payment_name . "</td>";
-            $sell_list .= "<td>" . round($listing->coin_amount, 5) . " " . strtoupper($listing->coin_type) . "</td>";
+            $sell_list .= "<td>" . $listing->payment_method . ": " . $listing->payment_name . "</td>";
+            $sell_list .= "<td>" . round($listing->coin_amount, 5) . " USD</td>";
             $sell_list .= "<td>" . $listing->min_transaction_limit . "-" . $listing->max_transaction_limit . " " . $listing->currency . "</td>";
             $sell_list .= "<td>";
             if ( !count($data) )
-                $sell_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-success btn-green buy'>BUY</button>";
+                $sell_list .= "<button type='button' onclick=\"j_obj.doCreateContractAndGoTransaction('".$listing->id . "-" . $listing->user_id . "-" . $listing->coin_type."')\" class='btn btn-grey buy'>BUY</button>";
             else
-                $sell_list .= "<button type='button' onclick=\"j_obj.doViewMessages('" . $data[0]->id . "-" . $listing->id . "-" . $user->id . "-" . $listing->user_id . "-0-0')\" class='btn btn-success btn-green view'>View/Message</button>";
+                $sell_list .= "<button type='button' onclick=\"j_obj.doViewMessages('" . $data[0]->id . "-" . $listing->id . "-" . $user->id . "-" . $listing->user_id . "-0-0')\" class='btn btn-grey view'>View/Message</button>";
             $sell_list .= "</td>";
             $checked = in_array($listing->id, $report_listing) ? "checked" : "";
             $sell_list .= "<td><input type='checkbox' id=\"" . $user->id . "-" . $listing->id . "\" onchange=\"report_user(this);\" " . $checked . "/></td>";                       
