@@ -319,6 +319,12 @@ class TradeMessageController extends Controller
         $row = TransactionHistory::all()->where('contract_id','=',$contract_id)->first();
 
         try {
+            //listings.is_closed
+            DB::table('listings')
+                ->join('contract', 'contract.listing_id', '=', 'listings.id')
+                ->where('contract.id', '=', $contract_id)
+                ->update(['listings.is_closed'=>1]);
+
             if($row->coin_sender_id == $user_id)
                 DB::table('transaction_history')->where('contract_id', '=', $contract_id)->update(['seller_feedback'=>$status]);
             if($row->coin_receiver_id == $user_id)
@@ -331,7 +337,7 @@ class TradeMessageController extends Controller
         }
         exit;
     }
-
+    
     public function leaveFeedback(Request $request){
         $user = \Auth::user();
         $user_id = $user->id;
