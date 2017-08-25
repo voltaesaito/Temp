@@ -390,7 +390,11 @@ class IndexController extends Controller
 
         $msg_list = "";
         $flag = 0;
+        $listing_id = 0;
+        $num = 0; //count of message
         foreach($msg_listings as $listing){
+            if($num >= 5)
+                break;
             if($user->id == $listing->user_id){
                 if(!$listing->user_type)
                     $flag = 0;
@@ -402,10 +406,14 @@ class IndexController extends Controller
                 else
                     $flag = 0;
             }
-            $msg_list .= "<li style='height: 20px;border:1px dotted lightgrey;'><a href='#' class='view-message' style='height: 100%;padding: 0px!important;' onclick=\"doViewMessages('" . $listing->contract_id . "-" . $listing->listing_id . "-" . $listing->sender_id . "-" . $user->id . "-".$flag."-1')\">";
-            $msg_list .= "<div class='col-sm-4'><strong>" . $listing->name . "</strong></div>";
-            $msg_list .= "<div class='col-sm-8 msg-content'>" . $listing->message_content . "</div>";
-            $msg_list .= "</a></li>";
+            if($listing_id != $listing->listing_id){
+                $msg_list .= "<li style='height: 30px; border:1px dotted lightgrey;'><a href='#' class='view-message' style='height: 100%;' onclick=\"doViewMessages('" . $listing->contract_id . "-" . $listing->listing_id . "-" . $listing->sender_id . "-" . $user->id . "-".$flag."-1')\">";
+                $msg_list .= "<div class='col-sm-4'><strong>" . $listing->name . "</strong></div>";
+                $msg_list .= "<div class='col-sm-8 msg-content'>" . $listing->message_content . "</div>";
+                $msg_list .= "</a></li>";
+                $listing_id = $listing->listing_id;
+                $num++;
+            }
         }
 
         echo $msg_list;

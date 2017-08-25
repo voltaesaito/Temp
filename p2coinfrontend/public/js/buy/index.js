@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var limit_price = $('#price').prop('placeholder');
     $( "#coin_amount" ).keyup(function() {
          if($.isNumeric($( "#coin_amount" ).val())){
             var val = $( "#coin_amount" ).val();
@@ -10,11 +11,12 @@ $(document).ready(function(){
             }else{
                 var rep_val = parseFloat((val * price_rate).toFixed(2));
             }
+            
             $( "#price" ).val(rep_val);
          }
     });
     $( "#price" ).keyup(function() {
-         if($.isNumeric($( "#price" ).val())){
+        if($.isNumeric($( "#price" ).val())){
             var val = $( "#price" ).val();
             var val_arr = val.toString().split('.');
             if((val_arr[val_arr.length-1].length > 2) && (val_arr.length > 1)){

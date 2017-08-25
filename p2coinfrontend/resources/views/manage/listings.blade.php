@@ -311,13 +311,13 @@
                     <label class="control-label col-sm-3" for="payment_method">Payment Method</label>
                     <div class="col-sm-3"> 
                         <select class="form-control" id="payment_method" name="payment_method">
-                            <option value="cash_deposit">Cash Deposit</option>
-                            <option value="bank_transfer">Bank Transfer</option>
-                            <option value="cash_in_person">Cash in Person</option>
-                            <option value="cash_by_email">Cash by Email</option>
-                            <option value="moneygram">Moneygram</option>
-                            <option value="western_union">Western Union</option>
-                            <option value="other">Other...</option>
+                            <option value="Cash Deposit">Cash Deposit</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Cash in Person">Cash in Person</option>
+                            <option value="Cash by Email">Cash by Email</option>
+                            <option value="Moneygram">Moneygram</option>
+                            <option value="Western Union">Western Union</option>
+                            <option value="Other">Other...</option>
                         </select>
                     </div>
                     <div class="col-sm-6">

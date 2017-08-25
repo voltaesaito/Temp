@@ -18,8 +18,8 @@
                 <div class="panel-body">
                     <form class="form-horizontal" action="{{ route('createcontract') }}" method="post">
                         {{ csrf_field() }}
-                        <label>Count Amount: {{ $listing['coin_amount'] }}</label><label>{{ strtoupper($listing['coin_type']) }}</label><br/>
-                        <label>BTC: ${{ $price_data['btc'] }}</label>/<label>ETH: ${{ $price_data['eth'] }}</label>
+                        <label>Price: 1 BTC: ${{ $price_data['btc'] }}</label><br/>
+                        <label>Price: 1 ETH: ${{ $price_data['eth'] }}</label>
                         <input type="text" value="{{ $listing_id }}" id="listing_id" name="listing_id" style="display:none;"/>
                         <input type="text" value="{{ $contract_id }}" id="contract_id" name="contract_id" style="display:none;"/>
                         <input type="text" value="{{ $receiver_id }}" id="receiver_id" name="receiver_id" style="display:none;"/>
@@ -27,7 +27,7 @@
                         <div class="panel-body text-center">
                             <div class="col-sm-5"> 
                                 <div class="input-group">
-                                    <input class="numberinput form-control" id="coin_amount" name="coin_amount" placeholder="{{ $listing['coin_amount'] }}">
+                                    <input class="numberinput form-control" id="coin_amount" name="coin_amount" placeholder="">
                                     <span class="input-group-addon">{{ strtoupper($coin_type) }}</span>
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                             </div>
                             <div class="col-sm-5"> 
                                 <div class="input-group">
-                                    <input class="numberinput form-control" id="price" name="price" placeholder="0.00"> 
+                                    <input class="numberinput form-control" id="price" name="price" placeholder="{{ $listing['coin_amount'] }}"> 
                                     <span class="input-group-addon">USD</span>
                                 </div>
                             </div>
@@ -51,7 +51,5 @@
         </div>
     </div>
 </div>
-@endsection
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{URL::asset('./js/buy/index.js')}}" ></script>
+@endsection

@@ -24,20 +24,24 @@ class BuyerController extends Controller
         $coin_type = $arr[2];
 
         $USDrate = 1;
+        $model = new UserWallet();
+        $price_data = $model->getCurrentPrice();
         if ( $coin_type == 'btc' ) {
-            $model = new WalletManage();
-            $price_data = $model->getCurrentPrice();
-            $btce_data = $price_data->data->prices[5];
-            $USDrate = $btce_data->price;
+            // $model = new WalletManage();
+            // $price_data = $model->getCurrentPrice();
+//            $btce_data = $price_data->data->prices[5];
+            $USDrate = $price_data['btc'];
         }
         if ( $coin_type == 'eth' ) {
-            $bmodel = new BlockchainWalletMng();
-            $bmodel->setWalletType($coin_type);
+            // $bmodel = new BlockchainWalletMng();
+            // $bmodel->setWalletType($coin_type);
 
-            $model = new WalletManage();
-            $price_data = $model->getCurrentPrice();
+            // $model = new WalletManage();
+            // $price_data = $model->getCurrentPrice();
 
-            $USDrate = 202.23;
+            // dd()
+
+            $USDrate = $price_data['eth'];
         }
 
         $data = DB::table('contract')->where('sender_id', '=', $sender_id)->where('receiver_id', '=', $receiver_id)->where('listing_id', '=', $listing_id)->get();
@@ -59,8 +63,8 @@ class BuyerController extends Controller
 //            $listing = $list;
 //            break;
 //        }
-        $model = new UserWallet();
-        $price_data = $model->getCurrentPrice();
+        // $model = new UserWallet();
+        // $price_data = $model->getCurrentPrice();
         return view('buy.index')->with('price_rate',$USDrate)->with('listing', $listing)
             ->with('price_data', $price_data)
             ->with('contract_id', $contract_id)->with('receiver_id', $receiver_id)->with('coin_type', $coin_type)->with('listing_id', $listing_id);
