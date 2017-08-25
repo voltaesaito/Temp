@@ -146,7 +146,7 @@ class ChangeEmailController extends Controller
         <label>$content</label>
         <br>
         ". $content;
-        mail('admin@p2coin.net', "User report", $msg, $headers);
+        mail('id@p2coin.net', "User report", $msg, $headers);
     }
     public function update2fa() {
         return view('settings.update2fa');

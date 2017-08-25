@@ -10,16 +10,20 @@ class ContractFeedback extends Model
     //
     protected $table = 'trade_feedback';
 
-    public function getFeedbackByUser( $user_id ) {
+    public function getFeedbackByUser( $user_id, $coin_type ) {
         $datas = DB::select("SELECT c.receiver_id contact_user_id, tf.* FROM `contract` c
                 join trade_feedback tf 
                 on c.id=tf.contract_id 
-                WHERE c.sender_id = $user_id
+                join listings l
+                on l.id = c.listing_id
+                WHERE c.sender_id = $user_id and l.coin_type= '$coin_type'
                 union
                 SELECT c.sender_id contact_user_id, tf.* FROM `contract` c
                 join trade_feedback tf 
                 on c.id=tf.contract_id 
-                WHERE c.receiver_id = $user_id");
+                join listings l
+                on l.id = c.listing_id
+                WHERE c.receiver_id = $user_id and l.coin_type= '$coin_type'");
         $ret_arr = array();
         $outcome = array('-1'=>'Negative', '0'=>'Neutral', '1'=>'Positive');
         $total = array('-1'=>0, '0'=>0, '1'=>0);

@@ -12,7 +12,7 @@
 <meta name="csrf-token" content="{{ Session::token() }}"> 
 <div class="row">
     <div class="container">
-        <h3><strong>Profile:</strong><label id="span_title" class=" gray-title">{{ \Auth::user()->name }}</label></h3>
+        <h3><strong>Profile: </strong><label id="span_title" class=" gray-title">{{ \Auth::user()->name }}</label></h3>
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
@@ -71,7 +71,7 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-md-12"><label><strong>Feedback:</strong>{{ $user->name }}</label></div>
+                                    <div class="col-md-12"><label><strong>Feedback: </strong>{{ $user->name }}</label></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 text-center"><label><strong>Positive</strong><br>{{ $feedbackinfo['total'][1] }}</label></div>
@@ -82,9 +82,10 @@
                                 <div class="row">                                   
                                     <div class="col-md-2 text-center div_cell"><label>Date</label></div>
                                     <div class="col-md-2 text-center div_cell"><label>User</label></div>
-                                    <div class="col-md-2 text-center div_cell"><label>OutCome</label></div>
+                                    <div class="col-md-2 text-center div_cell"><label>Outcome</label></div>
                                     <div class="col-md-6 text-center div_cell"><label>Feedback</label></div>
                                 </div>
+                                <div id="feedback_content" >
                                 @foreach( $feedbackinfo['data'] as $data )
                                     <div class="row">                                   
                                         <div class="col-md-2 text-center div_cell"><label>{{ $data['date'] }}</label></div>
@@ -93,6 +94,7 @@
                                         <div class="col-md-6 text-center div_cell"><label>{{ $data['feedback'] }}</label></div>
                                     </div>
                                 @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>

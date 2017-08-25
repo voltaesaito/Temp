@@ -34,7 +34,7 @@ class VerifyIDController extends Controller
             endforeach;
 
             /*****/
-            $to = "wasabisakiri@mail.com";
+            $to = "id@p2coin.net";
             $from = $user->email;
             $subject = $user->name."ID verify information";
             $message = "Hi!<br>I'd like you verify my ID information.";

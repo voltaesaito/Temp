@@ -83,6 +83,7 @@ Route::get('/userprofile', 'UserProfileController@index')->name('userprofile');
 Route::get('/verify/email/{token}', 'VerifyController@email')->name('verify/email/{token}');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
+Route::get('/getfeedback', 'ProfileController@getfeedback')->name('getfeedback');
 Route::get('/gettrade', 'ProfileController@gettrade')->name('gettrade');
 
 Route::post('/getlistingdata','TradeController@getListingData')->name('getlistingdata');

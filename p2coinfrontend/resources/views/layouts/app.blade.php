@@ -66,14 +66,14 @@
         }
 
         label, h1,h2,h3,h4,h5,h6, .menu-caption {
-            color: #028840!important;
+            color: gray!important;
             background-color: transparent;
         }
         .btn-green{
-                color: #028840;
+                color: gray; /* #028840 */
                 font-weight: bold;
-                background-color: rgba(37, 157, 109, 0.01);
-                border: 2px solid #028840;
+                background-color: rgba(37, 37, 39, 0.01);
+                border: 2px solid gray;
         }
         .btn-white{
                 color: #fff;

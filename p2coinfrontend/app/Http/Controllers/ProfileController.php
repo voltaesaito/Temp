@@ -36,12 +36,23 @@ class ProfileController extends Controller
             // dd($feedbackModel->getFeedbackByUser($user->id));
             return view('profile.index')->with('user', $user)
                 ->with(['buy_title'=>'Buy Bitcoins from BTC Trade','sell_title'=>'Sell Bitcoins from BTC Trade', 'trader_age'=>$trader_age, 'trade_count'=>$tradeCount, 'trades'=>$trades])
-                ->with('feedbackinfo',$feedbackModel->getFeedbackByUser($user->id));
+                ->with('feedbackinfo',$feedbackModel->getFeedbackByUser($user->id, 'btc'));
         }
         catch( Exception $e ) {
             return redirect()->action('/');
         }
     } 
+
+    public function getfeedback() {
+        header('Content-type:application/json');
+        $coin = request()->get('coin');
+
+        $userWalletInfo = new UserWallet();
+        $user = \Auth::user();
+        $feedbackModel = new ContractFeedback();
+        echo json_encode($feedbackModel->getFeedbackByUser($user->id, $coin));
+        
+    }
 
     public function gettrade(Request $request) {
         header('Content-type:application/json');
