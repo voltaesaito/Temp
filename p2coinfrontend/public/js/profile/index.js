@@ -71,13 +71,13 @@ CStandard.prototype = {
         if(coin_type == "btc"){
             $('.tb-title').removeClass('eth-color');
             $('.tb-title').addClass('btc-color');
-            $('#title1').html("Bitcoin from BTC Trade");
-            $('#title2').html("Bitcoin To BTC Trade");
+            $('#title1').html("Bitcoin from");
+            $('#title2').html("Bitcoin To");
         }else{
             $('.tb-title').removeClass('btc-color');
             $('.tb-title').addClass('eth-color');
-            $('#title1').html("Etherium from ETH Trade");
-            $('#title2').html("Etherium To ETH Trade");
+            $('#title1').html("Etherium from");
+            $('#title2').html("Etherium To");
         }
         $.post('getmytrade', {coin_type:coin_type, _token:_token, flag: flag }, function(resp) {
             var arr = resp.split('@@@');

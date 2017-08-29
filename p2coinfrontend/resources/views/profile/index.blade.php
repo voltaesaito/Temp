@@ -130,7 +130,7 @@
                         <thead>
                             <tr class="tb-title">
                                 <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
-                                    Buy <font id="title1"></font>
+                                    Buy <font id="title1"></font> {{ \Auth::user()->name }}
                                 </th>
                             </tr>
                             <tr class="title">
@@ -156,7 +156,7 @@
                         <thead>
                             <tr class="tb-title">
                                 <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
-                                    Sell <font id="title2"></font>
+                                    Sell <font id="title2"></font> {{ \Auth::user()->name }}
                                 </th>
                             </tr>
                             <tr class="title">

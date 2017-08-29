@@ -76,7 +76,7 @@ class ManageListingsController extends Controller
             $btc_list .= "<td class='text-center'><a class='btn btn-grey' href='addlistings/" . $listing->id . "'>Edit</a></td>";
             $btc_list .= "<td class='text-center'><a href='viewlisting/" . $listing->id . "'>" . $listing->payment_method . ": " . $listing->payment_name . "</a></td>";
 //            $btc_list .= "<td class='text-center'>" . round(($listing->coin_amount * $local_currency[$listing->coin_type]), 2) . " " . $listing->currency . "</td>";
-            $btc_list .= "<td class='text-center'>" . $listing->coin_amount . " USD</td>";
+            $btc_list .= "<td class='text-center'>" . $listing->coin_amount . " " . $listing->currency . "</td>";
             $btc_list .= "<td class='text-center'><label class='switch'>";
             if($listing->status)
                 $btc_list .= "<input type='checkbox' class='status' id='" . $listing->id . "' name='status' onclick=\"j_obj.updateStatus(".$listing->id.")\" checked>";
@@ -96,7 +96,7 @@ class ManageListingsController extends Controller
             $eth_list .= "<td class='text-center'><a class='btn btn-grey' href='addlistings/" . $listing->id . "'>Edit</a></td>";
             $eth_list .= "<td class='text-center'><a href='viewlisting/" . $listing->id . "'>" . $listing->payment_method . ": " . $listing->payment_name . "</a></td>";
 //            $eth_list .= "<td class='text-center'>" . round(($listing->coin_amount * $local_currency[$listing->coin_type]), 2) . " " . $listing->currency . "</td>";
-            $eth_list .= "<td class='text-center'>" . $listing->coin_amount . " USD</td>";
+            $eth_list .= "<td class='text-center'>" . $listing->coin_amount . " " . $listing->currency . "</td>";
             $eth_list .= "<td class='text-center'><label class='switch'>";
             if($listing->status)
                 $eth_list .= "<input type='checkbox' class='status' id='" . $listing->id . "' name='status' onclick=\"j_obj.updateStatus(".$listing->id.")\" checked>";
