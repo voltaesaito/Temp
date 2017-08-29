@@ -357,7 +357,7 @@
         <div class="col-md-12 text-center">
             <button class="btn btn-grey see-more" prop="0">See More</button>
         </div>
-    </div>
+    </div> 
 </div>
 <div id="report_modal" class="modal fade" role="dialog">
   <div class="modal-dialog">

@@ -1,6 +1,17 @@
 @extends('layouts.app')
 @section('content')
 <style>
+    .margin-height { height: 35px;}
+    .trade .title th {font-family: Roboto Boldd; color: #000 !important;}
+    .table td {font-family: Roboto Regular; color: #818181 !important; text-align:center;}
+    .btc-color { background-color: #00b8e6; }
+    .eth-color { background-color: #028840; }
+    .btn-grey {
+        color: grey;
+        font-weight: bold;
+        background-color: rgba(37, 157, 109, 0.01);
+        border: 2px solid grey !important;
+    }
     .div_cell {
         border: lightgrey solid 1px!important;
         color: #028840;
@@ -114,43 +125,57 @@
                 </div>
             </div>
             <div class="row">
-                <h4 class="text-center"><strong>Sell Bitcoins from <label id="lbl_sell">BTC</label> Trade</strong></h4>
                 <div class="col-md-12 title-content-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th class="text-center" width="10%">#</th>
-                                <th class="text-center" width="10%">Edit</th>
-                                <th class="text-center" width="50%;">Discription</th>
-                                <th class="text-center" width="15%">Price</th>
-                                <th class="text-center" width="15%">Status</th>
+                    <table class="table table-bordered trade">
+                        <thead>
+                            <tr class="tb-title">
+                                <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
+                                    Buy <font id="title1"></font>
+                                </th>
                             </tr>
-                            </thead>
-                            <tbody id="btc_list">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <h4 class="text-center"><strong>Buy Bitcoins from <label id="lbl_buy">BTC</label> Trade</strong></h4>
-                <div class="col-md-12 title-content-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th class="text-center" width="10%">#</th>
-                                <th class="text-center" width="10%">Edit</th>
-                                <th class="text-center" width="50%;">Discription</th>
-                                <th class="text-center" width="15%">Price</th>
-                                <th class="text-center" width="15%">Status</th>
+                            <tr class="title">
+                                <th class="menu-caption text-center">Vendor</th>
+                                <th class="menu-caption text-center">Payment Method</th>
+                                <th class="menu-caption text-center">Price</th>
+                                <th class="menu-caption text-center">Limits</th>
+                                <th class="menu-caption text-center">View</th>
                             </tr>
-                            </thead>
-                            <tbody id="btc_list">
-                            </tbody>
-                        </table>
-                    </div>
+                        </thead>
+                        <tbody id="buy_list">
+                        </tbody>
+                    </table>
                 </div>
+                <!-- <div class="col-md-12 text-center">
+                    <button class="btn btn-grey see-more" prop="1">See More</button>
+                </div> -->
             </div>
+            <div class="margin-height"></div>
+            <div class="row">
+                <div class="col-md-12 title-content-body">
+                    <table class="table table-bordered trade">
+                        <thead>
+                            <tr class="tb-title">
+                                <th class="text-center" colspan = '5' style="color: white; font-size: 24px;">
+                                    Sell <font id="title2"></font>
+                                </th>
+                            </tr>
+                            <tr class="title">
+                                <th class="menu-caption text-center">Vendor</th>
+                                <th class="menu-caption text-center">Payment Method</th>
+                                <th class="menu-caption text-center">Price</th>
+                                <th class="menu-caption text-center">Limits</th>
+                                <th class="menu-caption text-center">View</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sell_list">
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div class="col-md-12 text-center">
+                    <button class="btn btn-grey see-more" prop="0">See More</button>
+                </div> -->
+            </div>
+
         </div>
         {{--<div class="container">--}}
             {{--<div>{{ $user->name }}</div>--}}
@@ -159,6 +184,5 @@
         {{--</div>    --}}
     </div>
 </div>
-@endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{URL::asset('./js/profile/index.js')}}" ></script>
+@endsection
