@@ -14,7 +14,7 @@ CStandard.prototype = {
         $('button.view').click(j_obj.doViewMessages);
         $('.menu-currency').click(j_obj.dochangecoin);
     },
-    doOnClickSearchButtonClick : function (seemore_flag) {
+    doOnClickSearchButtonClick : function (seemore_flag) { 
         j_obj.loadListingData(0,seemore_flag);
          $('#search_form').collapse('hide');
     },

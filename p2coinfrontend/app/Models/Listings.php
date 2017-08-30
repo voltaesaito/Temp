@@ -21,12 +21,12 @@ class Listings extends Model
         @return Array
         @Author : Daiki Isoroku87
     */
-    public function getListingsData( $user_id, $type = 0, $init =1, $filter_param=array() ) {
+    public function getListingsData( $user_id, $type = 0, $init =1, $filter_param=array() ) { 
 
         $data = DB::table('listings')
             ->join('users', 'users.id', '=', 'listings.user_id')
             ->select('listings.*', 'users.name')
-            ->where( 'user_id', '<>', $user_id )->where( 'is_closed', '=', '0')->where('status', '=',1 )->where('user_type', '=', $type)->where('is_closed', '=', 0);
+            ->where( 'user_id', '<>', $user_id )->where('status', '=',1 )->where('user_type', '=', $type)->where('is_closed', '=', 0);
 
         if ( $filter_param['coin_amount']>0 )
             $data->where('coin_amount', '>=', $filter_param['coin_amount']);
@@ -38,6 +38,39 @@ class Listings extends Model
             $data->where("payment_method", "=", $filter_param['payment_method']);
 
         $data->orderBy('created_at', 'asc');
+        if ( $init )
+            $data->offset(0)->limit(5);
+        return $data->get()->toArray();
+    }
+    
+    // for Profile
+    /**
+        This function 
+        @param: $user_id - logged in User Id
+                $type    - 0 seller,  1 buyer
+                $init    - flag for see more action { 1 - limit 5, 0 - all }
+                $filter_param - filter request array
+                    { coin_amount, coin_type, location, payment_method }
+        @return Array
+        @Author : Daiki Isoroku87
+    */
+    public function getMyTrade( $user_id, $type = 1, $init = 1, $coin_type = 'btc' ) { 
+
+        $data = DB::table('transaction_history')
+            ->join('contract', 'transaction_history.contract_id', '=', 'contract.id')
+            ->join('listings', 'contract.listing_id', '=', 'listings.id')
+            ->join('users', 'users.id', '=', 'listings.user_id')
+            ->select('listings.*', 'users.name', 'contract.id as cid')
+            ->where( 'is_closed', '=', '0')->where('status', '=', 1)->where('coin_type', '=', $coin_type);
+        if ( $type ){
+            $data->where("coin_receiver_id", "=", $user_id);
+        }else{
+            $data->where("coin_sender_id", "=", $user_id);
+            $data->where("listings.user_id", "<>", $user_id);
+        }
+
+        $data->orderBy('transaction_history.created_at', 'asc');
+
         if ( $init )
             $data->offset(0)->limit(5);
         return $data->get()->toArray();
