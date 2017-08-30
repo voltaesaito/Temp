@@ -11,7 +11,8 @@
     <div class="row" style="padding:10px;">
         <div class="col-md-12">
             <div class="panel-heading">
-                <h3 class="h-title">ID information</h3>
+                <h3 class="h-title">ID information</h3><br>
+                <h4><strong>Please upload your ID and we will verify it within 48 hours.</strong></h4>
             </div>
         </div>
         <div class="row">
@@ -21,7 +22,7 @@
                     <input type="file" class="form-control" id="images" name="images[]" onchange="preview_images();" multiple/>
                 </div>
                 <div class="col-md-6">
-                    <input type="submit" class="btn btn-success btn-green" name='submit_image' value="Upload ID Images"/>
+                    <input type="submit" class="btn btn-success btn-green" name='submit_image' value="Upload"/>
                 </div>
             </form>
         </div>
